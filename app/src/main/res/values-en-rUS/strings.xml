@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Digikala</string>
+    <string name="home">home</string>
+    <string name="basket"> cart</string>
+    <string name="category">categories</string>
+    <string name="my_digikala">my digikala</string>
+
+    <string name="digikala_jet">DigikalaJet</string>
+    <string name="digi_style">digi_style</string>
+    <string name="digi_pay">digi_pay</string>
+    <string name="pindo">pindo</string>
+    <string name="gift_card">gift_card</string>
+    <string name="digi_shop">digi_shop</string>
+    <string name="digi_plus">digi_plus</string>
+    <string name="more">more</string>
+    <string name="search_in">search in</string>
+    <string name="see_all">see all</string>
+    <string name="amazing_for_app">Amazing app offer</string>
+    <string name="category_title">buy by category</string>
+</resources>
