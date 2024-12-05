@@ -18,4 +18,6 @@
     <string name="see_all">see all</string>
     <string name="amazing_for_app">Amazing app offer</string>
     <string name="category_title">buy by category</string>
+    <string name="best_sell_products">best_sell_products</string>
+    <string name="most_visited_products">most_visited_products</string>
 </resources>

@@ -19,6 +19,7 @@ import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.components.Loading3Dots
 import com.example.digikala.ui.theme.splashBg
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
@@ -75,9 +76,6 @@ fun Splash() {
     }
 
 }
-
-
-
 
 
 
