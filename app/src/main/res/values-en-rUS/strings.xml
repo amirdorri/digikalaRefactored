@@ -20,4 +20,5 @@
     <string name="category_title">buy by category</string>
     <string name="best_sell_products">best_sell_products</string>
     <string name="most_visited_products">most_visited_products</string>
+    <string name="favorite_product">favorite_product</string>
 </resources>
