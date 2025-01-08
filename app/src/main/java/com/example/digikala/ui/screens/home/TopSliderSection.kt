@@ -24,10 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-<<<<<<< HEAD
 import androidx.compose.ui.platform.LocalConfiguration
-=======
->>>>>>> 637d0ccb441d0e2e37a1764446a8f61597e9f842
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,10 +33,7 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.digikala.data.model.home.Slider
 import com.example.digikala.data.remote.NetworkResult
-<<<<<<< HEAD
 import com.example.digikala.ui.components.MyLoading
-=======
->>>>>>> 637d0ccb441d0e2e37a1764446a8f61597e9f842
 import com.example.digikala.ui.theme.LocalShape
 import com.example.digikala.ui.theme.LocalSpacing
 import com.example.digikala.viewmodel.HomeViewModel
@@ -84,7 +78,7 @@ fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
 //        }
 //    }
 
-<<<<<<< HEAD
+
    if (loading){
        val config = LocalConfiguration.current
 
@@ -177,7 +171,7 @@ fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
 
        }
    }
-=======
+
     Column(
         modifier = Modifier
             .height(200.dp)
@@ -264,7 +258,7 @@ fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
         }
 
     }
->>>>>>> 637d0ccb441d0e2e37a1764446a8f61597e9f842
+
 
 
 }
