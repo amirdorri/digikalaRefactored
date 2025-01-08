@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Digikala</string>
+    <string name="home">خانه</string>
+    <string name="basket">سبد خرید</string>
+    <string name="category">دسته‌بندی‌ها</string>
+    <string name="my_digikala">دیجی‌کالا‌ی ‌من</string>
+    <string name="search_in">جستجو در</string>
+    <string name="digikala_jet">دیجی‌کالا‌ جت</string>
+    <string name="digi_style">حراج استایل</string>
+    <string name="digi_pay">دیچی پی</string>
+    <string name="pindo">پیندو</string>
+    <string name="gift_card">کارت هدیه</string>
+    <string name="digi_plus">دیجی پلاس</string>
+    <string name="digi_shop">خرید سر ماه</string>
+    <string name="more">بیشتر</string>
+    <string name="see_all">مشاهده همه</string>
+    <string name="amazing_for_app">شگفت انگیز اختصاصی اپ</string>
+    <string name="category_title">خرید بر اساس دسته بندی</string>
+    <string name="best_sell_products">پرفروش ترین کالاها</string>
+    <string name="most_visited_products">پربازدید ترین کالاها</string>
+    <string name="favorite_product">محبوب ترین محصولات</string>
+    <string name="most_discounted_products">منتخب محصولات حراج و تخفیف</string>
+
+
+</resources>
