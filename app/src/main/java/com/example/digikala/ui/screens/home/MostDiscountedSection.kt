@@ -77,6 +77,11 @@ fun MostDiscountedSection(
             for(item in mostDiscountedList){
                 MostDiscountedCard(item)
             }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 637d0ccb441d0e2e37a1764446a8f61597e9f842
         }
 
     }
