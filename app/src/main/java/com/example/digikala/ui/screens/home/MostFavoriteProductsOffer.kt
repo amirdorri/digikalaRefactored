@@ -160,7 +160,7 @@ fun MostFavoriteProductsOffer( item : AmazingItem) {
                                     style = MaterialTheme.typography.body2,
                                     fontWeight = FontWeight.SemiBold
                                 )
-                                Image(
+                                Icon(
                                     painter = painterResource(R.drawable.toman),
                                     contentDescription = null,
                                     modifier = Modifier
@@ -181,9 +181,13 @@ fun MostFavoriteProductsOffer( item : AmazingItem) {
                 }
             }
 
-            Divider(modifier = Modifier.width(1.dp).height(320.dp).alpha(0.4f), color = Color.LightGray)
+            Divider(
+                modifier = Modifier
+                .width(1.dp)
+                .padding(start = MaterialTheme.spacing.semiMedium)
+                .height(320.dp)
+                .alpha(0.4f),
+                color = Color.LightGray)
         }
-
-
     }
 }

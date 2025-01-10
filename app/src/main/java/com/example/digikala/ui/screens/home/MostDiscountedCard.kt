@@ -156,7 +156,7 @@ fun MostDiscountedCard(item : AmazingItem) {
                                 style = MaterialTheme.typography.body2,
                                 fontWeight = FontWeight.SemiBold
                             )
-                            Image(
+                            Icon(
                                 painter = painterResource(R.drawable.toman),
                                 contentDescription = null,
                                 modifier = Modifier

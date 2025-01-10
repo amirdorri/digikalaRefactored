@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                 ChangeStatusBarColor(navController = navController)
 
                 AppConfig()
-                Log.e("1010", USER_LANGUAGE)
+               // Log.e("1010", USER_LANGUAGE)
 
                 val direction = if (USER_LANGUAGE == ENGLISH_LANG){
                     androidx.compose.ui.unit.LayoutDirection.Ltr

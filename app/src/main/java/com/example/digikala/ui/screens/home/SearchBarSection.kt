@@ -40,8 +40,7 @@ fun SearchBarSection() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(65.dp)
-            .background(Color.White),
+            .height(65.dp),
         elevation = LocalElevation.current.extraSmall
     ) {
         Box(

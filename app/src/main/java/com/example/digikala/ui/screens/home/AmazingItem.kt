@@ -36,6 +36,7 @@ import com.example.digikala.R
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.DigikalaLightRed
+import com.example.digikala.ui.theme.DigikalaLightRedText
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.extraSmall
 import com.example.digikala.ui.theme.roundedShape
@@ -72,7 +73,7 @@ fun AmazingItem(item: AmazingItem) {
                     text = stringResource(R.string.amazing_for_app),
                     modifier = Modifier.padding(start = MaterialTheme.spacing.small),
                     style = MaterialTheme.typography.extraSmall,
-                    color = MaterialTheme.colors.DigikalaLightRed
+                    color = MaterialTheme.colors.DigikalaLightRedText
                 )
                 Spacer(Modifier.height(10.dp))
 
@@ -165,14 +166,13 @@ fun AmazingItem(item: AmazingItem) {
                             style = MaterialTheme.typography.body2,
                             fontWeight = FontWeight.SemiBold
                         )
-                            Image(
+                            Icon(
                                 painter = painterResource(R.drawable.toman),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(MaterialTheme.spacing.semiLarge)
-                                    .padding(horizontal = MaterialTheme.spacing.extraSmall)
+                                    .padding(horizontal = MaterialTheme.spacing.extraSmall),
                                 )
-
                         }
                         Text(
                             text = digitBtLocateAndSeparator(item.price.toString()),
