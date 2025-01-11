@@ -103,6 +103,4 @@ private fun digikalaLogoChangerByLang() : Painter {
     return if (USER_LANGUAGE == ENGLISH_LANG) {
         painterResource(id = R.drawable.digi_red_english)
     } else painterResource(id = R.drawable.digi_red_persian)
-
-
 }

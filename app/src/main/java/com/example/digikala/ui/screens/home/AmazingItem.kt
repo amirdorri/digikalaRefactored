@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,6 +43,8 @@ import com.example.digikala.ui.theme.extraSmall
 import com.example.digikala.ui.theme.roundedShape
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.ENGLISH_LANG
+import com.example.digikala.util.Constants.USER_LANGUAGE
 import com.example.digikala.util.DigitHelper.applyDiscount
 import com.example.digikala.util.DigitHelper.digitBtLocateAndSeparator
 import com.example.digikala.util.DigitHelper.digitByLocate
@@ -148,7 +151,7 @@ fun AmazingItem(item: AmazingItem) {
                             .wrapContentHeight(align = Alignment.CenterVertically)
                     ) {
                         Text(
-                            text = "${digitByLocate(item.discountPercent.toString())}%",
+                            text = "${digitBtLocateAndSeparator(item.discountPercent.toString())}%",
                             color = Color.White,
                             style = MaterialTheme.typography.h6,
                             fontWeight = FontWeight.Bold
@@ -166,8 +169,10 @@ fun AmazingItem(item: AmazingItem) {
                             style = MaterialTheme.typography.body2,
                             fontWeight = FontWeight.SemiBold
                         )
+
+
                             Icon(
-                                painter = painterResource(R.drawable.toman),
+                                painter = currencyLogoChangerByLang(),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(MaterialTheme.spacing.semiLarge)
@@ -187,4 +192,11 @@ fun AmazingItem(item: AmazingItem) {
         }
 
     }
+}
+@Composable
+private fun currencyLogoChangerByLang() : Painter {
+
+    return if (USER_LANGUAGE == ENGLISH_LANG) {
+        painterResource(id = R.drawable.dollar)
+    } else painterResource(id = R.drawable.toman)
 }

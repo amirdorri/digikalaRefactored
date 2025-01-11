@@ -19,12 +19,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.digikala.R
+import com.example.digikala.ui.components.IconWithRotate
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.ENGLISH_LANG
+import com.example.digikala.util.Constants.USER_LANGUAGE
 
 @Composable
 fun AmazingOfferCard(topImageResId: Int, bottomImageResId: Int) {
@@ -44,7 +48,7 @@ fun AmazingOfferCard(topImageResId: Int, bottomImageResId: Int) {
         Spacer(Modifier.height(60.dp))
 
         Image(
-            painter = painterResource(topImageResId),
+            painter = amazingLogoChangerByLang(),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,14 +77,15 @@ fun AmazingOfferCard(topImageResId: Int, bottomImageResId: Int) {
                 fontWeight = FontWeight.SemiBold
             )
 
-            Icon(
-                imageVector = Icons.Filled.KeyboardArrowLeft,
-                contentDescription = null,
-                tint = Color.White
-            )
-
+            IconWithRotate(Icons.Filled.KeyboardArrowLeft)
         }
     }
+}
 
+@Composable
+private fun amazingLogoChangerByLang() : Painter {
 
+    return if (USER_LANGUAGE == ENGLISH_LANG) {
+        painterResource(id = R.drawable.amazing_en)
+    } else painterResource(id = R.drawable.amazings)
 }
