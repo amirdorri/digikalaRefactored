@@ -14,12 +14,26 @@
     <string name="digi_shop">خرید سر ماه</string>
     <string name="more">بیشتر</string>
     <string name="see_all">مشاهده همه</string>
+    <string name="product">کالا</string>
     <string name="amazing_for_app">شگفت انگیز اختصاصی اپ</string>
     <string name="category_title">خرید بر اساس دسته بندی</string>
     <string name="best_sell_products">پرفروش ترین کالاها</string>
     <string name="most_visited_products">پربازدید ترین کالاها</string>
     <string name="favorite_product">محبوب ترین محصولات</string>
     <string name="most_discounted_products">منتخب محصولات حراج و تخفیف</string>
+
+    <string name="industrial_tools_and_equipment">ابزار و تجهیزات صنعتی</string>
+    <string name="digital_goods">کالای دیجیتال</string>
+    <string name="mobile">موبایل</string>
+    <string name="supermarket_product">کالای سوپرمارکتی</string>
+    <string name="fashion_and_clothing">مد و پوشاک</string>
+    <string name="native_and_local_products">محصولات بومی و محلی</string>
+    <string name="toys_children_and_babies">اسباب بازی، کودک و نوزاد</string>
+    <string name="beauty_and_health">زیبایی و سلامت</string>
+    <string name="home_and_kitchen">خانه و آشپزخانه</string>
+    <string name="books_and_stationery">کتاب و لوازم تحریر</string>
+    <string name="sports_and_travel">ورزش و سفر</string>
+
 
 
 </resources>

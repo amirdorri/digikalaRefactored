@@ -16,10 +16,23 @@
     <string name="more">more</string>
     <string name="search_in">search in</string>
     <string name="see_all">see all</string>
+    <string name="product">product</string>
     <string name="amazing_for_app">Amazing app offer</string>
     <string name="category_title">buy by category</string>
     <string name="best_sell_products">best sell products</string>
     <string name="most_visited_products">most visited products</string>
     <string name="favorite_product">favorite product</string>
     <string name="most_discounted_products">most discounted products</string>
+    <string name="industrial_tools_and_equipment">Industrial tools and equipment</string>
+    <string name="digital_goods">Digital goods</string>
+    <string name="mobile">Mobile</string>
+    <string name="supermarket_product">Supermarket product</string>
+    <string name="fashion_and_clothing">Fashion and Clothing</string>
+    <string name="native_and_local_products">native and local products</string>
+    <string name="toys_children_and_babies">Toys, children and babies</string>
+    <string name="beauty_and_health">Beauty and Health</string>
+    <string name="home_and_kitchen">Home and Kitchen</string>
+    <string name="books_and_stationery">Books and stationery</string>
+    <string name="sports_and_travel">Sports and Travel</string>
+
 </resources>

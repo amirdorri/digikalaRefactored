@@ -1,4 +1,4 @@
-package com.example.digikala.ui.screens.home
+package com.example.digikala.ui.screens.category
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -7,39 +7,38 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.digikala.util.Constants.USER_LANGUAGE
-import com.example.digikala.util.LocaleUtils
-import com.example.digikala.viewmodel.HomeViewModel
+import com.example.digikala.ui.screens.home.SearchBarSection
+import com.example.digikala.viewmodel.CategoryViewmodel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun CategoryScreen(navController: NavHostController){
 
-    Home(navController)
+    Category(navController)
+
+
 }
 
 @Composable
-fun Home(
+fun Category(
     navController: NavHostController,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: CategoryViewmodel = hiltViewModel()
 ) {
-
-    LocaleUtils.setLocale(LocalContext.current, USER_LANGUAGE)
     LaunchedEffect(true) {
         refreshData(viewModel)
     }
     SwipeRefreshSection(viewModel, navController)
 
+
 }
 
 @Composable
-private fun SwipeRefreshSection(viewModel: HomeViewModel, navController: NavHostController) {
+private fun SwipeRefreshSection(viewModel: CategoryViewmodel, navController: NavHostController) {
     val refreshScope = rememberCoroutineScope()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
     SwipeRefresh(state = swipeRefreshState,
@@ -51,36 +50,14 @@ private fun SwipeRefreshSection(viewModel: HomeViewModel, navController: NavHost
 
         LazyColumn(modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)) {
             item { SearchBarSection() }
-            item { TopSliderSection() }
-            item { ShowcaseSection(navController) }
-            item { AmazingOfferSection() }
-            item { ProposalCardSection() }
-            item { SuperMarketOfferSection() }
-            item { CategoryListSection() }
-            item { CenterBannerSection(1) }
+            item { SubCategorySection() }
 
-            item { BestSellerOfferSection() }
-
-            item { CenterBannerSection(2) }
-
-            item { MostFavoriteProductSection() }
-
-            item { CenterBannerSection(3) }
-            item { MostVisitedSection() }
-
-
-            item { CenterBannerSection(4) }
-            item { CenterBannerSection(5) }
-            item { MostDiscountedSection() }
         }
 
-
     }
-
 }
 
 
-private suspend fun refreshData(viewModel: HomeViewModel) {
+private suspend fun refreshData(viewModel: CategoryViewmodel) {
     viewModel.getAllDataFromServer()
-
 }

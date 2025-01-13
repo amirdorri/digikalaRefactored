@@ -1,5 +1,6 @@
 package com.example.digikala.di
 
+import com.example.digikala.data.remote.CategoryApi
 import com.example.digikala.data.remote.HomeApiInterface
 import dagger.Module
 import dagger.Provides
@@ -11,10 +12,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object HomeApiInterfaceModule {
-
+object CategoryApiModule {
     @Provides
     @Singleton
-    fun provideHomeApiService(retrofit: Retrofit) : HomeApiInterface =
-        retrofit.create(HomeApiInterface::class.java)
+    fun provideCategoryApiService(retrofit: Retrofit) : CategoryApi =
+        retrofit.create(CategoryApi::class.java)
 }

@@ -1,9 +1,7 @@
 package com.example.digikala.viewmodel
 
-import android.transition.Slide
-import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.digikala.repository.HomeRepository
+import com.example.digikala.repository.HomeRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.digikala.data.model.home.AmazingItem
@@ -16,7 +14,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: HomeRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: HomeRepo) : ViewModel() {
 
     val slider = MutableStateFlow<NetworkResult<List<Slider>>>(NetworkResult.Loading())
     val amazingItems = MutableStateFlow<NetworkResult<List<AmazingItem>>>(NetworkResult.Loading())
