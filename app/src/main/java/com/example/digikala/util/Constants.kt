@@ -9,7 +9,8 @@ object Constants {
     const val API_KEY = "EB43556E671B925B9C98E74643BCA"
     const val TIMEOUT_SECOND: Long = 60
     var USER_LANGUAGE = "USER_LANGUAGE"
-
+    const val SHOPPING_CART_TABLE = "shopping_cart_table"
+    const val DATABASE_NAME = "digikala_db"
     const val DIGIJET_URL = "https://www.digikalajet.com/user/address"
     const val AUCTION_URL = "https://www.digistyle.com/sale-landing/?utm_source=digikala&utm_medium=circle_badge&utm_campaign=style&promo_name=style&promo_position=circle_badge"
     const val DIGIPAY_URL = "https://www.digikala.com/my-digipay/?promo_name=my-digipay&promo_position=circle_badge"
