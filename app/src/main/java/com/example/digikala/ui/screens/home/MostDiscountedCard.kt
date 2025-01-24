@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.home.AmazingItem
+import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.DigikalaLightRed
 import com.example.digikala.ui.theme.darkText
@@ -49,7 +50,7 @@ import com.example.digikala.util.DigitHelper.digitBtLocateAndSeparator
 import com.example.digikala.util.DigitHelper.digitByLocate
 
 @Composable
-fun MostDiscountedCard(item : AmazingItem) {
+fun MostDiscountedCard(item : StoreProduct) {
 
     Card(
         modifier = Modifier

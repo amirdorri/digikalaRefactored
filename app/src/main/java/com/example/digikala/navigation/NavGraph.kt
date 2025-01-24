@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.digikala.ui.screens.basketScreen
+import com.example.digikala.ui.screens.basket.BasketScreen
 import com.example.digikala.ui.screens.category.CategoryScreen
 import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
@@ -33,7 +33,7 @@ fun setupNavGraph(navController: NavHostController) {
         }
 
         composable(Screen.Basket.route) {
-            basketScreen(navController)
+            BasketScreen(navController)
         }
 
         composable(Screen.Profile.route) {

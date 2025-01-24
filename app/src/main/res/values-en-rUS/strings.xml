@@ -34,5 +34,9 @@
     <string name="home_and_kitchen">Home and Kitchen</string>
     <string name="books_and_stationery">Books and stationery</string>
     <string name="sports_and_travel">Sports and Travel</string>
+    <string name="cart">Cart</string>
+    <string name="next_cart">next cart list</string>
+    <string name="cart_is_empty">Cart is empty!</string>
+    <string name="suggestion_for_you">suggestion for you</string>
 
 </resources>

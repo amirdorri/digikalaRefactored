@@ -128,5 +128,4 @@ fun SubCategorySection(viewModel: CategoryViewmodel = hiltViewModel()) {
         }
     }
 
-
 }
