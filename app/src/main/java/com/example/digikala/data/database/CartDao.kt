@@ -1,8 +1,14 @@
 package com.example.digikala.data.database
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import com.example.digikala.data.model.basket.CartItem
 
 @Dao
-class CartDao {
+interface CartDao {
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertCartItem(cart : CartItem)
 
 }

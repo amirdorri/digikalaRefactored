@@ -1,7 +1,10 @@
-package com.example.digikala.ui.screens.home
+package com.example.digikala.data.model.basket
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,10 +22,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
@@ -36,6 +43,7 @@ import com.example.digikala.R
 import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.darkText
+import com.example.digikala.ui.theme.digikalaRed
 import com.example.digikala.ui.theme.extraSmall
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
@@ -45,8 +53,10 @@ import com.example.digikala.util.DigitHelper.applyDiscount
 import com.example.digikala.util.DigitHelper.digitBtLocateAndSeparator
 
 @Composable
-fun MostDiscountedCard(item : StoreProduct) {
-
+fun SuggestionItemCard(
+    item : StoreProduct,
+    onAddClick : (StoreProduct) -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth(0.5f),
@@ -64,14 +74,42 @@ fun MostDiscountedCard(item : StoreProduct) {
                     .padding(vertical = MaterialTheme.spacing.extraSmall)
             ) {
 
-                Image(
-                    painter = rememberAsyncImagePainter(item.image),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(130.dp),
-                    contentScale = ContentScale.Fit
-                )
+               Box {
+                   Image(
+                       painter = rememberAsyncImagePainter(item.image),
+                       contentDescription = null,
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .height(130.dp),
+                       contentScale = ContentScale.Fit
+                   )
+                   Column(
+                       modifier = Modifier
+                           .align(Alignment.BottomStart)
+                           .padding(MaterialTheme.spacing.semiMedium)
+                           .fillMaxWidth(),
+                       horizontalAlignment = Alignment.Start,
+                       verticalArrangement = Arrangement.Center
+                   ) {
+                       Surface(
+                           modifier = Modifier
+                               .padding(MaterialTheme.spacing.extraSmall)
+                               .size(26.dp)
+                               .clip(CircleShape)
+                               .border(width = 1.dp, color = MaterialTheme.colors.digikalaRed, shape = CircleShape)
+                               .clickable { onAddClick(item)
+                               }
+                       ) {
+                           Icon(
+                               imageVector = Icons.Default.Add,
+                               contentDescription = "",
+                               tint = Color.Red,
+                           )
+                       }
+
+
+                   }
+               }
 
             }
 
@@ -177,6 +215,7 @@ fun MostDiscountedCard(item : StoreProduct) {
         }
 
     }
+
 }
 
 @Composable

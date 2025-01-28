@@ -1,5 +1,6 @@
 package com.example.digikala.ui.screens.basket
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -24,6 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.digikala.R
+import com.example.digikala.data.model.basket.CartItem
+import com.example.digikala.data.model.basket.CartStatus
+import com.example.digikala.data.model.basket.SuggestionItemCard
 import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.ui.screens.home.MostDiscountedCard
@@ -89,9 +93,21 @@ fun SuggestListSection(
     ) {
 
         for (item in suggestedList) {
-            MostDiscountedCard(item)
+            SuggestionItemCard(item){
+                viewModel.insertCartItem(
+                    CartItem(
+                        it._id,
+                        it.name,
+                        it.seller,
+                        it.price,
+                        it.discountPercent,
+                        it.image,
+                        count = 1,
+                        cartStatus = CartStatus.CURRENT_CART
+                    )
+                )
+
+            }
         }
-
     }
-
 }

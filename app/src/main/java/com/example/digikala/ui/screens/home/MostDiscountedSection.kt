@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.home.AmazingItem
+import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.spacing
@@ -33,7 +34,7 @@ import com.example.digikala.viewmodel.HomeViewModel
 fun MostDiscountedSection(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    var mostDiscountedList by remember { mutableStateOf<List<AmazingItem>>(emptyList()) }
+    var mostDiscountedList by remember { mutableStateOf<List<StoreProduct>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
     val mostDiscountedResult by viewModel.mostDiscountedItems.collectAsState()
 

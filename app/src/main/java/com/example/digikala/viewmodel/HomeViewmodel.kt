@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.data.model.home.MainCategory
 import com.example.digikala.data.model.home.Slider
+import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.data.remote.NetworkResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -25,7 +26,7 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepo) : View
     val bestSellerItems =  MutableStateFlow<NetworkResult<List<AmazingItem>>>(NetworkResult.Loading())
     val mostVisitedItems =  MutableStateFlow<NetworkResult<List<AmazingItem>>>(NetworkResult.Loading())
     val mostFavoriteItems =  MutableStateFlow<NetworkResult<List<AmazingItem>>>(NetworkResult.Loading())
-    val mostDiscountedItems =  MutableStateFlow<NetworkResult<List<AmazingItem>>>(NetworkResult.Loading())
+    val mostDiscountedItems =  MutableStateFlow<NetworkResult<List<StoreProduct>>>(NetworkResult.Loading())
    // val centerBanners = MutableStateFlow<NetworkResult<List<Slide>>>(NetworkResult.Loading())
 
     suspend fun getAllDataFromServer() {

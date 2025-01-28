@@ -4,6 +4,7 @@ import com.example.digikala.data.model.ResponseResult
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.data.model.home.MainCategory
 import com.example.digikala.data.model.home.Slider
+import com.example.digikala.data.model.home.StoreProduct
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -38,6 +39,6 @@ interface HomeApiInterface {
     suspend fun getMostFavoriteProducts(): Response<ResponseResult<List<AmazingItem>>>
 
     @GET("v1/getMostDiscountedProducts")
-    suspend fun getMostDiscountedProducts(): Response<ResponseResult<List<AmazingItem>>>
+    suspend fun getMostDiscountedProducts(): Response<ResponseResult<List<StoreProduct>>>
 
 }
