@@ -15,6 +15,7 @@ import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.repository.BasketRepo
 import com.example.digikala.repository.CategoryRepo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class BasketViewModel @Inject constructor(private val repository: BasketRepo) : ViewModel() {
 
     val suggestedList = MutableStateFlow<NetworkResult<List<StoreProduct>>>(NetworkResult.Loading())
+    val currentCartItems : Flow<List<CartItem>> = repository.currentCartItems
 
      fun getSuggestedItems(){
         viewModelScope.launch {
