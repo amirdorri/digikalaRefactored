@@ -14,17 +14,17 @@ val font_standard = FontFamily(Font(R.font.iranyekan))
 val font_medium = FontFamily(Font(R.font.iranyekanmedium))
 val font_bold = FontFamily(Font(R.font.iranyekanbold))
 
-val Typography.extraBoldNumber : TextStyle
-@Composable
-get() = TextStyle(
-    fontFamily = font_bold,
-    fontWeight = FontWeight.Bold,
-    fontSize = 16.sp,
+val Typography.extraBoldNumber: TextStyle
+    @Composable
+    get() = TextStyle(
+        fontFamily = font_bold,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp,
 
 
-)
+        )
 
-val Typography.extraSmall : TextStyle
+val Typography.extraSmall: TextStyle
     @Composable
     get() = TextStyle(
         fontFamily = font_standard,
@@ -33,7 +33,17 @@ val Typography.extraSmall : TextStyle
         lineHeight = 25.sp
 
 
-        )
+    )
+
+val Typography.veryExtraSmall: TextStyle
+    @Composable
+    get() = TextStyle(
+        fontFamily = font_standard,
+        fontSize = 10.sp,
+
+
+
+    )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -98,14 +108,4 @@ val Typography = Typography(
     ),
 
 
-
-
-
-
-
-
-
-
-
-
-)
+    )
