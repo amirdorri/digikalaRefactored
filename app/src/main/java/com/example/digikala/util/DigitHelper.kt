@@ -32,7 +32,7 @@ object DigitHelper {
         return priceFormat.format(Integer.valueOf(price))
     }
 
-    fun digitBtLocateAndSeparator(price : String) : String {
+    fun digitBytLocateAndSeparator(price : String) : String {
         val priceWithoutCommas = price.replace(",", "")
         val persianDigit = digitByLocate(priceWithoutCommas)
         return digitBySeparator(persianDigit)

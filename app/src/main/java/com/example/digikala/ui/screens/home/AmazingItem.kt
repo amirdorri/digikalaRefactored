@@ -36,7 +36,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.ui.theme.DigikalaDarktRed
-import com.example.digikala.ui.theme.DigikalaLightRed
 import com.example.digikala.ui.theme.DigikalaLightRedText
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.extraSmall
@@ -46,8 +45,7 @@ import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.Constants.ENGLISH_LANG
 import com.example.digikala.util.Constants.USER_LANGUAGE
 import com.example.digikala.util.DigitHelper.applyDiscount
-import com.example.digikala.util.DigitHelper.digitBtLocateAndSeparator
-import com.example.digikala.util.DigitHelper.digitByLocate
+import com.example.digikala.util.DigitHelper.digitBytLocateAndSeparator
 
 @Composable
 fun AmazingItem(item: AmazingItem) {
@@ -151,7 +149,7 @@ fun AmazingItem(item: AmazingItem) {
                             .wrapContentHeight(align = Alignment.CenterVertically)
                     ) {
                         Text(
-                            text = "${digitBtLocateAndSeparator(item.discountPercent.toString())}%",
+                            text = "${digitBytLocateAndSeparator(item.discountPercent.toString())}%",
                             color = Color.White,
                             style = MaterialTheme.typography.h6,
                             fontWeight = FontWeight.Bold
@@ -163,7 +161,7 @@ fun AmazingItem(item: AmazingItem) {
                         Row {
 
                             Text(
-                            text = digitBtLocateAndSeparator(
+                            text = digitBytLocateAndSeparator(
                                 applyDiscount(item.price, item.discountPercent).toString()
                             ),
                             style = MaterialTheme.typography.body2,
@@ -180,7 +178,7 @@ fun AmazingItem(item: AmazingItem) {
                                 )
                         }
                         Text(
-                            text = digitBtLocateAndSeparator(item.price.toString()),
+                            text = digitBytLocateAndSeparator(item.price.toString()),
                             color = Color.LightGray,
                             style = MaterialTheme.typography.body2,
                             textDecoration = TextDecoration.LineThrough

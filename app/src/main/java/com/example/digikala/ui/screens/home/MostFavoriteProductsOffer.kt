@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -29,7 +28,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -38,17 +36,14 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.ui.theme.DigikalaDarktRed
-import com.example.digikala.ui.theme.DigikalaLightRed
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.extraSmall
-import com.example.digikala.ui.theme.roundedShape
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.Constants.ENGLISH_LANG
 import com.example.digikala.util.Constants.USER_LANGUAGE
 import com.example.digikala.util.DigitHelper.applyDiscount
-import com.example.digikala.util.DigitHelper.digitBtLocateAndSeparator
-import com.example.digikala.util.DigitHelper.digitByLocate
+import com.example.digikala.util.DigitHelper.digitBytLocateAndSeparator
 
 @Composable
 fun MostFavoriteProductsOffer( item : AmazingItem) {
@@ -145,7 +140,7 @@ fun MostFavoriteProductsOffer( item : AmazingItem) {
                                 .wrapContentHeight(align = Alignment.CenterVertically)
                         ) {
                             Text(
-                                text = "${digitBtLocateAndSeparator(item.discountPercent.toString())}%",
+                                text = "${digitBytLocateAndSeparator(item.discountPercent.toString())}%",
                                 color = Color.White,
                                 style = MaterialTheme.typography.h6,
                                 fontWeight = FontWeight.Bold
@@ -157,7 +152,7 @@ fun MostFavoriteProductsOffer( item : AmazingItem) {
                             Row {
 
                                 Text(
-                                    text = digitBtLocateAndSeparator(
+                                    text = digitBytLocateAndSeparator(
                                         applyDiscount(item.price, item.discountPercent).toString()
                                     ),
                                     style = MaterialTheme.typography.body2,
@@ -173,7 +168,7 @@ fun MostFavoriteProductsOffer( item : AmazingItem) {
 
                             }
                             Text(
-                                text = digitBtLocateAndSeparator(item.price.toString()),
+                                text = digitBytLocateAndSeparator(item.price.toString()),
                                 color = Color.LightGray,
                                 style = MaterialTheme.typography.body2,
                                 textDecoration = TextDecoration.LineThrough

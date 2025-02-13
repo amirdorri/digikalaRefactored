@@ -1,6 +1,8 @@
 package com.example.digikala.ui.screens.basket
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,13 +18,22 @@ import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardDoubleArrowLeft
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -30,6 +41,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.basket.CartItem
@@ -37,15 +49,21 @@ import com.example.digikala.ui.theme.DarkCyan
 import com.example.digikala.ui.theme.DigikalaLightGreen
 import com.example.digikala.ui.theme.DigikalaLightRed
 import com.example.digikala.ui.theme.darkText
+import com.example.digikala.ui.theme.digikalaRed
 import com.example.digikala.ui.theme.extraSmall
+import com.example.digikala.ui.theme.roundedShape
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.ui.theme.veryExtraSmall
+import com.example.digikala.util.DigitHelper
+import com.example.digikala.viewmodel.BasketViewModel
 
 @Composable
 fun CartItemCard(
-    item: CartItem
+    item: CartItem,
+    viewModel: BasketViewModel = hiltViewModel()
 ) {
+    val count = remember { mutableIntStateOf(item.count) }
 
     Card(
         modifier = Modifier
@@ -74,7 +92,7 @@ fun CartItemCard(
                         color = MaterialTheme.colors.darkText
                     )
                     Text(
-                        text = "",
+                        text = "${DigitHelper.digitBytLocateAndSeparator(count.intValue.toString())} کالا ",
                         style = MaterialTheme.typography.h6,
                         color = Color.Gray
                     )
@@ -208,11 +226,115 @@ fun CartItemCard(
 
                         }
                     }
-
-
-
-
                 }
+            }
+
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.semiLarge))
+
+            Row(
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(MaterialTheme.spacing.medium),
+                verticalAlignment = Alignment.CenterVertically,
+                ) {
+                Surface(
+                    modifier = Modifier
+                        .clip(MaterialTheme.roundedShape.semiSmall)
+                        .border(
+                            1.dp,
+                            color = Color.LightGray.copy(alpha = 0.6f),
+                            MaterialTheme.roundedShape.semiSmall
+                        )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .padding(
+                                horizontal = MaterialTheme.spacing.small,
+                                vertical = MaterialTheme.spacing.extraSmall
+                            ),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_increase_24),
+                            contentDescription = "",
+                            tint = MaterialTheme.colors.digikalaRed,
+                            modifier = Modifier
+                                .clickable {
+                                    count.intValue ++
+                                    viewModel.changeItemCount(id = item.itemId, newCount = count.intValue)
+                                }
+                        )
+
+                        Text(
+                            text = DigitHelper.digitBytLocateAndSeparator(count.intValue.toString()),
+                            style = MaterialTheme.typography.body2,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colors.digikalaRed,
+                            modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                        )
+                        if (count.intValue == 1)
+                            Icon(
+                                painter = painterResource(R.drawable.digi_trash),
+                                contentDescription = "",
+                                tint = MaterialTheme.colors.digikalaRed,
+                                modifier = Modifier.clickable { viewModel.removeCartItem(item) }
+                            )
+                        else
+                            Icon(
+                                painter = painterResource(R.drawable.ic_decrease_24),
+                                contentDescription = "",
+                                tint = MaterialTheme.colors.digikalaRed,
+                                modifier = Modifier.clickable {
+                                    count.intValue --
+                                    viewModel.changeItemCount(id = item.itemId, newCount = count.intValue)
+                                }
+                            )
+
+
+                    }
+                }
+
+                Spacer(modifier = Modifier.padding(MaterialTheme.spacing.medium))
+
+                Row() {
+
+                    Text(
+                        text = DigitHelper.digitBytLocateAndSeparator(item.price.toString()),
+                        style = MaterialTheme.typography.h3,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colors.darkText
+                    )
+
+                    Icon(
+                        painter = painterResource(R.drawable.toman),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(24.dp)
+                            .padding(MaterialTheme.spacing.extraSmall)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.semiLarge))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    text = stringResource(R.string.save_to_next_cart),
+                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.h6,
+                    color = MaterialTheme.colors.DarkCyan
+                )
+
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    contentDescription = "",
+                    tint = MaterialTheme.colors.DarkCyan
+                )
             }
         }
     }
@@ -250,3 +372,4 @@ private fun DetailRow(
 
     }
 }
+

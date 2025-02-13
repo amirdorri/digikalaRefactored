@@ -19,6 +19,7 @@ import androidx.compose.material.Text
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,7 +51,7 @@ fun Basket(
     navController: NavHostController,
     viewmodel: BasketViewModel = hiltViewModel()
 ) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabTitles = listOf(
         stringResource(R.string.cart),
         stringResource(R.string.next_cart),
@@ -58,7 +59,7 @@ fun Basket(
     Column {
         TabRow(
             selectedTabIndex = selectedTabIndex,
-           // backgroundColor = ,
+            backgroundColor = Color.White,
             contentColor = MaterialTheme.colors.digikalaRed,
             indicator = { line ->
                 Box(
@@ -70,7 +71,7 @@ fun Basket(
                 )
             },
             modifier = Modifier
-                .padding(horizontal = MaterialTheme.spacing.medium)
+                .padding(MaterialTheme.spacing.medium)
         ) {
             tabTitles.fastForEachIndexed { index, title ->
                 Tab(
