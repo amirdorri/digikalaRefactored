@@ -45,6 +45,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.basket.CartItem
+import com.example.digikala.data.model.basket.CartStatus
 import com.example.digikala.ui.theme.DarkCyan
 import com.example.digikala.ui.theme.DigikalaLightGreen
 import com.example.digikala.ui.theme.DigikalaLightRed
@@ -61,6 +62,7 @@ import com.example.digikala.viewmodel.BasketViewModel
 @Composable
 fun CartItemCard(
     item: CartItem,
+    mode: CartStatus,
     viewModel: BasketViewModel = hiltViewModel()
 ) {
     val count = remember { mutableIntStateOf(item.count) }
@@ -236,7 +238,7 @@ fun CartItemCard(
                     .align(Alignment.Start)
                     .padding(MaterialTheme.spacing.medium),
                 verticalAlignment = Alignment.CenterVertically,
-                ) {
+            ) {
                 Surface(
                     modifier = Modifier
                         .clip(MaterialTheme.roundedShape.semiSmall)
@@ -246,54 +248,87 @@ fun CartItemCard(
                             MaterialTheme.roundedShape.semiSmall
                         )
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .padding(
-                                horizontal = MaterialTheme.spacing.small,
-                                vertical = MaterialTheme.spacing.extraSmall
-                            ),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_increase_24),
-                            contentDescription = "",
-                            tint = MaterialTheme.colors.digikalaRed,
-                            modifier = Modifier
-                                .clickable {
-                                    count.intValue ++
-                                    viewModel.changeItemCount(id = item.itemId, newCount = count.intValue)
-                                }
-                        )
 
-                        Text(
-                            text = DigitHelper.digitBytLocateAndSeparator(count.intValue.toString()),
-                            style = MaterialTheme.typography.body2,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colors.digikalaRed,
-                            modifier = Modifier.padding(MaterialTheme.spacing.medium)
-                        )
-                        if (count.intValue == 1)
+                    if (mode == CartStatus.CURRENT_CART) {
+                        Row(
+                            modifier = Modifier
+                                .padding(
+                                    horizontal = MaterialTheme.spacing.small,
+                                    vertical = MaterialTheme.spacing.extraSmall
+                                ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Icon(
-                                painter = painterResource(R.drawable.digi_trash),
+                                painter = painterResource(R.drawable.ic_increase_24),
                                 contentDescription = "",
                                 tint = MaterialTheme.colors.digikalaRed,
-                                modifier = Modifier.clickable { viewModel.removeCartItem(item) }
+                                modifier = Modifier
+                                    .clickable {
+                                        count.intValue++
+                                        viewModel.changeItemCount(
+                                            id = item.itemId,
+                                            newCount = count.intValue
+                                        )
+                                    }
                             )
-                        else
+
+                            Text(
+                                text = DigitHelper.digitBytLocateAndSeparator(count.intValue.toString()),
+                                style = MaterialTheme.typography.body2,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colors.digikalaRed,
+                                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                            )
+                            if (count.intValue == 1)
+                                Icon(
+                                    painter = painterResource(R.drawable.digi_trash),
+                                    contentDescription = "",
+                                    tint = MaterialTheme.colors.digikalaRed,
+                                    modifier = Modifier.clickable { viewModel.removeCartItem(item) }
+                                )
+                            else
+                                Icon(
+                                    painter = painterResource(R.drawable.ic_decrease_24),
+                                    contentDescription = "",
+                                    tint = MaterialTheme.colors.digikalaRed,
+                                    modifier = Modifier.clickable {
+                                        count.intValue--
+                                        viewModel.changeItemCount(
+                                            id = item.itemId,
+                                            newCount = count.intValue
+                                        )
+                                    }
+                                )
+
+
+                        }
+                    } else {
+                        Row(
+                            modifier = Modifier
+                                .padding(
+                                    horizontal = 48.dp,
+                                    vertical = MaterialTheme.spacing.small
+                                ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_decrease_24),
+                                painter = painterResource(R.drawable.ic_baseline_shopping_cart_checkout),
                                 contentDescription = "",
                                 tint = MaterialTheme.colors.digikalaRed,
-                                modifier = Modifier.clickable {
-                                    count.intValue --
-                                    viewModel.changeItemCount(id = item.itemId, newCount = count.intValue)
-                                }
+                                modifier = Modifier
+                                    .size(28.dp)
+                                    .clickable {
+                                        viewModel.changeCartItemStatus(
+                                            item.itemId,
+                                            CartStatus.CURRENT_CART
+                                        )
+                                    }
                             )
+                        }
 
 
                     }
                 }
-
                 Spacer(modifier = Modifier.padding(MaterialTheme.spacing.medium))
 
                 Row() {
@@ -317,25 +352,59 @@ fun CartItemCard(
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.semiLarge))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            if (mode == CartStatus.CURRENT_CART) {
+                Row(
+                    modifier = Modifier
+                        .clickable {
+                            viewModel.changeCartItemStatus(
+                                id = item.itemId,
+                                newStatus = CartStatus.NEXT_CART
+                            )
+                        }
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
 
-                Text(
-                    text = stringResource(R.string.save_to_next_cart),
-                    fontWeight = FontWeight.SemiBold,
-                    style = MaterialTheme.typography.h6,
-                    color = MaterialTheme.colors.DarkCyan
-                )
+                    Text(
+                        text = stringResource(R.string.save_to_next_cart),
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.h6,
+                        color = MaterialTheme.colors.DarkCyan,
 
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                    contentDescription = "",
-                    tint = MaterialTheme.colors.DarkCyan
-                )
+                        )
+
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "",
+                        tint = MaterialTheme.colors.DarkCyan
+                    )
+                }
+            } else {
+                Row(
+                    modifier = Modifier
+                        .clickable { viewModel.removeCartItem(item) }
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Text(
+                        text = stringResource(R.string.delete_from_list),
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.h6,
+                        color = MaterialTheme.colors.DigikalaLightRed,
+
+                        )
+
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "",
+                        tint = MaterialTheme.colors.DigikalaLightRed
+                    )
+                }
             }
+
         }
     }
 }

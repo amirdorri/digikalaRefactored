@@ -15,13 +15,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.digikala.R
 import com.example.digikala.data.model.category.Sub
-import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.ui.components.MyLoading
-import com.example.digikala.viewmodel.CategoryViewmodel
+import com.example.digikala.viewmodel.CategoryViewModel
 
 @Composable
-fun SubCategorySection(viewModel: CategoryViewmodel = hiltViewModel()) {
+fun SubCategorySection(viewModel: CategoryViewModel = hiltViewModel()) {
 
     var loading by remember { mutableStateOf(false) }
     val subCategoryResult by viewModel.subCategory.collectAsState()

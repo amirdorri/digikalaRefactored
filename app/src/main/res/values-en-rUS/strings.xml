@@ -44,6 +44,7 @@
     <string name="digikala_send">digikala send</string>
     <string name="fast_send">fast send</string>
     <string name="save_to_next_cart">save to next Cart</string>
+    <string name="delete_from_list">delete from List</string>
 
 
 </resources>

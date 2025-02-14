@@ -36,9 +36,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter",
-        "UnusedMaterialScaffoldPaddingParameter"
-    )
-    // @OptIn(ExperimentalMaterial3Api::class)
+        "UnusedMaterialScaffoldPaddingParameter")
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         lateinit var navController: NavHostController
@@ -46,12 +45,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             DigikalaTheme {
-                // A surface container using the 'background' color from the theme
+
                 navController = rememberNavController()
                 ChangeStatusBarColor(navController = navController)
 
                 AppConfig()
-               // Log.e("1010", USER_LANGUAGE)
+
 
                 val direction = if (USER_LANGUAGE == ENGLISH_LANG){
                     androidx.compose.ui.unit.LayoutDirection.Ltr
@@ -61,7 +60,6 @@ class MainActivity : ComponentActivity() {
 
                 LocaleUtils.setLocale(LocalContext.current, USER_LANGUAGE)
                 CompositionLocalProvider(LocalLayoutDirection provides direction) {
-
                     Scaffold(
                         bottomBar = {
                             BottomNavigationBar(navController = navController,
@@ -74,6 +72,7 @@ class MainActivity : ComponentActivity() {
                         setupNavGraph(navController = navController)
 
                     }
+
                 }
 
             }

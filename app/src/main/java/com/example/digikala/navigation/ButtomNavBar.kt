@@ -37,7 +37,7 @@ fun BottomNavigationBar(
             deselectedIcon = painterResource(id = R.drawable.home_outline)
         ),
         ButtomNavItem(
-            name =stringResource(id = R.string.category),
+            name = stringResource(id = R.string.category),
             route = Screen.Category.route,
             selectedIcon = painterResource(id = R.drawable.category_fill),
             deselectedIcon = painterResource(id = R.drawable.category_outline)
@@ -82,7 +82,7 @@ fun BottomNavigationBar(
 
                                 Icon(
                                     modifier = Modifier.height(24.dp),
-                                    painter = item.selectedIcon ,
+                                    painter = item.selectedIcon,
                                     contentDescription = item.name
                                 )
 
@@ -90,25 +90,21 @@ fun BottomNavigationBar(
 
                                 Icon(
                                     modifier = Modifier.height(24.dp),
-                                    painter = item.deselectedIcon ,
-                                    contentDescription = item.name)
+                                    painter = item.deselectedIcon,
+                                    contentDescription = item.name
+                                )
                             }
 
-                            Text(text = item.name,
+                            Text(
+                                text = item.name,
                                 textAlign = TextAlign.Center,
                                 style = MaterialTheme.typography.h6,
                                 modifier = Modifier.padding(top = 5.dp)
-                                )
+                            )
                         }
-                    },
-
+                    }
                     )
-
             }
-
         }
-
     }
-
-
 }

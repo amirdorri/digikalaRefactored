@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.digikala.ui.screens.home.SearchBarSection
-import com.example.digikala.viewmodel.CategoryViewmodel
+import com.example.digikala.viewmodel.CategoryViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import kotlinx.coroutines.launch
@@ -27,7 +27,7 @@ fun CategoryScreen(navController: NavHostController){
 @Composable
 fun Category(
     navController: NavHostController,
-    viewModel: CategoryViewmodel = hiltViewModel()
+    viewModel: CategoryViewModel = hiltViewModel()
 ) {
     LaunchedEffect(true) {
         refreshData(viewModel)
@@ -38,7 +38,7 @@ fun Category(
 }
 
 @Composable
-private fun SwipeRefreshSection(viewModel: CategoryViewmodel, navController: NavHostController) {
+private fun SwipeRefreshSection(viewModel: CategoryViewModel, navController: NavHostController) {
     val refreshScope = rememberCoroutineScope()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
     SwipeRefresh(state = swipeRefreshState,
@@ -58,6 +58,6 @@ private fun SwipeRefreshSection(viewModel: CategoryViewmodel, navController: Nav
 }
 
 
-private suspend fun refreshData(viewModel: CategoryViewmodel) {
+private suspend fun refreshData(viewModel: CategoryViewModel) {
     viewModel.getAllDataFromServer()
 }

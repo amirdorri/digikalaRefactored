@@ -15,6 +15,7 @@ class BasketRepo @Inject constructor(
 ) : BaseApiResponse() {
 
     val currentCartItems = dao.getAllItems(CartStatus.CURRENT_CART)
+    val nextCartItems = dao.getAllItems(CartStatus.NEXT_CART)
 
     suspend fun getSuggestedItems(): NetworkResult<List<StoreProduct>> =
         safeApiCall {

@@ -43,6 +43,7 @@
     <string name="digikala_send">ارسال دیجی کالا</string>
     <string name="fast_send">ارسال سریع دیجی کالا</string>
     <string name="save_to_next_cart">ذخیره در لبست خرید بعدی</string>
+    <string name="delete_from_list">حذف از لیست</string>
 
 
 </resources>

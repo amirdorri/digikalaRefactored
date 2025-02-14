@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.digikala.data.model.basket.CartItem
+import com.example.digikala.data.model.basket.CartStatus
 import com.example.digikala.viewmodel.BasketViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -42,7 +43,7 @@ fun ShoppingCart(
         } else{
 
             items(currentCartItems.value) { item ->
-                CartItemCard(item)
+                CartItemCard(item, CartStatus.CURRENT_CART)
             }
         }
 
