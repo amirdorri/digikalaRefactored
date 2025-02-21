@@ -77,7 +77,7 @@ fun SubCategoryItem(
             Spacer(Modifier.height(10.dp))
 
             Text(
-                text = "+ ${DigitHelper.digitByLocate(item.count.toString())} ${stringResource(R.string.product)}",
+                text = "+ ${DigitHelper.digitByLocate(item.count.toString())} ${stringResource(R.string.goods)}",
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 color = Color.Gray,

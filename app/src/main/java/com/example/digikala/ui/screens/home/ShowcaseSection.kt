@@ -94,7 +94,7 @@ fun ShowcaseSection(navController: NavController) {
 
             RoundedIconBox(
                 image = painterResource(id = R.drawable.shopping),
-                title = stringResource(id = R.string.digi_shop),
+                title = stringResource(id = R.string.digi_shopping),
                 onClick = onBoxClick(
                     navController = navController,
                     url = SHOPPING_URL

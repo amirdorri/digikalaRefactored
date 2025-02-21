@@ -63,7 +63,7 @@ fun BestSellerOfferSection(
             .padding(MaterialTheme.spacing.small)
     ) {
         Text(
-            text = stringResource(R.string.best_sell_products),
+            text = stringResource(R.string.best_selling_products),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Start,
             style = MaterialTheme.typography.h3,

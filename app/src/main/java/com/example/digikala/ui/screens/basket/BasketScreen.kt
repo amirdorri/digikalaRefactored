@@ -44,7 +44,7 @@ fun Basket(
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabTitles = listOf(
         stringResource(R.string.cart),
-        stringResource(R.string.next_cart),
+        stringResource(R.string.next_cart_list),
     )
     Column {
         TabRow(

@@ -367,7 +367,7 @@ fun CartItemCard(
                 ) {
 
                     Text(
-                        text = stringResource(R.string.save_to_next_cart),
+                        text = stringResource(R.string.save_to_next_list),
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.h6,
                         color = MaterialTheme.colors.DarkCyan,
