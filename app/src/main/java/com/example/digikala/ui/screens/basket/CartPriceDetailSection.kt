@@ -113,7 +113,7 @@ fun CartPriceDetailSection(
                 .alpha(0.6f),
             color = Color.LightGray
         )
-        DigiClubScore(134)
+        DigiClubScore(item.payablePrice)
 
     }
 }
@@ -121,8 +121,11 @@ fun CartPriceDetailSection(
 
 @Composable
 private fun DigiClubScore(
-    score : Int
+    payedPrice : Long
 ){
+
+    val score  = payedPrice / 100_000
+
     Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
     Row(

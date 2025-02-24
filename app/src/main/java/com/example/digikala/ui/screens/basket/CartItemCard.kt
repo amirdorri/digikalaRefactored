@@ -66,6 +66,7 @@ fun CartItemCard(
     viewModel: BasketViewModel = hiltViewModel()
 ) {
     val count = remember { mutableIntStateOf(item.count) }
+    val discountAmount = (item.price * item.discountPercent) / 100
 
     Card(
         modifier = Modifier
@@ -325,28 +326,37 @@ fun CartItemCard(
                                     }
                             )
                         }
-
-
                     }
                 }
                 Spacer(modifier = Modifier.padding(MaterialTheme.spacing.medium))
 
-                Row() {
+
+                Column {
 
                     Text(
-                        text = DigitHelper.digitBytLocateAndSeparator(item.price.toString()),
-                        style = MaterialTheme.typography.h3,
+                        text = "${DigitHelper.digitBytLocateAndSeparator(discountAmount.toString())} ${stringResource(R.string.discount)}",
+                        style = MaterialTheme.typography.extraSmall,
                         fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colors.darkText
+                        color = MaterialTheme.colors.digikalaRed
                     )
 
-                    Icon(
-                        painter = painterResource(R.drawable.toman),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .padding(MaterialTheme.spacing.extraSmall)
-                    )
+                    Row() {
+
+                        Text(
+                            text = DigitHelper.digitBytLocateAndSeparator(item.price.toString()),
+                            style = MaterialTheme.typography.h3,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colors.darkText
+                        )
+
+                        Icon(
+                            painter = painterResource(R.drawable.toman),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(24.dp)
+                                .padding(MaterialTheme.spacing.extraSmall)
+                        )
+                    }
                 }
             }
 
@@ -381,6 +391,7 @@ fun CartItemCard(
                     )
                 }
             } else {
+
                 Row(
                     modifier = Modifier
                         .clickable { viewModel.removeCartItem(item) }
@@ -404,7 +415,6 @@ fun CartItemCard(
                     )
                 }
             }
-
         }
     }
 }
