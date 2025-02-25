@@ -9,48 +9,58 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.digikala.R
+import com.example.digikala.ui.screens.basket.IconWithBadge
+import com.example.digikala.ui.screens.basket.SetBadgeToTab
 import com.example.digikala.ui.theme.bottomBar
 import com.example.digikala.ui.theme.selecedBottomBar
 import com.example.digikala.ui.theme.unSelecedBottomBar
+import com.example.digikala.viewmodel.BasketViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun BottomNavigationBar(
     navController: NavController,
-    onItemClick: (ButtomNavItem) -> Unit
+    onItemClick: (BottomNavItem) -> Unit,
+    basketViewModel: BasketViewModel = hiltViewModel()
 ) {
+
     val items = listOf(
-        ButtomNavItem(
+        BottomNavItem(
             name = stringResource(id = R.string.home),
             route = Screen.Home.route,
             selectedIcon = painterResource(id = R.drawable.home_fill),
             deselectedIcon = painterResource(id = R.drawable.home_outline)
         ),
-        ButtomNavItem(
+        BottomNavItem(
             name = stringResource(id = R.string.category),
             route = Screen.Category.route,
             selectedIcon = painterResource(id = R.drawable.category_fill),
             deselectedIcon = painterResource(id = R.drawable.category_outline)
         ),
 
-        ButtomNavItem(
+        BottomNavItem(
             name = stringResource(id = R.string.basket),
             route = Screen.Basket.route,
             selectedIcon = painterResource(id = R.drawable.cart_fill),
-            deselectedIcon = painterResource(id = R.drawable.cart_outline)
+            deselectedIcon = painterResource(id = R.drawable.cart_outline),
         ),
 
-        ButtomNavItem(
+        BottomNavItem(
             name = stringResource(id = R.string.my_digikala),
             route = Screen.Profile.route,
             selectedIcon = painterResource(id = R.drawable.user_fill),
@@ -68,7 +78,7 @@ fun BottomNavigationBar(
             backgroundColor = MaterialTheme.colors.bottomBar,
             elevation = 5.dp
         ) {
-
+            val cartCounter by basketViewModel.currentItemsCount.collectAsState(0)
             items.forEachIndexed { index, item ->
                 val selected = item.route == backStackEntry.value?.destination?.route
                 BottomNavigationItem(
@@ -77,24 +87,38 @@ fun BottomNavigationBar(
                     selectedContentColor = MaterialTheme.colors.selecedBottomBar,
                     unselectedContentColor = MaterialTheme.colors.unSelecedBottomBar,
                     icon = {
-                        Column(horizontalAlignment = CenterHorizontally) {  //Alignment.center
+                        Column(horizontalAlignment = CenterHorizontally) {
+
                             if (selected) {
 
-                                Icon(
-                                    modifier = Modifier.height(24.dp),
-                                    painter = item.selectedIcon,
-                                    contentDescription = item.name
-                                )
+                                if (index == 2 && cartCounter > 0) {
+                                    IconWithBadge(
+                                        icon = item.selectedIcon,
+                                        cartCounter = cartCounter
+                                    )
+                                } else {
+                                    Icon(
+                                        modifier = Modifier.height(24.dp),
+                                        painter = item.selectedIcon,
+                                        contentDescription = item.name
+                                    )
+                                }
 
                             } else {
 
-                                Icon(
-                                    modifier = Modifier.height(24.dp),
-                                    painter = item.deselectedIcon,
-                                    contentDescription = item.name
-                                )
+                                if (index == 2 && cartCounter > 0) {
+                                    IconWithBadge(
+                                        icon = item.deselectedIcon,
+                                        cartCounter = cartCounter
+                                    )
+                                } else {
+                                    Icon(
+                                        modifier = Modifier.height(24.dp),
+                                        painter = item.deselectedIcon,
+                                        contentDescription = item.name
+                                    )
+                                }
                             }
-
                             Text(
                                 text = item.name,
                                 textAlign = TextAlign.Center,
@@ -103,7 +127,7 @@ fun BottomNavigationBar(
                             )
                         }
                     }
-                    )
+                )
             }
         }
     }

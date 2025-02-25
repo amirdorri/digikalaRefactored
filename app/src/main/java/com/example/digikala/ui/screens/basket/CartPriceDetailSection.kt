@@ -41,7 +41,6 @@ fun CartPriceDetailSection(
             end = MaterialTheme.spacing.medium,
             top = MaterialTheme.spacing.medium,
             bottom = 120.dp
-
         )
     ) {
 
@@ -70,7 +69,9 @@ fun CartPriceDetailSection(
             stringResource(id = R.string.goods_price),
             DigitHelper.digitBytLocateAndSeparator(item.totalPrice.toString())
         )
+
         val discountPercent = (1 - item.payablePrice.toDouble() / item.totalPrice.toDouble()) * 100
+
         PriceRow(
             stringResource(id = R.string.goods_discount),
             DigitHelper.digitBytLocateAndSeparator(item.totalDiscount.toString()),
@@ -221,57 +222,7 @@ private fun PriceRow(
 
     }
 }
-//@Composable
-//private fun DigiClubScore(
-//    payedPrice: Long
-//) {
-//
-//    val score = payedPrice / 100_000
-//
-//    Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
-//
-//    Row(
-//        modifier = Modifier
-//            .fillMaxWidth(),
-//        horizontalArrangement = Arrangement.SpaceBetween,
-//        verticalAlignment = Alignment.CenterVertically
-//    ) {
-//        Row(horizontalArrangement = Arrangement.Start) {
-//            Image(
-//                painter = painterResource(id = R.drawable.digi_score),
-//                contentDescription = "",
-//                modifier = Modifier
-//                    .size(22.dp)
-//                    .padding(MaterialTheme.spacing.extraSmall)
-//            )
-//            Text(
-//                text = stringResource(id = R.string.digiclub_score),
-//                style = MaterialTheme.typography.h6,
-//                fontWeight = FontWeight.Medium,
-//                color = Color.Gray,
-//            )
-//        }
-//
-//        Text(
-//            text = "${DigitHelper.digitBytLocateAndSeparator(score.toString())} ${stringResource(id = R.string.score)}",
-//            style = MaterialTheme.typography.body2,
-//            textAlign = TextAlign.End,
-//            fontWeight = FontWeight.Medium,
-//            color = MaterialTheme.colors.darkText,
-//        )
-//    }
-//
-//    Spacer(modifier = Modifier.height(MaterialTheme.spacing.biggerSmall))
-//
-//    Text(
-//        text = stringResource(R.string.digiclub_description),
-//        style = MaterialTheme.typography.h6,
-//        color = Color.Gray,
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(horizontal = MaterialTheme.spacing.biggerSmall)
-//    )
-//}
+
 
 
 
