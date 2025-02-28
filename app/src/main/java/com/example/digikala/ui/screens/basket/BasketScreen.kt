@@ -60,7 +60,7 @@ fun Basket(
 
         TabRow(
             selectedTabIndex = selectedTabIndex,
-            backgroundColor = Color.White,
+            backgroundColor =  MaterialTheme.colors.surface,
             contentColor = MaterialTheme.colors.digikalaRed,
             indicator = { line ->
                 Box(

@@ -1,6 +1,5 @@
 package com.example.digikala.ui.theme
 
-import android.provider.CalendarContract
 import androidx.compose.material.Colors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -22,7 +21,7 @@ val Colors.splashBg : Color
     @Composable
     get() = Color(0xffed1b34)
 
-val Colors.selecedBottomBar : Color
+val Colors.selectedBottomBar : Color
     @Composable
     get() = if (isLight)  Color(0xff43474c) else Color(0xffcfd4da)
 
@@ -85,3 +84,7 @@ val Colors.LightCyan : Color
 val Colors.semiDarkColor : Color
     @Composable
     get() = if (isLight) Color(0xff5c5e61) else Color(0xffd8d8d8)
+
+val Colors.CursorColor : Color
+    @Composable
+    get() = Color(0xff018577)

@@ -8,5 +8,4 @@ data class BottomNavItem(
     val route:String,
     val selectedIcon:Painter,
     val deselectedIcon:Painter,
-    val badge: @Composable () -> Unit = {}
 )

@@ -9,11 +9,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -25,12 +22,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.digikala.R
 import com.example.digikala.ui.screens.basket.IconWithBadge
-import com.example.digikala.ui.screens.basket.SetBadgeToTab
 import com.example.digikala.ui.theme.bottomBar
-import com.example.digikala.ui.theme.selecedBottomBar
+import com.example.digikala.ui.theme.selectedBottomBar
 import com.example.digikala.ui.theme.unSelecedBottomBar
 import com.example.digikala.viewmodel.BasketViewModel
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun BottomNavigationBar(
@@ -84,7 +79,7 @@ fun BottomNavigationBar(
                 BottomNavigationItem(
                     selected = selected,
                     onClick = { onItemClick(item) },
-                    selectedContentColor = MaterialTheme.colors.selecedBottomBar,
+                    selectedContentColor = MaterialTheme.colors.selectedBottomBar,
                     unselectedContentColor = MaterialTheme.colors.unSelecedBottomBar,
                     icon = {
                         Column(horizontalAlignment = CenterHorizontally) {

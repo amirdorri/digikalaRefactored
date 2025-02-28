@@ -1,4 +1,4 @@
-package com.example.digikala.ui.screens
+package com.example.digikala.ui.screens.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,7 +19,6 @@ import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.components.Loading3Dots
 import com.example.digikala.ui.theme.splashBg
 import kotlinx.coroutines.delay
-import kotlin.random.Random
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
