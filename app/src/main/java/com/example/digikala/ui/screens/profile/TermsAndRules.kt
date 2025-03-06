@@ -30,22 +30,32 @@ fun TermsAndRules(
             append(fullText)
             underLinedText.forEach { text ->
                 val startIndex = fullText.indexOf(text)
-                if (startIndex != -1) {  // Ensure text is found
-                    addStyle(
-                        style = SpanStyle(
-                            fontWeight = underLinedFontWeight,
-                            textDecoration = underLinedDecoration
-                        ),
-                        start = startIndex,
-                        end = startIndex + text.length
-                    )
-                }
+                val endIndex = startIndex + text.length
+                addStyle(
+                    style = SpanStyle(
+                        fontSize = fontSize,
+                        fontWeight = underLinedFontWeight,
+                        textDecoration = underLinedDecoration
+                    ),
+                    start = startIndex,
+                    end = endIndex
+                )
+                addStyle(
+                    style = SpanStyle(
+                        fontSize = fontSize,
+                        fontFamily = font_standard,
+                        color = textColor
+                    ),
+                    start = 0,
+                    end = fullText.length
+                )
             }
         },
-        textAlign = textAlign,
         modifier = Modifier.padding(
             horizontal = MaterialTheme.spacing.small,
             vertical = MaterialTheme.spacing.medium
-        )
+        ),
+        textAlign = textAlign,
     )
+
 }

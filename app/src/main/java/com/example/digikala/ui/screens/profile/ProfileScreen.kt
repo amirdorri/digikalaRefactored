@@ -36,111 +36,38 @@ import com.example.digikala.ui.theme.selectedBottomBar
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.viewmodel.DataStoreViewModel
+import com.example.digikala.viewmodel.ProfileViewModel
 
 
 @Composable
 fun ProfileScreen(
     navController: NavHostController,
-    dataStore: DataStoreViewModel = hiltViewModel()
+    dataStore: DataStoreViewModel = hiltViewModel(),
+    viewModel: ProfileViewModel = hiltViewModel()
 ) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                IconButton(
-                    onClick = {
-
-                    }
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.digi_settings),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .padding(
-                                horizontal = MaterialTheme.spacing.small,
-                                vertical = MaterialTheme.spacing.small,
-                            )
-                            .size(MaterialTheme.spacing.semiLarge),
-                        tint = MaterialTheme.colors.selectedBottomBar
-                    )
-                    IconButton(onClick = {}) {
-                        Icon(
-                            Icons.Filled.Close,
-                            contentDescription = "Close",
-                            modifier = Modifier
-                                .padding(MaterialTheme.spacing.small),
-                            tint = MaterialTheme.colors.selectedBottomBar
-                        )
-                    }
-
-                }
-            }
-        }
-        item { Spacer(modifier = Modifier.height(MaterialTheme.spacing.large)) }
-        item {
-            Image(
-                painter = painterResource(R.drawable.digi_smile),
-                contentDescription = "",
-                modifier = Modifier.size(200.dp)
-            )
-        }
-        item { Spacer(modifier = Modifier.height(MaterialTheme.spacing.large)) }
-        item {
-            Text(
-                modifier = Modifier.padding(
-                    horizontal = MaterialTheme.spacing.semiLarge
-                ),
-                style = MaterialTheme.typography.h6,
-                text = stringResource(id = R.string.loginTxt),
-                color = MaterialTheme.colors.darkText,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        item {
-            MyEditText(
-                value = "",
-                placeholder = stringResource(R.string.phone_and_email),
-                onValueChange = {
-
-                }
-            )
-        }
-        item {
-            MyButton(
-                text = stringResource(R.string.digikala_entry),
-                onClick = {
-
-                }
-            )
-        }
-        item {
-            Divider(
-                color = MaterialTheme.colors.searchBarBg,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .width(1.dp)
-                    .padding(top = MaterialTheme.spacing.medium)
-            )
-        }
-        item {
-            TermsAndRules(
-                fullText = stringResource(R.string.terms_and_rules),
-                underLinedText = listOf(
-                    stringResource(R.string.terms_and_rules),
-                    stringResource(R.string.privacy_and_rules)
-                ),
-                textColor = MaterialTheme.colors.semiDarkColor,
-                fontSize = 10.sp,
-                textAlign = TextAlign.Center
-            )
+    when (viewModel.screenState) {
+        ProfileScreenState.LOGIN_STATE -> {
+            LoginScreen()
         }
 
+        ProfileScreenState.REGISTER_STATE -> {
+            RegisterScreen()
+        }
+
+        ProfileScreenState.PROFILE_STATE -> {
+            Profile()
+        }
     }
+
+}
+
+@Composable
+fun Profile() {
+
+    Text(
+        text = "PROFILE"
+    )
+
 }
 
 //Column(
