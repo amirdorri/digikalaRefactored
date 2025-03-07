@@ -23,7 +23,8 @@ import com.example.digikala.ui.theme.spacing
 fun MyEditText(
     value: String,
     placeholder:String,
-    onValueChange: (it:String) -> Unit
+    onValueChange: (it:String) -> Unit,
+    isReadOnly : Boolean = false
 ) {
 
     TextField(
@@ -45,6 +46,9 @@ fun MyEditText(
             unfocusedIndicatorColor =  MaterialTheme.colors.searchBarBg,
             cursorColor =  MaterialTheme.colors.CursorColor,
         ),
+
+        readOnly = isReadOnly,
+
         placeholder = {
             Row(
                 modifier = Modifier

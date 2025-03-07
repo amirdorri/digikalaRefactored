@@ -118,7 +118,7 @@ fun LoginScreen(
                 text = stringResource(R.string.digikala_entry),
                 onClick = {
                     if (isValidPhone(viewModel.inputPhoneState) || isValidEmail(viewModel.inputPhoneState)) {
-                        viewModel.screenState = ProfileScreenState.PROFILE_STATE
+                        viewModel.screenState = ProfileScreenState.REGISTER_STATE
                     } else {
                         Toast.makeText(
                             context,
