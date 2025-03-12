@@ -9,6 +9,10 @@ object Constants {
     const val API_KEY = "EB43556E671B925B9C98E74643BCA"
     const val TIMEOUT_SECOND: Long = 60
     var USER_LANGUAGE = "USER_LANGUAGE"
+    var USER_PHONE = "USER_PHONE"
+    var USER_PASSWORD = "USER_PASSWORD"
+    var USER_ID = "USER_ID"
+    var USER_TOKEN = "USER_TOKEN"
     const val SHOPPING_CART_TABLE = "shopping_cart_table"
     const val DATABASE_NAME = "digikala_db"
     const val DIGIJET_URL = "https://www.digikalajet.com/user/address"
