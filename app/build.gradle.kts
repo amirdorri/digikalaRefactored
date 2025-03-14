@@ -1,12 +1,21 @@
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id ("com.google.devtools.ksp")
-    id ("com.google.dagger.hilt.android")
-
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
+val apikeyPropertiesFile = rootProject.file("key.properties")
+val apikeyProperties = Properties()
+
+if (apikeyPropertiesFile.exists()) {
+    apikeyPropertiesFile.inputStream().use { apikeyProperties.load(it) }
+} else {
+    println("⚠️ key.properties file not found!")
+}
 
 android {
     namespace = "com.example.digikala"
@@ -19,15 +28,22 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        // Extract values from key.properties safely
+        val xApiKey = apikeyProperties.getProperty("X_API_KEY", "")
+        val key = apikeyProperties.getProperty("KEY", "")
+        val iv = apikeyProperties.getProperty("IV", "")
+
+        // Properly format and add buildConfigField values
+        buildConfigField("String", "X_API_KEY", "\"$xApiKey\"")
+        buildConfigField("String", "KEY", "\"$key\"")
+        buildConfigField("String", "IV", "\"$iv\"")
+
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
         }
 
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -40,24 +56,25 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17 //1_8
+        sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "17"  //1.8
+        jvmTarget = "17"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"  //7=3
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
     packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }
 }
+
+
 
 dependencies {
     // Core Compose dependencies

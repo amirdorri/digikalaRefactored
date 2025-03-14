@@ -46,9 +46,9 @@ fun RegisterScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
     dataStore: DataStoreViewModel = hiltViewModel(),
 ) {
-  //  val loginResponse by viewModel.loginResponse.collectAsState()
+    //  val loginResponse by viewModel.loginResponse.collectAsState()
     val context = LocalContext.current
-  //  var loading by remember { mutableStateOf(false) }
+    //  var loading by remember { mutableStateOf(false) }
 
     LaunchedEffect(Dispatchers.Main) {
         viewModel.loginResponse.collectLatest { response ->
@@ -56,7 +56,7 @@ fun RegisterScreen(
 
                 is NetworkResult.Success -> {
 
-                    response.data?.let {user ->
+                    response.data?.let { user ->
                         if (user.token.isNotEmpty()) {
                             dataStore.saveUserToken(user.token)
                             dataStore.saveUserId(user.id)
@@ -132,7 +132,7 @@ fun RegisterScreen(
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
-        if (viewModel.loadingState){
+        if (viewModel.loadingState) {
             LoadingButton()
         } else {
             MyButton(text = stringResource(id = R.string.digikala_login)) {

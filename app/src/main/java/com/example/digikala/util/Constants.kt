@@ -1,14 +1,22 @@
 package com.example.digikala.util
 
+import com.example.digikala.BuildConfig
+
+
 object Constants {
 
     const val ENGLISH_LANG = "en"
     const val PERSIAN_LANG = "fa"
     const val DATASTORE_NAME = "DIGIKALA_DATA_STORE"
     const val BASE_URL = "https://truelearn-digikala.iran.liara.run/api/"
-    const val API_KEY = "EB43556E671B925B9C98E74643BCA"
-    const val TIMEOUT_SECOND: Long = 60
+    //const val API_KEY = "EB43556E671B925B9C98E74643BCA"
+
+    const val API_KEY = BuildConfig.X_API_KEY
+    const val KEY = BuildConfig.KEY
+    const val IV = BuildConfig.IV
+
     var USER_LANGUAGE = "USER_LANGUAGE"
+    const val TIMEOUT_SECOND: Long = 60
     var USER_PHONE = "USER_PHONE"
     var USER_PASSWORD = "USER_PASSWORD"
     var USER_ID = "USER_ID"

@@ -26,6 +26,7 @@ import com.example.digikala.navigation.setupNavGraph
 import com.example.digikala.ui.components.AppConfig
 import com.example.digikala.ui.components.ChangeStatusBarColor
 import com.example.digikala.ui.theme.DigikalaTheme
+import com.example.digikala.util.AES
 import com.example.digikala.util.Constants.ENGLISH_LANG
 import com.example.digikala.util.Constants.PERSIAN_LANG
 import com.example.digikala.util.Constants.USER_LANGUAGE
@@ -50,7 +51,6 @@ class MainActivity : ComponentActivity() {
                 ChangeStatusBarColor(navController = navController)
 
                 AppConfig()
-
 
                 val direction = if (USER_LANGUAGE == ENGLISH_LANG){
                     androidx.compose.ui.unit.LayoutDirection.Ltr
