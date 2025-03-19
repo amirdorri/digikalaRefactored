@@ -73,4 +73,20 @@
     <string name="digikala_login">Lets go!</string>
     <string name="password_error">The information entered is not correct</string>
     <string name="password_format_error">Password must be at least 6 digits</string>
+    <string name="digikala_score">digikala score</string>
+    <string name="digikala_wallet_active">activate wallet</string>
+    <string name="auth">user authentication</string>
+    <string name="club">digi club</string>
+    <string name="contact_us">contact us</string>
+    <string name="my_orders">my orders</string>
+    <string name="unpaid">waiting for payment</string>
+    <string name="processing">processing</string>
+    <string name="canceled">canceled</string>
+    <string name="returned">returned</string>
+
+    <string name="fav_list">Favorite list</string>
+    <string name="my_comments">Criticism and comments</string>
+    <string name="addresses">Addresses</string>
+    <string name="profile_data">User account information</string>
+
 </resources>

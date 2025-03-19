@@ -85,6 +85,10 @@ val Colors.semiDarkColor : Color
     @Composable
     get() = if (isLight) Color(0xff5c5e61) else Color(0xffd8d8d8)
 
+val Colors.settingArrow : Color
+    @Composable
+    get() = if (isLight) Color(0xff9e9fb1) else Color(0xffd8d8d8)
+
 val Colors.CursorColor : Color
     @Composable
     get() = Color(0xff018577)
