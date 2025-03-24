@@ -107,8 +107,8 @@ fun Basket(
         }
 
         when (selectedTabIndex) {
-            0 -> ShoppingCart()
-            1 -> NextShoppingCart()
+            0 -> ShoppingCart(navController)
+            1 -> NextShoppingCart(navController)
         }
     }
 }

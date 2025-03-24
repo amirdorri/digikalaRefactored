@@ -17,6 +17,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -24,38 +27,52 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.basket.CartItem
 import com.example.digikala.data.model.basket.CartStatus
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.viewmodel.BasketViewModel
+import com.example.digikala.viewmodel.DataStoreViewModel
 
 @Composable
 fun ShoppingCart(
-    viewModel: BasketViewModel = hiltViewModel()
+    navController: NavHostController,
+    viewModel: BasketViewModel = hiltViewModel(),
 ) {
     val cartDetail = viewModel.cartDetail.collectAsState()
     val currentCartItemState: BasketScreenState<List<CartItem>> by
     viewModel.currentCartItems.collectAsState(BasketScreenState.Loading)
 
+    var isCartEmpty by remember { mutableStateOf(true) }
+
     Box(
         modifier = Modifier
             .fillMaxSize(),
         contentAlignment = Alignment.TopCenter
-    ){
+    ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .padding(bottom = 60.dp),
         ) {
+
+            item {
+                if (USER_TOKEN == "null")
+                    LoginOrRegisterDialog(navController)
+            }
+
             when (currentCartItemState) {
                 is BasketScreenState.Success -> {
                     if ((currentCartItemState as BasketScreenState.Success<List<CartItem>>).data.isEmpty()) {
+                        isCartEmpty = true
                         item { EmptyBasket() }
                         item { SuggestListSection() }
                     } else {
+                        isCartEmpty = false
                         items((currentCartItemState as BasketScreenState.Success<List<CartItem>>).data) { item ->
                             CartItemCard(item, CartStatus.CURRENT_CART)
                         }
@@ -91,16 +108,16 @@ fun ShoppingCart(
             }
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 60.dp)
-        ) {
-            BuyingProcessContinue(cartDetail.value.payablePrice)
+        if (!isCartEmpty) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 60.dp)
+            ) {
+                BuyingProcessContinue(cartDetail.value.payablePrice)
+            }
         }
+
     }
-
-
-
 }

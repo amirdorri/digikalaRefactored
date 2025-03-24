@@ -24,19 +24,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.basket.CartItem
 import com.example.digikala.data.model.basket.CartStatus
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.viewmodel.BasketViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun NextShoppingCart(
-    viewModel : BasketViewModel = hiltViewModel()
+    navController: NavHostController,
+    viewModel: BasketViewModel = hiltViewModel()
 ) {
-   // val nextCartItems = remember { mutableStateOf(emptyList<CartItem>()) }
+    // val nextCartItems = remember { mutableStateOf(emptyList<CartItem>()) }
 
     val nextCartItemState: BasketScreenState<List<CartItem>> by
     viewModel.nextCartItems.collectAsState(BasketScreenState.Loading)
@@ -48,9 +51,14 @@ fun NextShoppingCart(
             .padding(bottom = 60.dp)
     ) {
 
+        item {
+            if (USER_TOKEN == "null")
+                LoginOrRegisterDialog(navController)
+        }
+
         when (nextCartItemState) {
             is BasketScreenState.Success -> {
-                if ((nextCartItemState as BasketScreenState.Success<List<CartItem>>).data.isEmpty()){
+                if ((nextCartItemState as BasketScreenState.Success<List<CartItem>>).data.isEmpty()) {
                     item { EmptyNextShoppingList() }
                 } else {
 
