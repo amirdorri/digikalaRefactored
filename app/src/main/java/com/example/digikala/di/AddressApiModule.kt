@@ -1,5 +1,6 @@
 package com.example.digikala.di
 
+import com.example.digikala.data.remote.AddressApi
 import com.example.digikala.data.remote.CheckoutApi
 import com.example.digikala.data.remote.HomeApiInterface
 import com.example.digikala.data.remote.ProfileApi
@@ -13,10 +14,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CheckoutApiModule {
+object AddressApiModule {
 
     @Provides
     @Singleton
-    fun provideCheckoutApiService(retrofit: Retrofit) : CheckoutApi =
-        retrofit.create(CheckoutApi::class.java)
+    fun provideAddressApiService(retrofit: Retrofit) : AddressApi =
+        retrofit.create(AddressApi::class.java)
 }

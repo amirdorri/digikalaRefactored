@@ -31,6 +31,7 @@ import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.basket.CartItem
 import com.example.digikala.data.model.basket.CartStatus
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.Constants.USER_TOKEN
@@ -103,7 +104,7 @@ fun ShoppingCart(
                 }
 
                 is BasketScreenState.Error -> {
-                    Log.e("3636", "err")
+                    Log.e("dorri","ERROR")
                 }
             }
         }
@@ -115,9 +116,14 @@ fun ShoppingCart(
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 60.dp)
             ) {
-                BuyingProcessContinue(cartDetail.value.payablePrice)
+                BuyingProcessContinue(cartDetail.value.payablePrice) {
+                    if (USER_TOKEN == "null") {
+                        navController.navigate(Screen.Profile.route)
+                    } else {
+                        navController.navigate(Screen.Checkout.route)
+                    }
+                }
             }
         }
-
     }
 }

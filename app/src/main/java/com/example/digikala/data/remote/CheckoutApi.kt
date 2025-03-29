@@ -9,8 +9,8 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface ProfileApi {
+interface CheckoutApi {
 
-    @POST("v1/login")
-    suspend fun login(@Body login : LoginRequest) : Response<ResponseResult<LoginResponse>>
+//    @POST("v1/login")
+//    suspend fun login(@Body login : LoginRequest) : Response<ResponseResult<LoginResponse>>
 }

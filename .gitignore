@@ -14,3 +14,8 @@
 .cxx
 local.properties
 api s
+*.jks
+.idea/
+app/release/
+/key.properties
+

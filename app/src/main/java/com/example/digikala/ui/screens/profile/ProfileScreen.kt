@@ -70,8 +70,6 @@ fun ProfileScreen(
             }
         }
     }
-
-
 }
 
 @Composable

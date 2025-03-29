@@ -30,7 +30,10 @@ import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.DigitHelper
 
 @Composable
-fun BuyingProcessContinue(price: Long) {
+fun BuyingProcessContinue(
+    price: Long,
+    onClick: () -> Unit
+) {
 
     Card(
         shape = MaterialTheme.roundedShape.extraSmall,
@@ -49,7 +52,7 @@ fun BuyingProcessContinue(price: Long) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Button(
-                onClick = {},
+                onClick = onClick,
                 colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.digikalaRed),
                 shape = MaterialTheme.roundedShape.small
             ) {

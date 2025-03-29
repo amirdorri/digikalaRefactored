@@ -8,6 +8,7 @@ sealed class Screen(val route: String) {
     object Basket : Screen("basket_screen")
     object Profile : Screen("profile_screen")
     object WebView : Screen("webView_screen")
+    object Checkout : Screen("checkout_screen")
 
     fun withArgs(vararg args:Any):String{
         return buildString {

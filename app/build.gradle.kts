@@ -1,11 +1,14 @@
 import java.util.Properties
-import java.io.FileInputStream
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    kotlin("plugin.serialization") version "2.1.20"
+ //   id("org.jetbrains.kotlin.plugin.serialization")
+  //  id("androidx.compose.compiler")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
 }
 
 val apikeyPropertiesFile = rootProject.file("key.properties")
@@ -32,7 +35,6 @@ android {
         val xApiKey = apikeyProperties.getProperty("X_API_KEY", "")
         val key = apikeyProperties.getProperty("KEY", "")
         val iv = apikeyProperties.getProperty("IV", "")
-
         // Properly format and add buildConfigField values
         buildConfigField("String", "X_API_KEY", "\"$xApiKey\"")
         buildConfigField("String", "KEY", "\"$key\"")
@@ -48,11 +50,10 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -67,7 +68,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "2.0.0"//1.5.1
     }
     packaging {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
@@ -80,20 +81,21 @@ dependencies {
     // Core Compose dependencies
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    implementation("androidx.activity:activity-compose:1.9.3")
-    implementation(platform("androidx.compose:compose-bom:2024.11.00"))
+    implementation("androidx.activity:activity-compose:1.10.1") //1.9.3
+    implementation(platform("androidx.compose:compose-bom:2025.03.01"))//compose-bom:2024.11.00
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material:material:1.7.5")
-    implementation("androidx.compose.material:material-icons-core:1.7.5")
-    implementation("androidx.compose.material:material-icons-extended:1.7.5")
+    implementation("androidx.compose.material:material:1.7.8") //1.7.5
+    implementation("androidx.compose.material:material-icons-core:1.7.8")//
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")//
+    implementation("androidx.compose.compiler:compiler:1.5.15") // compose compiler
 
     // Testing dependencies
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.11.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2025.03.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
@@ -109,7 +111,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
 
     // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.1.4")
 
     // Hilt dependencies
     implementation("com.google.dagger:hilt-android:2.51.1")
@@ -117,7 +119,7 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Compose Navigation
-    implementation("androidx.navigation:navigation-compose:2.8.4")
+    implementation("androidx.navigation:navigation-compose:2.8.9")
 
     // Lottie for animations
     implementation("com.airbnb.android:lottie-compose:6.4.0")
@@ -134,6 +136,11 @@ dependencies {
     // Pager support
     implementation("com.google.accompanist:accompanist-pager:0.34.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.34.0")
+
+    //kotlinx serialization
+    //implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
 }
 
 

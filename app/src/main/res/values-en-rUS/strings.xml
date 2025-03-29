@@ -90,5 +90,16 @@
     <string name="profile_data">User account information</string>
     <string name="login_or_register">login or register</string>
     <string name="login_or_register_msg">for a better experience of shopping and checking the send process please log in</string>
+    <string name="address_and_time">address and send time</string>
+    <string name="send_to">send to</string>
+    <string name="add_address">add address</string>
+    <string name="change_address">change address</string>
+    <string name="no_address">no address to show</string>
+    <string name="deliveryAndTimeMethod">sending time and method</string>
+    <string name="delivery_1">product 1 of 1 </string>
+    <string name="ready_to_send">ready to send</string>
+    <string name="choose_time">choose the send time</string>
+    <string name="factor_info">"You can receive your purchase invoice after order delivery from the order details section in your user account.</string>
+
 
 </resources>

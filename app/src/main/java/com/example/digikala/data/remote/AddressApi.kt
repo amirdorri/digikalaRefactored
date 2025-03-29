@@ -1,16 +1,14 @@
 package com.example.digikala.data.remote
 
 import com.example.digikala.data.model.ResponseResult
-import com.example.digikala.data.model.category.SubCategoryModel
-import com.example.digikala.data.model.profile.LoginRequest
-import com.example.digikala.data.model.profile.LoginResponse
+import com.example.digikala.data.model.address.UserAddress
 import retrofit2.Response
-import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.Query
 
-interface CheckoutApi {
+interface AddressApi {
 
-//    @POST("v1/login")
-//    suspend fun login(@Body login : LoginRequest) : Response<ResponseResult<LoginResponse>>
+    @GET("v1/getUserAddress")
+    suspend fun getUserAddressList(@Query("token") token: String): Response<ResponseResult<List<UserAddress>>>
+
 }

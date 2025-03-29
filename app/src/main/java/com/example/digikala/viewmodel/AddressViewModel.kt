@@ -1,43 +1,40 @@
 package com.example.digikala.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.digikala.data.model.profile.LoginRequest
-import com.example.digikala.data.model.profile.LoginResponse
+import com.example.digikala.data.model.address.UserAddress
 import com.example.digikala.data.remote.NetworkResult
-import com.example.digikala.repository.CheckoutRepo
-import com.example.digikala.repository.ProfileRepo
-import com.example.digikala.ui.screens.profile.ProfileScreenState
+import com.example.digikala.repository.AddressRepo
+import com.example.digikala.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CheckoutViewModel @Inject constructor(private val repository: CheckoutRepo) : ViewModel() {
+class AddressViewModel @Inject constructor(private val repo: AddressRepo) : ViewModel() {
 
-//    var screenState by mutableStateOf(ProfileScreenState.LOGIN_STATE)
-//    var inputPhoneState by mutableStateOf("")
-//    var loadingState by mutableStateOf(false)
-//    var inputPasswordState by mutableStateOf("")
-//    val loginResponse = MutableStateFlow<NetworkResult<LoginResponse>>(NetworkResult.Loading())
-//
-//    fun login(){
-//        viewModelScope.launch {
-//            loadingState = true
-//            val loginRequest = LoginRequest(inputPhoneState, inputPasswordState)
-//            loginResponse.emit(repository.login(loginRequest))
-//
-//        }
-//    }
-//
-//    fun refreshToken(phone : String, password : String) {
-//        viewModelScope.launch {
-//            val loginRequest = LoginRequest(phone, password)
-//            loginResponse.emit(repository.login(loginRequest))
-//        }
-//    }
+
+    val userAddressList =
+        MutableStateFlow<NetworkResult<List<UserAddress>>>(NetworkResult.Loading())
+
+
+    init {
+        Log.d("VIEWMODEL_INIT", "AddressViewModel initialized, calling getUserAddressList")
+        getUserAddressList(Constants.USER_TOKEN)
+    }
+
+    private fun getUserAddressList(token: String) {
+        viewModelScope.launch {
+            userAddressList.emit(repo.getUserAddressList(token))
+            try {
+                Log.d("API_CALL", "Fetching user addresses...")
+                val response = repo.getUserAddressList(token)
+                Log.d("API_RESPONSE", "Raw response: $response")
+            } catch (e: Exception) {
+                Log.e("API_ERROR", "Failed to fetch user addresses: ${e.message}")
+            }
+        }
+    }
 }

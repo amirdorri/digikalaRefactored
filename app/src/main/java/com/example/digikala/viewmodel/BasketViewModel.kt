@@ -35,6 +35,7 @@ class BasketViewModel @Inject constructor(private val repository: BasketRepo) : 
     private val _currentCartItems: MutableStateFlow<BasketScreenState<List<CartItem>>> =
         MutableStateFlow(BasketScreenState.Loading)
     val currentCartItems: StateFlow<BasketScreenState<List<CartItem>>> = _currentCartItems
+    val userCartItems: MutableStateFlow<List<CartItem>> = MutableStateFlow(emptyList())
 
     private val _nextCartItems: MutableStateFlow<BasketScreenState<List<CartItem>>> =
         MutableStateFlow(BasketScreenState.Loading)
@@ -49,6 +50,7 @@ class BasketViewModel @Inject constructor(private val repository: BasketRepo) : 
             launch {
                 repository.currentCartItems.collectLatest { cartItems ->
                     _currentCartItems.emit(BasketScreenState.Success(cartItems))
+                    userCartItems.emit(cartItems)
                 }
             }
             launch {

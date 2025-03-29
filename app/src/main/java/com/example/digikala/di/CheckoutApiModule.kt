@@ -1,5 +1,6 @@
 package com.example.digikala.di
 
+import com.example.digikala.data.remote.CheckoutApi
 import com.example.digikala.data.remote.HomeApiInterface
 import com.example.digikala.data.remote.ProfileApi
 import dagger.Module
@@ -12,10 +13,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ProfileApiInterfaceModule {
+object CheckoutApiModule {
 
     @Provides
     @Singleton
-    fun provideProfileApiService(retrofit: Retrofit) : ProfileApi =
-        retrofit.create(ProfileApi::class.java)
+    fun provideCheckoutApiService(retrofit: Retrofit) : CheckoutApi =
+        retrofit.create(CheckoutApi::class.java)
 }

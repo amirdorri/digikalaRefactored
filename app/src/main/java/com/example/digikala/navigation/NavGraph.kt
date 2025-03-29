@@ -8,13 +8,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.digikala.ui.screens.basket.BasketScreen
 import com.example.digikala.ui.screens.category.CategoryScreen
+import com.example.digikala.ui.screens.checkout.CheckoutScreen
 import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
 
 @Composable
-fun setupNavGraph(navController: NavHostController) {
+fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = Screen.Splash.route
@@ -38,6 +39,10 @@ fun setupNavGraph(navController: NavHostController) {
 
         composable(Screen.Profile.route) {
             ProfileScreen(navController)
+        }
+
+        composable(Screen.Checkout.route) {
+            CheckoutScreen(navController)
         }
 
         composable(

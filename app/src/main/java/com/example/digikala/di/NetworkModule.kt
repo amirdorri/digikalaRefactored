@@ -1,6 +1,5 @@
 package com.example.digikala.di
 
-import com.example.digikala.data.remote.HomeApiInterface
 import com.example.digikala.util.Constants.API_KEY
 import com.example.digikala.util.Constants.BASE_URL
 import com.example.digikala.util.Constants.TIMEOUT_SECOND
