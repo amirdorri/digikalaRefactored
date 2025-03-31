@@ -105,6 +105,8 @@
     <string name="deliveryCost">هزینه ارسال</string>
     <string name="shipping_cost_last_alert">محاسبه شده بر اساس آدرس، زمان تحویل، حجم و وزن مرسوله شما</string>
     <string name="final_price">مبلغ قابل پرداخت</string>
+    <string name="pishtaz_post">ارسال توسط پست پیشتاز</string>
+    <string name="delivery_delay">سه تا پنج روز کاری</string>
 
 
 </resources>

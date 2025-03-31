@@ -36,10 +36,9 @@ import com.example.digikala.util.DigitHelper.digitByLocate
 
 @Composable
 fun CartItemReviewSection(
-    shippingCost: Int,
     cartDetail: CartDetails,
     currentCartItems: List<CartItem>,
-    //onDeliveryTimeClick: () -> Unit
+    onDeliveryTimeClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -117,18 +116,26 @@ fun CartItemReviewSection(
                     }
                 }
 
-                Text(
-                    text = stringResource(id = R.string.ready_to_send),
-                    style = MaterialTheme.typography.extraSmall,
-                    color = Color.Gray,
-                    modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
-                )
+                Row {
+                    Text(
+                        text = stringResource(id = R.string.ready_to_send),
+                        style = MaterialTheme.typography.extraSmall,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+                    )
+                    Text(
+                        text = " : ${stringResource(R.string.pishtaz_post)} (${stringResource(R.string.delivery_delay)})",
+                        style = MaterialTheme.typography.extraSmall,
+                        color = Color.Gray,
+                        modifier = Modifier.padding(vertical = MaterialTheme.spacing.medium),
+                    )
+                }
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = MaterialTheme.spacing.medium)
-                        .clickable {},//onDeliveryTimeClick()
+                        .clickable {onDeliveryTimeClick()},
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ){
