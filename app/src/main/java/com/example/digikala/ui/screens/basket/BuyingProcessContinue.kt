@@ -2,6 +2,7 @@ package com.example.digikala.ui.screens.basket
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.digikala.R
+import com.example.digikala.ui.theme.bottomBar
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.digikalaRed
 import com.example.digikala.ui.theme.elevation
@@ -32,8 +35,13 @@ import com.example.digikala.util.DigitHelper
 @Composable
 fun BuyingProcessContinue(
     price: Long,
-    onClick: () -> Unit
+    shippingCost : Int = 0,
+    onClick: () -> Unit,
 ) {
+
+    var title = stringResource(R.string.goods_total_price)
+    if (shippingCost > 0)
+        title = stringResource(R.string.final_price)
 
     Card(
         shape = MaterialTheme.roundedShape.extraSmall,
@@ -72,20 +80,21 @@ fun BuyingProcessContinue(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.goods_total_price),
+                    text = title,
                     color = MaterialTheme.colors.darkText,
                     style = MaterialTheme.typography.h6,
                 )
                 Row() {
                     Text(
-                        text = DigitHelper.digitBytLocateAndSeparator(price.toString()),
+                        text = DigitHelper.digitBytLocateAndSeparator((price + shippingCost).toString()),
                         style = MaterialTheme.typography.body2,
                         fontWeight = FontWeight.SemiBold
                     )
 
-                    Image(
+                    Icon(
                         painter = painterResource(id = R.drawable.toman),
                         contentDescription = "",
+                        tint = if (isSystemInDarkTheme()) Color.White else Color.Black,
                         modifier = Modifier
                             .size(MaterialTheme.spacing.semiLarge)
                             .padding(horizontal = MaterialTheme.spacing.extraSmall)

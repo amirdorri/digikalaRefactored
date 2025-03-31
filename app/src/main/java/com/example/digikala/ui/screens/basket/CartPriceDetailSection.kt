@@ -32,8 +32,13 @@ import com.example.digikala.util.DigitHelper
 
 @Composable
 fun CartPriceDetailSection(
-    item : CartDetails
+    item : CartDetails,
+    shippingCost : Int = 0
 ) {
+
+    var title = stringResource(R.string.basket_summary)
+    if (shippingCost > 0)
+        title = stringResource(R.string.cost_details)
 
     Column(
         modifier = Modifier.padding(
@@ -49,7 +54,7 @@ fun CartPriceDetailSection(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = stringResource(R.string.basket_summary),
+                text = title,
                 style = MaterialTheme.typography.h4,
                 color = MaterialTheme.colors.darkText
             )
@@ -84,26 +89,33 @@ fun CartPriceDetailSection(
 
         Spacer(modifier = Modifier.height(MaterialTheme.spacing.medium))
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = stringResource(R.string.dot_bullet),
-                color = Color.Gray,
-                style = MaterialTheme.typography.h2,
-                modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
-            )
+       if (shippingCost > 0) {
+           Divider(
+               Modifier
+                   .padding(
+                       vertical = MaterialTheme.spacing.medium,
+                       horizontal = MaterialTheme.spacing.small
+                   )
+                   .alpha(0.6f),
+               color = Color.LightGray
+           )
+           PriceRow(
+               stringResource(id = R.string.deliveryCost),
+               DigitHelper.digitBytLocateAndSeparator("$shippingCost")
+           )
 
-            Text(
-                text = stringResource(R.string.shipping_cost_alert),
-                style = MaterialTheme.typography.h6,
-                color = Color.Gray,
-                modifier = Modifier.weight(1f)
-            )
-        }
+           FirstDotText(stringResource(R.string.shipping_cost_last_alert))
+
+           PriceRow(
+               stringResource(id = R.string.final_price),
+               DigitHelper.digitBytLocateAndSeparator((item.payablePrice + shippingCost).toString())
+           )
+
+       } else {
+           FirstDotText(stringResource(R.string.shipping_cost_alert))
+       }
+
+
 
         Divider(
             Modifier
@@ -119,11 +131,33 @@ fun CartPriceDetailSection(
     }
 }
 
+@Composable
+fun FirstDotText(text : String) {
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(R.string.dot_bullet),
+            color = Color.Gray,
+            style = MaterialTheme.typography.h2,
+            modifier = Modifier.padding(MaterialTheme.spacing.extraSmall)
+        )
+
+        Text(
+            text = text,
+            style = MaterialTheme.typography.h6,
+            color = Color.Gray,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
 
 @Composable
-private fun DigiClubScore(
-    payedPrice : Long
-){
+private fun DigiClubScore(payedPrice : Long) {
 
     val score  = payedPrice / 100_000
 

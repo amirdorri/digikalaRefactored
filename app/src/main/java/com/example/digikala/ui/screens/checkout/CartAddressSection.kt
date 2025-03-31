@@ -45,8 +45,8 @@ import com.example.digikala.viewmodel.AddressViewModel
 @Composable
 fun CartAddressSection(
     navController: NavHostController,
-    viewModel: AddressViewModel = hiltViewModel()
-
+    viewModel: AddressViewModel = hiltViewModel(),
+    onAddressReady : (List<UserAddress>) -> Unit
 ) {
     var addressList by remember { mutableStateOf<List<UserAddress>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
@@ -59,6 +59,7 @@ fun CartAddressSection(
         is NetworkResult.Success -> {
             addressList = addressListResult.data ?: emptyList()
             if (addressList.isNotEmpty()) {
+                onAddressReady(addressList)
                 address = addressList[0].address
                 addressBtnText = stringResource(id = R.string.change_address)
                 addressName = addressList[0].name

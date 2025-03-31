@@ -99,7 +99,11 @@
     <string name="delivery_1">product 1 of 1 </string>
     <string name="ready_to_send">ready to send</string>
     <string name="choose_time">choose the send time</string>
+    <string name="cost_details">cost details</string>
+    <string name="deliveryCost">delivery Cost</string>
+    <string name="shipping_cost_last_alert">based on your address, deliver time and weight of your cart</string>
     <string name="factor_info">"You can receive your purchase invoice after order delivery from the order details section in your user account.</string>
+    <string name="final_price">"payable price</string>
 
 
 </resources>
