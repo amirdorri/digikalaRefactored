@@ -12,6 +12,8 @@ object Constants {
     const val API_KEY = BuildConfig.X_API_KEY
     const val KEY = BuildConfig.KEY
     const val IV = BuildConfig.IV
+    const val ZARINPAL_MERCHANT_ID = "12345"
+
 
     var USER_LANGUAGE = "USER_LANGUAGE"
     const val TIMEOUT_SECOND: Long = 60

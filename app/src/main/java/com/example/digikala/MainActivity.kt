@@ -2,6 +2,7 @@ package com.example.digikala
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 //import androidx.compose.material.ExperimentalMaterial3Api
@@ -19,6 +20,7 @@ import com.example.digikala.ui.theme.DigikalaTheme
 import com.example.digikala.util.Constants.ENGLISH_LANG
 import com.example.digikala.util.Constants.USER_LANGUAGE
 import com.example.digikala.util.LocaleUtils
+import com.example.digikala.util.ZarinpalPurchase
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -32,6 +34,14 @@ class MainActivity : ComponentActivity() {
         lateinit var navController: NavHostController
 
         super.onCreate(savedInstanceState)
+
+        ZarinpalPurchase.purchase(
+            activity = this,
+            amount = 1000,
+            description = "TEST") {
+            Log.e("DESC_ID", it)
+        }
+
         setContent {
             DigikalaTheme {
 
