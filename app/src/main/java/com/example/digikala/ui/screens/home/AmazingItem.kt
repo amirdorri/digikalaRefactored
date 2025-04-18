@@ -2,6 +2,7 @@ package com.example.digikala.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,9 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.home.AmazingItem
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.DigikalaLightRedText
 import com.example.digikala.ui.theme.darkText
@@ -48,7 +51,7 @@ import com.example.digikala.util.DigitHelper.applyDiscount
 import com.example.digikala.util.DigitHelper.digitBytLocateAndSeparator
 
 @Composable
-fun AmazingItem(item: AmazingItem) {
+fun AmazingItem(item: AmazingItem, navController: NavHostController) {
 
     Card(
         modifier = Modifier
@@ -56,7 +59,10 @@ fun AmazingItem(item: AmazingItem) {
             .padding(
                 vertical = MaterialTheme.spacing.semiLarge,
                 horizontal = MaterialTheme.spacing.semiSmall
-            ),
+            )
+            .clickable {
+                navController.navigate(Screen.ProductDetailScreen.withArgs(item._id))
+            },
         shape = MaterialTheme.roundedShape.small,
     ) {
         Column(

@@ -12,6 +12,7 @@ import com.example.digikala.ui.screens.checkout.CheckoutScreen
 import com.example.digikala.ui.screens.checkout.ConfirmPurchaseScreen
 import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
+import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
 
@@ -48,12 +49,12 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(
             Screen.ConfirmPurchase.route + "/{orderId}/{orderPrice}",
             arguments = listOf(
-                navArgument("orderId"){
+                navArgument("orderId") {
                     type = NavType.StringType
                     defaultValue = " "
                     nullable = true
                 },
-                navArgument("orderPrice"){
+                navArgument("orderPrice") {
                     type = NavType.StringType
                     defaultValue = " "
                     nullable = true
@@ -82,7 +83,19 @@ fun SetupNavGraph(navController: NavHostController) {
 
         }
 
-
+        composable(
+            Screen.ProductDetailScreen.route + "/{productId}",
+            arguments = listOf(
+                navArgument("productId") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("productId")?.let { productId ->
+                ProductDetailsScreen(navController, productId)
+            }
+        }
     }
-
 }
