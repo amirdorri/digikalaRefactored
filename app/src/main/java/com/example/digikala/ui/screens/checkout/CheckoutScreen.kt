@@ -25,12 +25,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.digikala.data.model.checkout.OrderDetail
 import com.example.digikala.data.remote.NetworkResult
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.components.MyLoading
 import com.example.digikala.ui.screens.basket.BuyingProcessContinue
 import com.example.digikala.ui.screens.basket.CartPriceDetailSection
 import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.viewmodel.BasketViewModel
 import com.example.digikala.viewmodel.CheckoutViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 //@Composable
@@ -143,7 +146,7 @@ fun CheckoutScreen(
 
     LaunchedEffect(true) {
         if (address.isNotBlank())
-          checkoutViewModel.getShippingCost(address)
+            checkoutViewModel.getShippingCost(address)
         else
             checkoutViewModel.getShippingCost("")
     }
@@ -165,23 +168,28 @@ fun CheckoutScreen(
     }
 
     var orderId by remember { mutableStateOf("") }
-    val orderResult by checkoutViewModel.orderResponse.collectAsState()
+    // val orderResult by checkoutViewModel.orderResponse.collectAsState()
 
-    when (orderResult) {
-        is NetworkResult.Success -> {
-            orderId = orderResult.data ?: ""
+    LaunchedEffect(Dispatchers.Main) {
+        checkoutViewModel.orderResponse.collectLatest { orderResult ->
+            when (orderResult) {
+                is NetworkResult.Success -> {
+                    orderId = orderResult.data ?: ""
+                    navController.navigate(Screen.ConfirmPurchase.withArgs(orderId, cartDetail.payablePrice + shippingCost))
+                }
 
-        }
+                is NetworkResult.Error -> {
+                    //   loading = false
+                    Log.e("3636", "CheckoutScreen error : ${orderResult.message}")
+                }
 
-        is NetworkResult.Error -> {
-         //   loading = false
-            Log.e("3636", "CheckoutScreen error : ${orderResult.message}")
-        }
-
-        is NetworkResult.Loading -> {
-          //  loading = true
+                is NetworkResult.Loading -> {
+                    //  loading = true
+                }
+            }
         }
     }
+
 
     val modalBottomSheetState = rememberModalBottomSheetState(
         ModalBottomSheetValue.Hidden,

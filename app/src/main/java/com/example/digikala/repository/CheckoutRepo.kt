@@ -2,6 +2,7 @@ package com.example.digikala.repository
 
 import com.example.digikala.data.datastore.BaseApiResponse
 import com.example.digikala.data.model.category.SubCategoryModel
+import com.example.digikala.data.model.checkout.ConfirmPurchase
 import com.example.digikala.data.model.checkout.OrderDetail
 import com.example.digikala.data.model.profile.LoginRequest
 import com.example.digikala.data.model.profile.LoginResponse
@@ -20,9 +21,14 @@ class CheckoutRepo @Inject constructor(private val api : CheckoutApi): BaseApiRe
     }
 
     suspend fun setNewOrder(orderDetail: OrderDetail): NetworkResult<String> {
-
         return safeApiCall {
             api.setNewOrder(orderDetail)
         }
     }
+
+    suspend fun confirmPurchase(confirmPurchase: ConfirmPurchase): NetworkResult<String> =
+        safeApiCall {
+            api.confirmPurchase(confirmPurchase)
+        }
+
 }

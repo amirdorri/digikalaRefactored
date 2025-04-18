@@ -26,22 +26,20 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter",
+    @SuppressLint(
+        "UnusedMaterial3ScaffoldPaddingParameter",
         "UnusedMaterialScaffoldPaddingParameter")
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         lateinit var navController: NavHostController
-
         super.onCreate(savedInstanceState)
 
-        ZarinpalPurchase.purchase(
-            activity = this,
-            amount = 1000,
-            description = "TEST") {
-            Log.e("DESC_ID", it)
-        }
-
+//        ZarinpalPurchase.purchase(
+//            activity = this,
+//            amount = 1000,
+//            description = "TEST") {
+//            Log.e("DESC_ID", it)
+//        }
         setContent {
             DigikalaTheme {
 
@@ -50,9 +48,9 @@ class MainActivity : ComponentActivity() {
 
                 AppConfig()
 
-                val direction = if (USER_LANGUAGE == ENGLISH_LANG){
+                val direction = if (USER_LANGUAGE == ENGLISH_LANG) {
                     androidx.compose.ui.unit.LayoutDirection.Ltr
-                }else{
+                } else {
                     androidx.compose.ui.unit.LayoutDirection.Rtl
                 }
 
@@ -64,15 +62,11 @@ class MainActivity : ComponentActivity() {
                                 onItemClick = {
                                     navController.navigate(it.route)
                                 })
-
                         }
                     ) {
                         SetupNavGraph(navController = navController)
-
                     }
-
                 }
-
             }
         }
     }

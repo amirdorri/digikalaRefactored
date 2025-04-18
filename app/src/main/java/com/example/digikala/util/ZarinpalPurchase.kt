@@ -31,6 +31,7 @@ object ZarinpalPurchase {
     ) {
 
         val client = ZarinPalBillingClient.newBuilder(activity)
+
             .enableShowInvoice()
             .setListener(stateListener)
             .build()
@@ -59,6 +60,22 @@ object ZarinpalPurchase {
                 }
             }
         )
+    }
+
+    fun testPurchase(
+        amount: Long,
+        description: String,
+        activity: Activity,
+        onPurchaseComplete: (String) -> Unit
+    ) {
+        Thread.sleep(1000)
+        onPurchaseComplete(generateRandomString(8))
+
+    }
+
+    private fun generateRandomString(length : Int) : String {
+        val chars = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        return List(length){chars.random()}.joinToString("")
     }
 
 }

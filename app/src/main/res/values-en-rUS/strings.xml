@@ -106,6 +106,13 @@
     <string name="final_price">"payable price</string>
     <string name="pishtaz_post">"send by post</string>
     <string name="delivery_delay">"3 to 5 days</string>
+    <string name="waiting_pay">"waiting for pay</string>
+    <string name="order_status">order status</string>
+    <string name="order_code">order code</string>
+    <string name="return_to_home_page">return to main page</string>
+    <string name="waiting_for_purchase">Awaiting payment</string>
+    <string name="purchase_is_ok">Payment was successful</string>
+
 
 
 </resources>

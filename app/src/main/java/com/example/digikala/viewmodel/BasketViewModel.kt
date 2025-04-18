@@ -93,7 +93,12 @@ class BasketViewModel @Inject constructor(private val repository: BasketRepo) : 
         viewModelScope.launch(Dispatchers.IO) {
             repository.insertCartItem(item)
         }
+    }
 
+    fun deleteAllItems() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAllItems()
+        }
     }
 
     fun removeCartItem(item: CartItem) {
@@ -113,6 +118,4 @@ class BasketViewModel @Inject constructor(private val repository: BasketRepo) : 
             repository.changeCartStatus(id = id, newCartStatus = newStatus)
         }
     }
-
-
 }

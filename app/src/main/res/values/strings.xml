@@ -107,6 +107,12 @@
     <string name="final_price">مبلغ قابل پرداخت</string>
     <string name="pishtaz_post">ارسال توسط پست پیشتاز</string>
     <string name="delivery_delay">سه تا پنج روز کاری</string>
+    <string name="waiting_pay">در انتظار پرداخت</string>
+    <string name="order_status">وضعیت سفارش</string>
+    <string name="order_code">کد سفارش</string>
+    <string name="return_to_home_page">بازگشت به صفحه اصلی</string>
+    <string name="waiting_for_purchase">در انتظار پرداخت</string>
+    <string name="purchase_is_ok">پرداخت موفقیت آمیز بود</string>
 
 
 </resources>

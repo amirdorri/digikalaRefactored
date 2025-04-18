@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.example.digikala.ui.screens.basket.BasketScreen
 import com.example.digikala.ui.screens.category.CategoryScreen
 import com.example.digikala.ui.screens.checkout.CheckoutScreen
+import com.example.digikala.ui.screens.checkout.ConfirmPurchaseScreen
 import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
@@ -43,6 +44,27 @@ fun SetupNavGraph(navController: NavHostController) {
 
         composable(Screen.Checkout.route) {
             CheckoutScreen(navController)
+        }
+        composable(
+            Screen.ConfirmPurchase.route + "/{orderId}/{orderPrice}",
+            arguments = listOf(
+                navArgument("orderId"){
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                },
+                navArgument("orderPrice"){
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("orderId")?.let { orderId ->
+                it.arguments!!.getString("orderPrice")?.let { orderPrice ->
+                    ConfirmPurchaseScreen(navController, orderId, orderPrice)
+                }
+            }
         }
 
         composable(
