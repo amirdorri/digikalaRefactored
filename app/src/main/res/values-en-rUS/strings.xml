@@ -112,6 +112,9 @@
     <string name="return_to_home_page">return to main page</string>
     <string name="waiting_for_purchase">Awaiting payment</string>
     <string name="purchase_is_ok">Payment was successful</string>
+    <string name="add_to_cart">add to cart</string>
+    <string name="user_comments">user comments</string>
+    <string name="view">view</string>
 
 
 

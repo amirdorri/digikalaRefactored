@@ -73,6 +73,14 @@ val Colors.DarkCyan : Color
     @Composable
     get() = Color(0xff0fabc6)
 
+val Colors.Gold : Color
+    @Composable
+    get() = Color(0xfff9bc01)
+
+val Colors.grayAlpha : Color
+    @Composable
+    get() = Color(0xffc1c2c6)
+
 val Colors.digikalaRed : Color
     @Composable
     get() = Color(0xffed1b34)

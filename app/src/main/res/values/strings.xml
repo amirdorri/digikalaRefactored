@@ -113,6 +113,9 @@
     <string name="return_to_home_page">بازگشت به صفحه اصلی</string>
     <string name="waiting_for_purchase">در انتظار پرداخت</string>
     <string name="purchase_is_ok">پرداخت موفقیت آمیز بود</string>
+    <string name="add_to_cart">افزودن به سبد خرید</string>
+    <string name="user_comments">دیدگاه کاربران</string>
+    <string name="view">بازدید</string>
 
 
 </resources>
