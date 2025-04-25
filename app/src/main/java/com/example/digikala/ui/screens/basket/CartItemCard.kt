@@ -334,7 +334,11 @@ fun CartItemCard(
                 Column {
 
                     Text(
-                        text = "${DigitHelper.digitBytLocateAndSeparator(discountAmount.toString())} ${stringResource(R.string.discount)}",
+                        text = "${DigitHelper.digitBytLocateAndSeparator(discountAmount.toString())} ${
+                            stringResource(
+                                R.string.discount
+                            )
+                        }",
                         style = MaterialTheme.typography.extraSmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colors.digikalaRed
@@ -420,7 +424,7 @@ fun CartItemCard(
 }
 
 @Composable
-private fun DetailRow(
+fun DetailRow(
     icon: Painter,
     text: String,
     color: Color,

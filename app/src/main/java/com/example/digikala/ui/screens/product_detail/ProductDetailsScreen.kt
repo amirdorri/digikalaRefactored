@@ -2,19 +2,21 @@ package com.example.digikala.ui.screens.product_detail
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.digikala.data.model.product_detail.ProductColor
 import com.example.digikala.data.model.product_detail.ProductDetail
 import com.example.digikala.data.model.product_detail.SliderImage
 import com.example.digikala.data.remote.NetworkResult
@@ -31,6 +33,7 @@ fun ProductDetailsScreen(
 ) {
     var productDetailList by remember { mutableStateOf(ProductDetail()) }
     var imageSlider by remember { mutableStateOf<List<SliderImage>>(emptyList()) }
+    var productColors by remember { mutableStateOf<List<ProductColor>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
 
     LaunchedEffect(true) {
@@ -39,7 +42,8 @@ fun ProductDetailsScreen(
             when (productDetail) {
                 is NetworkResult.Success -> {
                     productDetailList = productDetail.data!!
-                    imageSlider = productDetail.data.imageSlider!!
+                    imageSlider = productDetail.data.imageSlider ?: emptyList()
+                    productColors = productDetail.data.colors ?: emptyList()
                     productDetailList.let { Log.e("ProductDetailScreen", it.toString()) }
                     loading = false
                 }
@@ -54,7 +58,6 @@ fun ProductDetailsScreen(
                 }
             }
         }
-
     }
 
     if (loading) {
@@ -66,14 +69,14 @@ fun ProductDetailsScreen(
                 ProductDetailBottomBar(productDetailList, navController)
             }
         ) {
-            LazyColumn() {
+            LazyColumn(
+                modifier = Modifier.padding(bottom = 70.dp)
+            ) {
                 item { ProductTopSlider(imageSlider) }
                 item { ProductDetailHeader(productDetailList) }
+                item { ProductColorSection(productColors) }
+                item { SellerInfoSection() }
             }
         }
-
-        //Text(text = productId)
     }
-
-
 }
