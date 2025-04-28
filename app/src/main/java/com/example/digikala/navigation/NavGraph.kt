@@ -12,6 +12,7 @@ import com.example.digikala.ui.screens.checkout.CheckoutScreen
 import com.example.digikala.ui.screens.checkout.ConfirmPurchaseScreen
 import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
+import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
@@ -95,6 +96,21 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
             it.arguments!!.getString("productId")?.let { productId ->
                 ProductDetailsScreen(navController, productId)
+            }
+        }
+
+        composable(
+            Screen.ProductDescScreen.route + "/{description}",
+            arguments = listOf(
+                navArgument("description") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("description")?.let { description ->
+                ProductDescScreen(navController, description)
             }
         }
     }

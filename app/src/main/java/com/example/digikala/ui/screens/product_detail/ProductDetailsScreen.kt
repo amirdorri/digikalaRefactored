@@ -35,6 +35,8 @@ fun ProductDetailsScreen(
     var imageSlider by remember { mutableStateOf<List<SliderImage>>(emptyList()) }
     var productColors by remember { mutableStateOf<List<ProductColor>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
+    var categoryId by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
 
     LaunchedEffect(true) {
         viewModel.getProductById(productId)
@@ -42,6 +44,8 @@ fun ProductDetailsScreen(
             when (productDetail) {
                 is NetworkResult.Success -> {
                     productDetailList = productDetail.data!!
+                    categoryId = productDetail.data.categoryId ?: ""
+                    description = productDetail.data.description ?: ""
                     imageSlider = productDetail.data.imageSlider ?: emptyList()
                     productColors = productDetail.data.colors ?: emptyList()
                     productDetailList.let { Log.e("ProductDetailScreen", it.toString()) }
@@ -76,6 +80,8 @@ fun ProductDetailsScreen(
                 item { ProductDetailHeader(productDetailList) }
                 item { ProductColorSection(productColors) }
                 item { SellerInfoSection() }
+                item { SimilarProducts(categoryId) }
+                item { ProductDescription(navController,description) }
             }
         }
     }

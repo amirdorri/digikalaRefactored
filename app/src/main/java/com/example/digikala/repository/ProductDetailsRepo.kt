@@ -1,6 +1,8 @@
 package com.example.digikala.repository
 
 import com.example.digikala.data.datastore.BaseApiResponse
+import com.example.digikala.data.model.home.AmazingItem
+import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.data.model.product_detail.ProductDetail
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.data.remote.ProductDetailsApi
@@ -13,4 +15,8 @@ class ProductDetailsRepo @Inject constructor(private val api: ProductDetailsApi)
             api.getProductById(productId)
         }
 
+    suspend fun getSimilarProducts(categoryId: String): NetworkResult<List<AmazingItem>> =
+        safeApiCall {
+            api.getSimilarProducts(categoryId)
+        }
 }
