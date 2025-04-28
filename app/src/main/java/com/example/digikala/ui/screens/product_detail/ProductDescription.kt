@@ -41,7 +41,11 @@ import com.example.digikala.ui.theme.spacing
 import com.example.digikala.ui.theme.unSelecedBottomBar
 
 @Composable
-fun ProductDescription(navController: NavHostController,description: String) {
+fun ProductDescription(
+    navController: NavHostController,
+    description: String,
+    technicalFeature: String
+) {
 
     var isDescription by remember { mutableStateOf(true) }
     if (description.isBlank()) isDescription = false
@@ -76,9 +80,7 @@ fun ProductDescription(navController: NavHostController,description: String) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = MaterialTheme.spacing.medium)
-            .clickable {
-                //  navController.navigate(Screen.ProductTechnicalFeatures.withArgs(technicalFeatures))
-            },
+            .clickable { navController.navigate(Screen.TechnicalFeaturesScreen.withArgs(technicalFeature)) },
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -110,7 +112,7 @@ fun ProductDescription(navController: NavHostController,description: String) {
                 .fillMaxWidth()
                 .padding(horizontal = MaterialTheme.spacing.medium)
                 .clickable {
-                      navController.navigate(Screen.ProductDescScreen.withArgs(description))
+                    navController.navigate(Screen.ProductDescScreen.withArgs(description))
                 },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically

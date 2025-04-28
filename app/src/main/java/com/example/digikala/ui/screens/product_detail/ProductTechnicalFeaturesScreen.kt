@@ -16,7 +16,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,14 +27,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.ui.theme.darkText
+import com.example.digikala.ui.theme.grayCategory
 import com.example.digikala.ui.theme.searchBarBg
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
+import org.json.JSONObject
 
 @Composable
-fun ProductDescScreen(navController: NavHostController, desc: String) {
-
-    Column {
+fun ProductTechnicalFeaturesScreen(
+    navController: NavHostController,
+    jsonString: String,
+) {
+    Column() {
 
         Row(
             modifier = Modifier
@@ -44,17 +48,18 @@ fun ProductDescScreen(navController: NavHostController, desc: String) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                imageVector = Icons.Filled.ArrowForward,
                 contentDescription = "",
                 modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.medium)
                     .size(24.dp)
+                    .padding(horizontal = MaterialTheme.spacing.medium)
                     .clickable { navController.popBackStack() }
             )
 
             Text(
-                text = stringResource(id = R.string.review),
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(id = R.string.technical_specifications),
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.h3,
                 fontWeight = FontWeight.Bold,
@@ -71,12 +76,14 @@ fun ProductDescScreen(navController: NavHostController, desc: String) {
         )
 
 
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState())
-        ) {
 
+        Column(
+            modifier = Modifier
+                .padding(top = MaterialTheme.spacing.small)
+                .verticalScroll(rememberScrollState())
+        ) {
             Text(
-                text = stringResource(id = R.string.product_introduce),
+                text = stringResource(id = R.string.specifications),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(MaterialTheme.spacing.semiMedium),
@@ -86,17 +93,60 @@ fun ProductDescScreen(navController: NavHostController, desc: String) {
                 color = MaterialTheme.colors.darkText,
             )
 
+            val jsonObject = JSONObject(jsonString)
+            val keys = jsonObject.keys()
+            while (keys.hasNext()) {
+                val key = keys.next()
+                val value = jsonObject.get(key).toString()
+
+                TechnicalFeaturesRow(key, value)
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun TechnicalFeaturesRow(key: String, value: String) {
+
+    Row {
+        Column(
+            modifier = Modifier
+                .weight(0.35f)
+                .padding(
+                    vertical = MaterialTheme.spacing.small,
+                    horizontal = MaterialTheme.spacing.medium
+                )
+        ) {
             Text(
-                text = desc,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(MaterialTheme.spacing.semiMedium),
-                textAlign = TextAlign.Start,
+                text = key,
                 style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colors.semiDarkColor,
             )
         }
 
+        Column(
+            modifier = Modifier
+                .weight(0.65f)
+                .padding(
+                    vertical = MaterialTheme.spacing.small,
+                    horizontal = MaterialTheme.spacing.medium
+                )){
+            Text(
+                text = value,
+                style = MaterialTheme.typography.h6,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colors.darkText
+            )
+            Spacer(
+                modifier = Modifier
+                    .padding(top = MaterialTheme.spacing.biggerSmall)
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(MaterialTheme.colors.grayCategory)
+            )
+        }
     }
-
 }
+

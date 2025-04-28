@@ -37,6 +37,7 @@ fun ProductDetailsScreen(
     var loading by remember { mutableStateOf(false) }
     var categoryId by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    var technicalFeature by remember { mutableStateOf("") }
 
     LaunchedEffect(true) {
         viewModel.getProductById(productId)
@@ -48,6 +49,7 @@ fun ProductDetailsScreen(
                     description = productDetail.data.description ?: ""
                     imageSlider = productDetail.data.imageSlider ?: emptyList()
                     productColors = productDetail.data.colors ?: emptyList()
+                    technicalFeature = productDetail.data.technicalFeatures.toString()
                     productDetailList.let { Log.e("ProductDetailScreen", it.toString()) }
                     loading = false
                 }
@@ -81,7 +83,7 @@ fun ProductDetailsScreen(
                 item { ProductColorSection(productColors) }
                 item { SellerInfoSection() }
                 item { SimilarProducts(categoryId) }
-                item { ProductDescription(navController,description) }
+                item { ProductDescription(navController,description, technicalFeature) }
             }
         }
     }

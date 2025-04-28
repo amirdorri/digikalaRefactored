@@ -1,5 +1,8 @@
 package com.example.digikala.data.model.product_detail
 
+import com.google.gson.JsonObject
+
+
 data class ProductDetail(
     val _id: String? = null,
     val name: String? = null,
@@ -18,7 +21,8 @@ data class ProductDetail(
     val agreePercent: Int? = null,
     val imageSlider: List<SliderImage>? = null,
     val colors: List<ProductColor>? = null,
-    val comments: List<Comment>? = null
+    val comments: List<Comment>? = null,
+    val technicalFeatures: JsonObject? = null,
 )
 
 data class SliderImage(

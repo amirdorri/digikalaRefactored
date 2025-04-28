@@ -14,6 +14,7 @@ import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
 import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
+import com.example.digikala.ui.screens.product_detail.ProductTechnicalFeaturesScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
 
@@ -111,6 +112,21 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
             it.arguments!!.getString("description")?.let { description ->
                 ProductDescScreen(navController, description)
+            }
+        }
+
+        composable(
+            Screen.TechnicalFeaturesScreen.route + "/{jsonString}",
+            arguments = listOf(
+                navArgument("jsonString") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("jsonString")?.let { jsonString ->
+                ProductTechnicalFeaturesScreen(navController, jsonString)
             }
         }
     }
