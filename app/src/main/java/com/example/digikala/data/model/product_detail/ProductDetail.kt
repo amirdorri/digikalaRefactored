@@ -21,7 +21,7 @@ data class ProductDetail(
     val agreePercent: Int? = null,
     val imageSlider: List<SliderImage>? = null,
     val colors: List<ProductColor>? = null,
-    val comments: List<Comment>? = null,
+    val comments: List<ProductComment>? = null,
     val technicalFeatures: JsonObject? = null,
 )
 
@@ -37,11 +37,12 @@ data class ProductColor(
     val code: String
 )
 
-data class Comment(
+data class ProductComment(
     val _id: String,
     val title: String,
     val description: String,
     val productId: String,
+    val star: Int,
     val userId: String,
     val userName: String,
     val updatedAt: String,

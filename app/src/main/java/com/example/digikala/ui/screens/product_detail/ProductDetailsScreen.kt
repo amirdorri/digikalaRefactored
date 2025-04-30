@@ -10,6 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.digikala.data.model.product_detail.ProductColor
+import com.example.digikala.data.model.product_detail.ProductComment
 import com.example.digikala.data.model.product_detail.ProductDetail
 import com.example.digikala.data.model.product_detail.SliderImage
 import com.example.digikala.data.remote.NetworkResult
@@ -34,9 +36,11 @@ fun ProductDetailsScreen(
     var productDetailList by remember { mutableStateOf(ProductDetail()) }
     var imageSlider by remember { mutableStateOf<List<SliderImage>>(emptyList()) }
     var productColors by remember { mutableStateOf<List<ProductColor>>(emptyList()) }
+    var productComments by remember { mutableStateOf<List<ProductComment>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
     var categoryId by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
+    var commentCount by remember { mutableStateOf(0) }
+    var description by rememberSaveable { mutableStateOf("") }
     var technicalFeature by remember { mutableStateOf("") }
 
     LaunchedEffect(true) {
@@ -50,6 +54,8 @@ fun ProductDetailsScreen(
                     imageSlider = productDetail.data.imageSlider ?: emptyList()
                     productColors = productDetail.data.colors ?: emptyList()
                     technicalFeature = productDetail.data.technicalFeatures.toString()
+                    productComments = productDetail.data.comments ?: emptyList()
+                    commentCount = productDetail.data.commentCount ?: 0
                     productDetailList.let { Log.e("ProductDetailScreen", it.toString()) }
                     loading = false
                 }
@@ -83,7 +89,8 @@ fun ProductDetailsScreen(
                 item { ProductColorSection(productColors) }
                 item { SellerInfoSection() }
                 item { SimilarProducts(categoryId) }
-                item { ProductDescription(navController,description, technicalFeature) }
+                item { ProductDescription(navController, description, technicalFeature) }
+                item { ProductCommentSection(navController,productComments,commentCount) }
             }
         }
     }

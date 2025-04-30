@@ -104,3 +104,7 @@ val Colors.settingArrow : Color
 val Colors.CursorColor : Color
     @Composable
     get() = Color(0xff018577)
+
+val Colors.Green : Color
+    @Composable
+    get() = Color(0xff00a049)
