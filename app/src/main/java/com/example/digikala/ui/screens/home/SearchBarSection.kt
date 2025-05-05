@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,7 +29,7 @@ import com.example.digikala.ui.theme.LocalElevation
 import com.example.digikala.ui.theme.LocalShape
 import com.example.digikala.ui.theme.LocalSpacing
 import com.example.digikala.ui.theme.searchBarBg
-import com.example.digikala.ui.theme.unSelecedBottomBar
+import com.example.digikala.ui.theme.unSelectedBottomBar
 import com.example.digikala.util.Constants.ENGLISH_LANG
 import com.example.digikala.util.Constants.USER_LANGUAGE
 
@@ -79,7 +78,7 @@ private fun SearchContent() {
             text = stringResource(id = R.string.search_in),
             modifier = Modifier.padding(start = 20.dp),
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.unSelecedBottomBar,
+            color = MaterialTheme.colors.unSelectedBottomBar,
             style = MaterialTheme.typography.h2,
             fontWeight = FontWeight.Normal
 

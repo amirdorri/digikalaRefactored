@@ -24,7 +24,7 @@ import com.example.digikala.R
 import com.example.digikala.ui.screens.basket.IconWithBadge
 import com.example.digikala.ui.theme.bottomBar
 import com.example.digikala.ui.theme.selectedBottomBar
-import com.example.digikala.ui.theme.unSelecedBottomBar
+import com.example.digikala.ui.theme.unSelectedBottomBar
 import com.example.digikala.viewmodel.BasketViewModel
 
 @Composable
@@ -80,7 +80,7 @@ fun BottomNavigationBar(
                     selected = selected,
                     onClick = { onItemClick(item) },
                     selectedContentColor = MaterialTheme.colors.selectedBottomBar,
-                    unselectedContentColor = MaterialTheme.colors.unSelecedBottomBar,
+                    unselectedContentColor = MaterialTheme.colors.unSelectedBottomBar,
                     icon = {
                         Column(horizontalAlignment = CenterHorizontally) {
 

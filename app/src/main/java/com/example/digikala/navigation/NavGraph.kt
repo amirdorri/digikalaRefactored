@@ -12,6 +12,7 @@ import com.example.digikala.ui.screens.checkout.CheckoutScreen
 import com.example.digikala.ui.screens.checkout.ConfirmPurchaseScreen
 import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
+import com.example.digikala.ui.screens.product_detail.NewCommentScreen
 import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.product_detail.ProductTechnicalFeaturesScreen
@@ -127,6 +128,37 @@ fun SetupNavGraph(navController: NavHostController) {
         ) {
             it.arguments!!.getString("jsonString")?.let { jsonString ->
                 ProductTechnicalFeaturesScreen(navController, jsonString)
+            }
+        }
+
+        composable(
+            Screen.NewCommentScreen.route + "?productId={productId}?productName={productName}?imageUrl={imageUrl}",
+            arguments = listOf(
+                navArgument("productId") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                },
+                navArgument("productName") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                },
+                navArgument("imageUrl") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+
+            )
+        ) {
+            it.arguments!!.getString("productId")?.let { productId ->
+                it.arguments!!.getString("productName")?.let { productName ->
+                    it.arguments!!.getString("productName")?.let { imageUrl ->
+                        NewCommentScreen(navController, productId, productName, imageUrl)
+                    }
+
+                }
             }
         }
     }

@@ -4,6 +4,7 @@ import com.example.digikala.data.model.ResponseResult
 import com.example.digikala.data.model.category.SubCategoryModel
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.data.model.home.StoreProduct
+import com.example.digikala.data.model.product_detail.NewComment
 import com.example.digikala.data.model.product_detail.ProductDetail
 import com.example.digikala.data.model.profile.LoginRequest
 import com.example.digikala.data.model.profile.LoginResponse
@@ -20,4 +21,7 @@ interface ProductDetailsApi {
 
     @GET("v1/getSimilarProducts")
     suspend fun getSimilarProducts(@Query("categoryId") categoryId : String) : Response<ResponseResult<List<AmazingItem>>>
+
+    @POST("v1/setNewComment")
+    suspend fun setNewComment(@Body newComment : NewComment) : Response<ResponseResult<String>>
 }

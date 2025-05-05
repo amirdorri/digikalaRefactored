@@ -91,6 +91,7 @@ fun ProductDetailsScreen(
                 item { SimilarProducts(categoryId) }
                 item { ProductDescription(navController, description, technicalFeature) }
                 item { ProductCommentSection(navController,productComments,commentCount) }
+                item { ProductSetComment(navController,productDetailList) }
             }
         }
     }

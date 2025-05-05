@@ -38,7 +38,7 @@ import com.example.digikala.ui.theme.extraSmall
 import com.example.digikala.ui.theme.grayCategory
 import com.example.digikala.ui.theme.settingArrow
 import com.example.digikala.ui.theme.spacing
-import com.example.digikala.ui.theme.unSelecedBottomBar
+import com.example.digikala.ui.theme.unSelectedBottomBar
 
 @Composable
 fun ProductDescription(
@@ -146,7 +146,7 @@ fun ProductDescription(
             modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
             text = stringResource(id = R.string.product_desc_feedback),
             style = MaterialTheme.typography.extraSmall,
-            color = MaterialTheme.colors.unSelecedBottomBar,
+            color = MaterialTheme.colors.unSelectedBottomBar,
         )
         Image(
             painter = painterResource(id = R.drawable.info),

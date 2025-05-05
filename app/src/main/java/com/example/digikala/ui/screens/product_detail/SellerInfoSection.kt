@@ -39,7 +39,7 @@ import com.example.digikala.ui.theme.grayCategory
 import com.example.digikala.ui.theme.roundedShape
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
-import com.example.digikala.ui.theme.unSelecedBottomBar
+import com.example.digikala.ui.theme.unSelectedBottomBar
 import com.example.digikala.util.DigitHelper
 
 @Composable
@@ -303,7 +303,7 @@ fun SellerInfoSection() {
                     text = "${stringResource(id = R.string.manufacturer_price)} 111" +
                             " ${stringResource(id = R.string.toman)}",
                     style = MaterialTheme.typography.h5,
-                    color = MaterialTheme.colors.unSelecedBottomBar,
+                    color = MaterialTheme.colors.unSelectedBottomBar,
                 )
             }
         }
@@ -322,7 +322,7 @@ fun SellerInfoSection() {
             Text(
                 text = stringResource(id = R.string.better_price_suggestion),
                 style = MaterialTheme.typography.extraSmall,
-                color = MaterialTheme.colors.unSelecedBottomBar,
+                color = MaterialTheme.colors.unSelectedBottomBar,
             )
 
             Image(
