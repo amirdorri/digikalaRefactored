@@ -12,6 +12,7 @@ import com.example.digikala.ui.screens.checkout.CheckoutScreen
 import com.example.digikala.ui.screens.checkout.ConfirmPurchaseScreen
 import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
+import com.example.digikala.ui.screens.product_detail.AllProductComments
 import com.example.digikala.ui.screens.product_detail.NewCommentScreen
 import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
@@ -157,6 +158,29 @@ fun SetupNavGraph(navController: NavHostController) {
                     it.arguments!!.getString("productName")?.let { imageUrl ->
                         NewCommentScreen(navController, productId, productName, imageUrl)
                     }
+
+                }
+            }
+        }
+
+        composable(
+            Screen.AllProductComments.route + "/{productId}/{commentCount}",
+            arguments = listOf(
+                navArgument("productId") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                } ,
+                navArgument("commentCount") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("productId")?.let { productId ->
+                it.arguments!!.getString("commentCount")?.let { commentCount ->
+                    AllProductComments(navController, productId, commentCount)
 
                 }
             }

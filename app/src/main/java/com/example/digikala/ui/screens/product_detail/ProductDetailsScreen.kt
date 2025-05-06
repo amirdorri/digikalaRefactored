@@ -90,7 +90,7 @@ fun ProductDetailsScreen(
                 item { SellerInfoSection() }
                 item { SimilarProducts(categoryId) }
                 item { ProductDescription(navController, description, technicalFeature) }
-                item { ProductCommentSection(navController,productComments,commentCount) }
+                item { ProductCommentSection(navController, productId,productComments,commentCount) }
                 item { ProductSetComment(navController,productDetailList) }
             }
         }
