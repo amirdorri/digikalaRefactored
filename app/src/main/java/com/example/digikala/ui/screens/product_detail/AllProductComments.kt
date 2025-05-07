@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -58,6 +59,7 @@ import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.DigitHelper.digitByLocate
 import com.example.digikala.util.DigitHelper.gregorianToJalali
 import com.example.digikala.viewmodel.ProductDetailsViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -69,8 +71,6 @@ fun AllProductComments(
 ) {
     LaunchedEffect(true) { viewModel.getCommentList(productId) }
     val commentsList = viewModel.commentsList.collectAsLazyPagingItems()
-
-    Log.e("mycommentsList", commentsList.toString())
 
     Column() {
         Row(
@@ -120,10 +120,6 @@ fun AllProductComments(
                 ) { index ->
                     CommentsItem(commentsList[index]!!)
                 }
-
-                /*items(commentsList.itemSnapshotList) { comment ->
-                    CommentsItem(comment!!)
-                }*/
 
                 commentsList.apply {
 

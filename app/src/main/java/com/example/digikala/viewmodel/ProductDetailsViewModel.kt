@@ -1,5 +1,6 @@
 package com.example.digikala.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -16,6 +17,9 @@ import com.example.digikala.repository.ProductDetailsRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -44,13 +48,19 @@ class ProductDetailsViewModel @Inject constructor(private val repo: ProductDetai
         }
     }
 
-    var commentsList: Flow<PagingData<ProductComment>> = flow { emit(PagingData.empty()) }
+    private val _commentsList = MutableStateFlow<PagingData<ProductComment>>(PagingData.empty())
+    val commentsList: StateFlow<PagingData<ProductComment>> = _commentsList.asStateFlow()
 
     fun getCommentList(productId: String) {
-        commentsList = Pager(
-            PagingConfig(pageSize = 5)
-        ) {
-            ProductCommentsDataSource(repo, productId)
-        }.flow.cachedIn(viewModelScope)
+        viewModelScope.launch {
+            Pager(PagingConfig(pageSize = 5)) {
+                ProductCommentsDataSource(repo, productId)
+            }.flow
+                .cachedIn(viewModelScope)
+                .collectLatest {
+                    Log.d("mycommentsList", "Collected new paging data")
+                    _commentsList.value = it
+                }
+        }
     }
 }
