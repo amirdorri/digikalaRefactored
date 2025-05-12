@@ -147,6 +147,12 @@ dependencies {
     //paging
     implementation ("androidx.paging:paging-compose:3.3.6")
 
+    //chart  2.1.2
+    implementation ("com.patrykandpatrick.vico:compose:1.13.0")
+
+    //gson
+    implementation ("com.google.code.gson:gson:2.11.0")
+
 }
 
 

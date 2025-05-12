@@ -44,6 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.digikala.R
+import com.example.digikala.data.model.product_detail.Price
 import com.example.digikala.data.model.product_detail.ProductDetail
 import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.darkText
@@ -52,7 +53,10 @@ import com.google.gson.Gson
 
 
 @Composable
-fun ProductTopAppBar(navController: NavHostController) { //product: ProductDetail
+fun ProductTopAppBar(
+    navController: NavHostController,
+    priceList: List<Price>
+) {
 
     var checkedState by remember { mutableStateOf(false) }
     val context = LocalContext.current
@@ -150,11 +154,12 @@ fun ProductTopAppBar(navController: NavHostController) { //product: ProductDetai
             ) {
                 DropdownMenuItem(
                     onClick = {
-//                        val priceListString = Gson().toJson(product.priceList)
-//                        expanded = false
-//                        navController.navigate(
-//                            Screen.ProductPriceChart.route + "?jsonString=${priceListString}"
-//                        )
+
+                         val priceListString = Gson().toJson(priceList)
+                        expanded = false
+                        navController.navigate(
+                            Screen.ProductChartScreen.route + "?jsonString=${priceListString}"
+                        )
                     }
                 ) {
                     Row(
@@ -184,7 +189,7 @@ fun ProductTopAppBar(navController: NavHostController) { //product: ProductDetai
 
                 DropdownMenuItem(
                     onClick = {
-                      //  expanded = false
+                        //  expanded = false
 //                        shareToSocialMedia(
 //                            context,
 //                            product.name!!,

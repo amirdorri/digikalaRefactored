@@ -14,6 +14,7 @@ import com.example.digikala.ui.screens.home.HomeScreen
 import com.example.digikala.ui.screens.home.WebPageScreen
 import com.example.digikala.ui.screens.product_detail.AllProductComments
 import com.example.digikala.ui.screens.product_detail.NewCommentScreen
+import com.example.digikala.ui.screens.product_detail.ProductChartScreen
 import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.product_detail.ProductTechnicalFeaturesScreen
@@ -183,6 +184,21 @@ fun SetupNavGraph(navController: NavHostController) {
                     AllProductComments(navController, productId, commentCount)
 
                 }
+            }
+        }
+
+        composable(
+            Screen.ProductChartScreen.route + "?jsonString={jsonString}",
+            arguments = listOf(
+                navArgument("jsonString") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("jsonString")?.let { productId ->
+                ProductChartScreen(navController, productId)
             }
         }
     }

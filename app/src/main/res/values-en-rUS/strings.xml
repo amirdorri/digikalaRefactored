@@ -153,6 +153,9 @@ After confirming the comment, go to the club missions page and get your points</
     <string name="comment_body_null">Comment text is not entered!</string>
     <string name="price_chart">price chart</string>
     <string name="share_product">share product</string>
+    <string name="product_price_chart">Product price chart</string>
+    <string name="product_price_chart_time">View the price changes of this product over time</string>
+
 
 
 

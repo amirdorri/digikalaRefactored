@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.digikala.data.model.product_detail.Price
 import com.example.digikala.data.model.product_detail.ProductColor
 import com.example.digikala.data.model.product_detail.ProductComment
 import com.example.digikala.data.model.product_detail.ProductDetail
@@ -24,6 +25,11 @@ import com.example.digikala.data.model.product_detail.SliderImage
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.ui.components.MyLoading
 import com.example.digikala.viewmodel.ProductDetailsViewModel
+import com.patrykandpatrick.vico.compose.axis.horizontal.rememberBottomAxis
+import com.patrykandpatrick.vico.compose.axis.vertical.rememberStartAxis
+import com.patrykandpatrick.vico.compose.chart.Chart
+import com.patrykandpatrick.vico.compose.chart.line.lineChart
+import com.patrykandpatrick.vico.core.entry.entryModelOf
 import kotlinx.coroutines.flow.collectLatest
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -41,6 +47,7 @@ fun ProductDetailsScreen(
     var categoryId by remember { mutableStateOf("") }
     var commentCount by remember { mutableStateOf(0) }
     var description by rememberSaveable { mutableStateOf("") }
+    var priceList by remember { mutableStateOf<List<Price>>(emptyList()) }
     var technicalFeature by remember { mutableStateOf("") }
 
     LaunchedEffect(true) {
@@ -52,6 +59,7 @@ fun ProductDetailsScreen(
                     categoryId = productDetail.data.categoryId ?: ""
                     description = productDetail.data.description ?: ""
                     imageSlider = productDetail.data.imageSlider ?: emptyList()
+                    priceList = productDetail.data.priceList ?: emptyList()
                     productColors = productDetail.data.colors ?: emptyList()
                     technicalFeature = productDetail.data.technicalFeatures.toString()
                     productComments = productDetail.data.comments ?: emptyList()
@@ -79,7 +87,7 @@ fun ProductDetailsScreen(
         Scaffold(
 
             topBar = {
-                ProductTopAppBar(navController)
+                ProductTopAppBar(navController, priceList)
             },
 
             bottomBar = {
