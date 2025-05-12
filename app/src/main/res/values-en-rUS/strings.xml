@@ -150,7 +150,9 @@ After confirming the comment, go to the club missions page and get your points</
     <string name="comment_anonymously">Send a comment anonymously</string>
     <string name="comment_title_null">Comment title not entered!</string>
     <string name="comment_star_null">Comment rating (star) has not been entered!</string>
-    <string name="comment_body_null">Comment text is not entered!Q</string>
+    <string name="comment_body_null">Comment text is not entered!</string>
+    <string name="price_chart">price chart</string>
+    <string name="share_product">share product</string>
 
 
 

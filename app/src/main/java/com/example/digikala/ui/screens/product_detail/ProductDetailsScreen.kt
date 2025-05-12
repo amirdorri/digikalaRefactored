@@ -77,6 +77,11 @@ fun ProductDetailsScreen(
         MyLoading(config.screenHeightDp.dp, true)
     } else {
         Scaffold(
+
+            topBar = {
+                ProductTopAppBar(navController)
+            },
+
             bottomBar = {
                 ProductDetailBottomBar(productDetailList, navController)
             }
