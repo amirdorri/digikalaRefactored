@@ -87,7 +87,7 @@ fun ProductDetailsScreen(
         Scaffold(
 
             topBar = {
-                ProductTopAppBar(navController, priceList)
+                ProductTopAppBar(navController,productDetailList)
             },
 
             bottomBar = {

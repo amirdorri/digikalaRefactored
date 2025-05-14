@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.filled.ShoppingBasket
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,7 +37,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -49,13 +47,14 @@ import com.example.digikala.data.model.product_detail.ProductDetail
 import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.DigitHelper
 import com.google.gson.Gson
 
 
 @Composable
 fun ProductTopAppBar(
     navController: NavHostController,
-    priceList: List<Price>
+    product: ProductDetail
 ) {
 
     var checkedState by remember { mutableStateOf(false) }
@@ -89,10 +88,9 @@ fun ProductTopAppBar(
         Row(
             modifier = Modifier.weight(0.4f),
         ) {
-
-            IconButton(onClick = {
-                navController.navigate(Screen.Basket.route)
-            }) {
+            IconButton(
+                onClick = { navController.navigate(Screen.Basket.route) }
+            ) {
                 Icon(
                     imageVector = Icons.Outlined.ShoppingCart,
                     // painter = painterResource(id = R.drawable.basket),
@@ -154,8 +152,7 @@ fun ProductTopAppBar(
             ) {
                 DropdownMenuItem(
                     onClick = {
-
-                         val priceListString = Gson().toJson(priceList)
+                        val priceListString = Gson().toJson(product.priceList)
                         expanded = false
                         navController.navigate(
                             Screen.ProductChartScreen.route + "?jsonString=${priceListString}"
@@ -189,13 +186,13 @@ fun ProductTopAppBar(
 
                 DropdownMenuItem(
                     onClick = {
-                        //  expanded = false
-//                        shareToSocialMedia(
-//                            context,
-//                            product.name!!,
-//                            digitByLocateAndSeparator(product.price!!.toString()),
-//                            "https://truelearn.ir/"
-//                        )
+                        expanded = false
+                        shareToMedia(
+                            context,
+                            product.name ?: "",
+                            DigitHelper.digitBytLocateAndSeparator(product.price!!.toString()),
+                            "https://www.digikala.com/"
+                        )
                     }
                 ) {
                     Row(
@@ -223,12 +220,11 @@ fun ProductTopAppBar(
                     }
                 }
             }
-
         }
     }
 }
 
-private fun shareToSocialMedia(
+private fun shareToMedia(
     context: Context,
     productName: String,
     productPrice: String,
@@ -241,6 +237,5 @@ private fun shareToSocialMedia(
         Intent.EXTRA_TEXT,
         "$productName با قیمت باورنکردنی $productPrice تومان فقط در فروشگاه زیر \n $url"
     )
-
     context.startActivity(Intent.createChooser(shareIntent, "share to..."))
 }
