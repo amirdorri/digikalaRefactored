@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.digikala.data.database.CartDao
 import com.example.digikala.data.database.DigikalaDatabase
+import com.example.digikala.data.database.DigikalaDatabase.Companion.MIGRATION_1_2
+import com.example.digikala.data.database.FavoriteListDao
 import com.example.digikala.util.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -15,6 +17,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+
     @Provides
     @Singleton
     fun provideDatabase(
@@ -23,17 +26,28 @@ object DatabaseModule {
         context = context,
         klass = DigikalaDatabase::class.java,
         name = DATABASE_NAME
-    ).build()
+    )
+        .addMigrations(MIGRATION_1_2)
+        .build()
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
 object CartDaoModule {
+
     @Provides
     @Singleton
-    fun provideCartDao(
-        database: DigikalaDatabase
-    ): CartDao = database.cartDao()
+    fun provideCartDao(database: DigikalaDatabase): CartDao = database.cartDao()
 
+}
+
+
+@Module
+@InstallIn(SingletonComponent::class)
+object FavoriteDaoModule {
+
+    @Provides
+    @Singleton
+    fun provideFavoriteDao(database: DigikalaDatabase): FavoriteListDao = database.favoriteListDao()
 
 }
