@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.runtime.Composable
@@ -44,6 +45,7 @@ import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.product_detail.Price
 import com.example.digikala.data.model.product_detail.ProductDetail
+import com.example.digikala.data.model.profile.FavoriteItems
 import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.spacing
@@ -57,7 +59,6 @@ fun ProductTopAppBar(
     product: ProductDetail
 ) {
 
-    var checkedState by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
     Row(
@@ -100,36 +101,18 @@ fun ProductTopAppBar(
                 )
             }
 
-//            DisplayFavoriteToggleButton(
-//                FavItem(
-//                    product._id ?: "",
-//                    product.discountPercent ?: 0,
-//                    product.imageSlider?.get(0)?.image ?: "",
-//                    product.name ?: "",
-//                    product.price ?: 0,
-//                    product.seller ?: "",
-//                    product.star ?: 0.0
-//                )
-//            )
-            IconToggleButton(
-                checked = checkedState,
-                onCheckedChange = {
-                    checkedState = !checkedState
-                }
-            ) {
-                val transition =
-                    updateTransition(checkedState, label = "icon transition")
-                val tint by transition.animateColor(label = "iconColor") { isCheck ->
-                    if (isCheck) Color.Red else MaterialTheme.colors.darkText
-                }
-                Icon(
-                    imageVector = if (checkedState) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                    contentDescription = null,
-                    tint = tint,
-                    modifier = Modifier
-                        .size(27.dp)
+            FavoriteToggleButton(
+                FavoriteItems(
+                    product._id ?: "",
+                    product.discountPercent ?: 0,
+                    product.imageSlider?.get(0)?.image ?: "",
+                    product.name ?: "",
+                    product.price ?: 0,
+                    product.seller ?: "",
+                    product.star ?: 0.0
                 )
-            }
+            )
+
 
             var expanded by remember { mutableStateOf(false) }
             IconButton(
@@ -137,7 +120,7 @@ fun ProductTopAppBar(
                     expanded = true
                 }) {
                 Icon(
-                    imageVector = Icons.Default.Menu,
+                    imageVector = Icons.Default.MoreVert,
                     //painter = painterResource(id = R.drawable.menu_dots),
                     contentDescription = "",
                     modifier = Modifier.size(27.dp),
