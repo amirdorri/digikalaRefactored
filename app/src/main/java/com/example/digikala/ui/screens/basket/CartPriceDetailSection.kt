@@ -100,7 +100,7 @@ fun CartPriceDetailSection(
                color = Color.LightGray
            )
            PriceRow(
-               stringResource(id = R.string.deliveryCost),
+               stringResource(id = R.string.delivery_cost),
                DigitHelper.digitBytLocateAndSeparator("$shippingCost")
            )
 
@@ -115,15 +115,13 @@ fun CartPriceDetailSection(
            FirstDotText(stringResource(R.string.shipping_cost_alert))
        }
 
-
-
         Divider(
             Modifier
+                .alpha(0.6f)
                 .padding(
                     vertical = MaterialTheme.spacing.medium,
                     horizontal = MaterialTheme.spacing.small
-                )
-                .alpha(0.6f),
+                ),
             color = Color.LightGray
         )
         DigiClubScore(item.payablePrice)

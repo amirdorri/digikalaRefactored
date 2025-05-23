@@ -118,4 +118,11 @@ class BasketViewModel @Inject constructor(private val repository: BasketRepo) : 
             repository.changeCartStatus(id = id, newCartStatus = newStatus)
         }
     }
+
+    fun isItemOnBasket(itemId: String) : Flow<Boolean> =
+        repository.isItemOnBasket(itemId)
+
+    fun getBasketItemsCount(itemId: String) : Flow<Int> =
+        repository.getBasketItemsCount(itemId)
+
 }

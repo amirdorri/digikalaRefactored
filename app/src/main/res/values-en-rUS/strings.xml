@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Digikala</string>
     <string name="home">home</string>
     <string name="basket">basket</string>
@@ -73,55 +74,60 @@
     <string name="digikala_login">Lets go!</string>
     <string name="password_error">The information entered is not correct</string>
     <string name="password_format_error">Password must be at least 6 digits</string>
-    <string name="digikala_score">digikala score</string>
-    <string name="digikala_wallet_active">activate wallet</string>
-    <string name="auth">user authentication</string>
-    <string name="club">digi club</string>
-    <string name="contact_us">contact us</string>
-    <string name="my_orders">my orders</string>
-    <string name="unpaid">waiting for payment</string>
-    <string name="processing">processing</string>
-    <string name="canceled">canceled</string>
-    <string name="returned">returned</string>
+    <string name="digikala_score">Digikala score</string>
+    <string name="digikala_wallet_active">Activate wallet</string>
+    <string name="auth">Authentication</string>
+    <string name="club">Digi Club</string>
+    <string name="contact_us">Contact us</string>
+    <string name="my_orders">My Orders</string>
 
+    <string name="unpaid">Pending payment</string>
+    <string name="processing">Processing</string>
+    <string name="returned">Returned</string>
+
+    <string name="cancelled">Cancelled</string>
+    <string name="delivered">Delivered</string>
     <string name="fav_list">Favorite list</string>
     <string name="my_comments">Criticism and comments</string>
     <string name="addresses">Addresses</string>
     <string name="profile_data">User account information</string>
+
     <string name="login_or_register">login or register</string>
-    <string name="login_or_register_msg">for a better experience of shopping and checking the send process please log in</string>
-    <string name="address_and_time">address and send time</string>
-    <string name="send_to">send to</string>
-    <string name="add_address">add address</string>
-    <string name="change_address">change address</string>
-    <string name="no_address">no address to show</string>
-    <string name="deliveryAndTimeMethod">sending time and method</string>
-    <string name="delivery_1">product 1 of 1 </string>
-    <string name="ready_to_send">ready to send</string>
-    <string name="choose_time">choose the send time</string>
-    <string name="cost_details">cost details</string>
-    <string name="deliveryCost">delivery Cost</string>
-    <string name="shipping_cost_last_alert">based on your address, deliver time and weight of your cart</string>
+    <string name="login_or_register_msg">Please log in for a better shopping experience and to check the shipping method.</string>
+    <string name="address_and_time">Sending address and time</string>
+    <string name="send_to">Send To</string>
+    <string name="add_address">Add address</string>
+    <string name="change_address">Change or edit address</string>
+    <string name="no_address">There is no address to display</string>
+    <string name="canceled">Canceled</string>
+    <string name="deliveryAndTimeMethod">Delivery method and time</string>
+    <string name="ready_to_send">Ready to send</string>
+    <string name="choose_time">Choose sending time</string>
+    <string name="delivery_1">Delivery 1 of 1</string>
     <string name="factor_info">"You can receive your purchase invoice after order delivery from the order details section in your user account.</string>
-    <string name="final_price">"payable price</string>
-    <string name="pishtaz_post">"send by post</string>
-    <string name="delivery_delay">"3 to 5 days</string>
-    <string name="waiting_pay">"waiting for pay</string>
+    <string name="shipping_cost_last_alert">Calculated based on your address, delivery time, weight and volume</string>
+    <string name="delivery_cost">Shipping cost</string>
+    <string name="final_price">Payable amount</string>
+    <string name="cost_details">Cost details</string>
+    <string name="pishtaz_post">Posted by Pishtaz Post</string>
+    <string name="delivery_delay">3 to 5 working days</string>
+    <string name="return_to_home_page">Return to home page</string>
     <string name="order_status">order status</string>
     <string name="order_code">order code</string>
-    <string name="return_to_home_page">return to main page</string>
     <string name="waiting_for_purchase">Awaiting payment</string>
     <string name="purchase_is_ok">Payment was successful</string>
-    <string name="add_to_cart">add to cart</string>
+    <string name="in_your_basket">In your basket</string>
+    <string name="view_in_cart">View in cart</string>
+    <string name="add_to_basket">Add to basket</string>
     <string name="user_comments">user comments</string>
-    <string name="view">view</string>
-    <string name="seller">seller</string>
-    <string name="productWarranty">product Warranty</string>
-    <string name="in_digi_stock">available in digikala</string>
-    <string name="digiclub_get_score">get digiclub score</string>
-    <string name="manufacturer_price">manufacturer price</string>
-    <string name="toman">toman</string>
-    <string name="better_price_suggestion">do you know a better price</string>
+    <string name="view" >view</string>
+    <string name="seller" >seller</string>
+    <string name="productWarranty">Warranty of authenticity and physical health of goods</string>
+    <string name="in_digi_stock">in digikala stock</string>
+    <string name="digiclub_get_score">Get digiclub score</string>
+    <string name="manufacturer_price">Manufacturer price:</string>
+    <string name="toman">Toman</string>
+    <string name="better_price_suggestion">Do You Know a Better Price?</string>
     <string name="similar_product">similar product</string>
     <string name="product_desc">Product features</string>
     <string name="product_desc_feedback">Feedback about the specifications of this product</string>
@@ -150,11 +156,61 @@ After confirming the comment, go to the club missions page and get your points</
     <string name="comment_anonymously">Send a comment anonymously</string>
     <string name="comment_title_null">Comment title not entered!</string>
     <string name="comment_star_null">Comment rating (star) has not been entered!</string>
-    <string name="comment_body_null">Comment text is not entered!</string>
-    <string name="price_chart">price chart</string>
+    <string name="comment_body_null">Comment text is not entered!Q</string>
+
     <string name="share_product">share product</string>
+    <string name="price_chart">price chart</string>
+
     <string name="product_price_chart">Product price chart</string>
     <string name="product_price_chart_time">View the price changes of this product over time</string>
+
+    <string name="setting">Setting</string>
+    <string name="repetitive_questions">Repetitive Question</string>
+    <string name="privacy">Privacy</string>
+    <string name="terms_of_use">Terms of use</string>
+    <string name="error_report">Error report</string>
+    <string name="rating_to_digikal">Rating to digikal</string>
+    <string name="send_information_to_improve_user_experience">Send information to improve UX</string>
+    <string name="report_error_by_shaking_the_phone">Report error by shaking the phone</string>
+    <string name="sign_out">Sign out</string>
+    <string name="changing_lang">Change Language</string>
+    <string name="version_app">App Version: %s</string>
+    <string name="truelearn_technical_team">Truelearn Technical Team (3T)</string>
+
+    <string name="farsi">فارسی</string>
+    <string name="english">English</string>
+
+    <string name="completion_of_user_information"> Completion of user information </string>
+    <string name="user_information">User Account Information</string>
+    <string name="enter_name_lastname">Enter Your Name and LastName</string>
+    <string name="firstname">FirstName</string>
+    <string name="lastname">LastName</string>
+    <string name="confirm_information"> Confirm Information </string>
+
+
+    <string name="my_fav_list">Favorite List</string>
+    <string name="remove_from_list">Remove from list</string>
+    <string name="watch_and_buy_product">Watch and buy product</string>
+    <string name="fav_products">Favorite Products</string>
+    <string name="product">Product</string>
+    <string name="sure_to_remove_fav_item">Are you sure you want to remove this item?</string>
+    <string name="remove_fav_item">Remove Product</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="all_comments">All comments posted by you</string>
+
+
+    <string name="address_details">Enter the complete information of the new address</string>
+    <string name="phone_number">Phone number</string>
+    <string name="postal_code">Postal code</string>
+    <string name="address">Address</string>
+    <string name="check_net">Check your mobile internet connection</string>
+
+
+    <string name="processing_orders">Processing Orders</string>
+    <string name="delivered_orders">Delivered Orders</string>
+    <string name="canceled_orders">Canceled orders</string>
+    <string name="returned_orders">Returned orders</string>
 
 
 

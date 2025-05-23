@@ -7,6 +7,7 @@ import com.example.digikala.data.model.basket.CartStatus
 import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.data.remote.BasketApiInterface
 import com.example.digikala.data.remote.NetworkResult
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BasketRepo @Inject constructor(
@@ -36,12 +37,18 @@ class BasketRepo @Inject constructor(
         dao.deleteAllItems(CartStatus.CURRENT_CART)
     }
 
-    suspend fun changeCartStatus(newCartStatus : CartStatus, id : String) {
+    suspend fun changeCartStatus(newCartStatus: CartStatus, id: String) {
         dao.changeStatusCart(newCartStatus, id)
     }
 
-    suspend fun changeCartCount(newCount : Int, id : String) {
+    suspend fun changeCartCount(newCount: Int, id: String) {
         dao.changeCountCartItem(newCount, id)
     }
+
+     fun isItemOnBasket(itemId: String): Flow<Boolean> =
+        dao.isItemOnBasket(itemId)
+
+    fun getBasketItemsCount(itemId : String) : Flow<Int> =
+        dao.getBasketItemsCount(itemId)
 
 }

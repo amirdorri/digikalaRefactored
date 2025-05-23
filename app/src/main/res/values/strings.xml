@@ -53,6 +53,7 @@
     <string name="basket_summary">خلاصه سبد</string>
     <string name="goods"> کالا</string>
     <string name="digiclub_score">امتیاز دیجی‌کلاب</string>
+    <string name="digiclub_get_score">امتیاز دیجی‌کلاب دریافت کنید</string>
     <string name="score">امتیاز</string>
     <string name="dot_bullet">•</string>
     <string name="shipping_cost_alert">هزینه ارسال بر اساس آدرس، زمان تحویل، وزن و حجم مرسوله شما محاسبه می‌شود</string>
@@ -74,55 +75,58 @@
     <string name="digikala_login">بزن بریم!</string>
     <string name="password_error">اطلاعات وارد شده صحیح نیست</string>
     <string name="password_format_error">پسورد باید حداقل 6 رقم باشد</string>
-    <string name="digikala_score">امتیاز دیجی کالا</string>
-    <string name="digikala_wallet_active">فعال سازی کیف پول</string>
+    <string name="digikala_score">امتیاز دیجی‌کالا</string>
+    <string name="digikala_wallet_active">فعال‌سازی کیف پول</string>
     <string name="auth">احراز هویت</string>
-    <string name="club">دیجی کلاب</string>
+    <string name="club">دیجی ‌کلاب</string>
     <string name="contact_us">تماس با ما</string>
-    <string name="my_orders">سفارشات من</string>
+    <string name="my_orders">سفارش‌های من</string>
     <string name="unpaid">در انتظار پرداخت</string>
     <string name="processing">در حال پردازش</string>
-    <string name="canceled">لغو شده</string>
     <string name="returned">مرجوع شده</string>
+    <string name="canceled">لغو شده</string>
+    <string name="delivered">تحویل شده</string>
 
     <string name="fav_list">لیست مورد علاقه</string>
     <string name="my_comments">نقد و نظرات</string>
     <string name="addresses">آدرس‌ها</string>
     <string name="profile_data">اطلاعات حساب کاربری</string>
+
     <string name="login_or_register">ورود یا ثبت نام</string>
-    <string name="login_or_register_msg">برای تجربه بهتر خرید و بررسی روش ارسال لطفا وارد شوید</string>
+    <string name="login_or_register_msg">برای تجربه بهتر خرید و بررسی روش ارسال کالاها لطفا وارد شوید.</string>
     <string name="address_and_time">آدرس و زمان ارسال</string>
     <string name="send_to">ارسال به</string>
     <string name="add_address">افزودن آدرس</string>
     <string name="change_address">تغییر یا ویرایش آدرس</string>
     <string name="no_address">آدرسی برای نمایش وجود ندارد</string>
+    <string name="cancelled">لغو شده</string>
     <string name="deliveryAndTimeMethod">شیوه و زمان ارسال</string>
-    <string name="delivery_1">مرسوله 1از1</string>
     <string name="ready_to_send">آماده ارسال</string>
     <string name="choose_time">انتخاب زمان ارسال</string>
+    <string name="delivery_1">مرسوله 1 از 1</string>
     <string name="factor_info">"شما می توانید فاکتور خرید خود را پس از تحویل سفارش از بخش جزییات سفارش در حساب کاربری خود دریافت نمایید.</string>
-    <string name="cost_details">جزییات قیمت</string>
-    <string name="deliveryCost">هزینه ارسال</string>
-    <string name="shipping_cost_last_alert">محاسبه شده بر اساس آدرس، زمان تحویل، حجم و وزن مرسوله شما</string>
+    <string name="shipping_cost_last_alert">محاسبه شده بر اساس آدرس، زمان تحویل، وزن و حجم مرسوله شما</string>
+    <string name="delivery_cost">هزینه ارسال</string>
     <string name="final_price">مبلغ قابل پرداخت</string>
+    <string name="cost_details">جزئیات قیمت</string>
     <string name="pishtaz_post">ارسال توسط پست پیشتاز</string>
-    <string name="delivery_delay">سه تا پنج روز کاری</string>
-    <string name="waiting_pay">در انتظار پرداخت</string>
+    <string name="delivery_delay">3 تا 5 روز کاری</string>
+    <string name="return_to_home_page">بازگشت به صفحه اصلی</string>
     <string name="order_status">وضعیت سفارش</string>
     <string name="order_code">کد سفارش</string>
-    <string name="return_to_home_page">بازگشت به صفحه اصلی</string>
     <string name="waiting_for_purchase">در انتظار پرداخت</string>
-    <string name="purchase_is_ok">پرداخت موفقیت آمیز بود</string>
-    <string name="add_to_cart">افزودن به سبد خرید</string>
+    <string name="purchase_is_ok">پرداخت موفق بود</string>
+    <string name="add_to_basket">افزودن به سبد خرید</string>
+    <string name="in_your_basket">در سبد شما</string>
+    <string name="view_in_cart">مشاهده در سبد خرید</string>
     <string name="user_comments">دیدگاه کاربران</string>
     <string name="view">بازدید</string>
     <string name="seller">فروشنده</string>
     <string name="productWarranty">گارانتی اصالت و سلامت فیزیکی کالا</string>
-    <string name="in_digi_stock">موجود در انبار دیجی کالا</string>
-    <string name="digiclub_get_score">امتیاز دیچی کلاب دریافت کنید</string>
-    <string name="manufacturer_price">قیمت تولید کننده</string>
+    <string name="in_digi_stock">موجود در انبار دیجی‌کالا</string>
+    <string name="manufacturer_price">قیمت تولید کننده:</string>
     <string name="toman">تومان</string>
-    <string name="better_price_suggestion">قیمت بهتری سراغ دارید</string>
+    <string name="better_price_suggestion">آیا قیمت بهتری سراغ دارید؟</string>
     <string name="similar_product">محصولات مشابه</string>
     <string name="product_desc">ویژگی‌های محصول</string>
     <string name="product_desc_feedback">بازخورد درباره مشخصات این کالا</string>
@@ -155,11 +159,58 @@
     <string name="comment_title_null">عنوان کامنت وارد نشده است!</string>
     <string name="comment_star_null">امتیاز(ستاره) کامنت وارد نشده است!</string>
     <string name="comment_body_null">متن کامنت وارد نشده است!</string>
+
+    <string name="share_product">به اشتراک گذاری</string>
     <string name="price_chart">نمودار قیمت</string>
-    <string name="share_product">اشتراک گذاری</string>
+
     <string name="product_price_chart">نمودار قیمت محصول در 6 ماه اخیر</string>
     <string name="product_price_chart_time">مشاهده تغییرات قیمت این محصول نسبت به زمان</string>
 
+
+    <string name="setting">تنظیمات</string>
+    <string name="repetitive_questions">پرسش‌های متداول</string>
+    <string name="privacy">حریم خصوصی</string>
+    <string name="terms_of_use">شرایط استفاده</string>
+    <string name="error_report">گزارش خطا</string>
+    <string name="rating_to_digikal">امتیاز به دیجی‌کالا</string>
+    <string name="send_information_to_improve_user_experience">ارسال اطلاعات برای بهبود تجربه کاربری</string>
+    <string name="report_error_by_shaking_the_phone">گزارش خطا با تکان دادن گوشی</string>
+    <string name="sign_out">خروج از حساب کاربری</string>
+    <string name="changing_lang">تغییر زبان</string>
+    <string name="version_app">App Version: %s</string>
+    <string name="truelearn_technical_team">Truelearn Technical Team (3T)</string>
+
+
+
+    <string name="farsi">فارسی</string>
+    <string name="english">English</string>
+
+
+    <string name="completion_of_user_information"> تکمیل اطلاعات کاربری </string>
+    <string name="user_information">اطلاعات حساب کاربری </string>
+    <string name="enter_name_lastname">نام و نام خانوادگی خود را وارد نمایید</string>
+    <string name="firstname">نام</string>
+    <string name="lastname"> نام خانوادگی </string>
+    <string name="confirm_information"> تایید اطلاعات </string>
+
+
+    <string name="my_fav_list">لیست علاقه مندی ها</string>
+    <string name="remove_from_list">حذف از لیست</string>
+    <string name="watch_and_buy_product">مشاهده و خرید کالا</string>
+    <string name="fav_products">کالاهای مورد علاقه</string>
+    <string name="product">کالا</string>
+    <string name="sure_to_remove_fav_item">آیا از حذف کالا از لیست علاقه مندی ها اطمینان دارید؟</string>
+    <string name="remove_fav_item">حذف کالا</string>
+    <string name="cancel">انصراف</string>
+
+    <string name="all_comments">تمام نظرات ثبت شده توسط شما</string>
+
+
+    <string name="address_details">اطلاعات کامل آدرس جدید را وارد نمایید</string>
+    <string name="phone_number">شماره تماس</string>
+    <string name="postal_code">کد پستی</string>
+    <string name="address">آدرس</string>
+    <string name="check_net">اتصال اینترنت تلفن همراه خود را بررسی کنید</string>
 
 
 </resources>
