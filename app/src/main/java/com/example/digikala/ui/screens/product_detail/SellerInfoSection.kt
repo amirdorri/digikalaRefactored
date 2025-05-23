@@ -41,9 +41,10 @@ import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.ui.theme.unSelectedBottomBar
 import com.example.digikala.util.DigitHelper
+import com.example.digikala.util.DigitHelper.digitBytLocateAndSeparator
 
 @Composable
-fun SellerInfoSection() {
+fun SellerInfoSection(productPrice: Long) {
     Divider(
         color = Color.LightGray,
         modifier = Modifier
@@ -103,7 +104,7 @@ fun SellerInfoSection() {
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "${DigitHelper.digitByLocate("101")}%" +
+                        text = "${DigitHelper.digitByLocate("99")}%" +
                                 " رضایت خریداران | عملکرد ",
                         style = MaterialTheme.typography.h6,
                         color = MaterialTheme.colors.semiDarkColor,
@@ -300,8 +301,12 @@ fun SellerInfoSection() {
                 Text(
                     modifier = Modifier
                         .padding(vertical = MaterialTheme.spacing.small),
-                    text = "${stringResource(id = R.string.manufacturer_price)} 111" +
-                            " ${stringResource(id = R.string.toman)}",
+                    text =
+                    "${stringResource(id = R.string.manufacturer_price)} ${
+                        digitBytLocateAndSeparator(
+                            productPrice.toString()
+                        )
+                    }" + " ${stringResource(id = R.string.toman)}",
                     style = MaterialTheme.typography.h5,
                     color = MaterialTheme.colors.unSelectedBottomBar,
                 )
