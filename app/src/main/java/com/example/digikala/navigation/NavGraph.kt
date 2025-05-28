@@ -19,6 +19,7 @@ import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.product_detail.ProductTechnicalFeaturesScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
+import com.example.digikala.ui.screens.profile.SettingsScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
 
 @Composable
@@ -201,5 +202,10 @@ fun SetupNavGraph(navController: NavHostController) {
                 ProductChartScreen(navController, productId)
             }
         }
+
+        composable(Screen.SettingsScreen.route) {
+            SettingsScreen(navController)
+        }
+
     }
 }

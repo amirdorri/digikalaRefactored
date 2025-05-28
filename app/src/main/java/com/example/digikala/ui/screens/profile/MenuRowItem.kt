@@ -1,6 +1,6 @@
 package com.example.digikala.ui.screens.profile
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.digikala.ui.theme.settingArrow
@@ -29,42 +28,36 @@ import com.example.digikala.ui.theme.spacing
 
 @Composable
 fun MenuRowItem(
-    painter: Painter,
+    icon: @Composable () -> Unit,
     text: String,
-    haveDivider: Boolean,
+    isHaveDivider: Boolean,
+    action: () -> Unit = {}
 ) {
-
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
             .padding(horizontal = MaterialTheme.spacing.medium)
+            .clickable { action() }
     ) {
 
         Column(
-            Modifier
+            modifier = Modifier
                 .fillMaxHeight()
                 .weight(0.1f),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painter,
-                contentDescription = "",
-                modifier = Modifier
-                    .size(36.dp)
-                    .padding(MaterialTheme.spacing.small)
-            )
+            icon()
         }
 
         Column(
-            Modifier
+            modifier = Modifier
                 .fillMaxHeight()
                 .weight(0.9f)
                 .padding(horizontal = MaterialTheme.spacing.small),
             verticalArrangement = Arrangement.Center,
         ) {
-
 
             Row(
                 modifier = Modifier
@@ -86,11 +79,8 @@ fun MenuRowItem(
                     modifier = Modifier.size(24.dp),
                     tint = MaterialTheme.colors.settingArrow
                 )
-
-
             }
-
-            if (haveDivider) {
+            if (isHaveDivider) {
                 Divider(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -99,7 +89,7 @@ fun MenuRowItem(
                     color = Color.LightGray,
                 )
             }
-
         }
     }
 }
+

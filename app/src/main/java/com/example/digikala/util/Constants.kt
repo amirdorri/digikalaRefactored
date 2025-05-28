@@ -24,6 +24,7 @@ object Constants {
     const val SHOPPING_CART_TABLE = "shopping_cart_table"
     const val FAVORITE_LIST_TABLE = "favorite_list_table"
     const val DATABASE_NAME = "digikala_db"
+
     const val DIGIJET_URL = "https://www.digikalajet.com/user/address"
     const val AUCTION_URL =
         "https://www.digistyle.com/sale-landing/?utm_source=digikala&utm_medium=circle_badge&utm_campaign=style&promo_name=style&promo_position=circle_badge"
@@ -39,5 +40,12 @@ object Constants {
         "https://www.digikala.com/plus/landing/?promo_name=plus&promo_position=circle_badge"
     const val MORE_URL =
         "https://www.digikala.com/mehr/?promo_name=mehr&promo_position=circle_badge"
+
+    const val DIGI_FAQ = "https://www.digikala.com/faq/"
+    const val DIGI_PRIVACY = "https://www.digikala.com/page/privacy/"
+    const val DIGI_TERMS = "https://www.digikala.com/page/terms/"
+    const val DIGI_TURLEARN = "https://truelearn.ir/"
+    const val DIGI_BUG = "https://www.digikala.com/page/bug-report/"
+    const val DIGI_SCORE = "https://cafebazaar.ir/app/com.digikala"
 
 }

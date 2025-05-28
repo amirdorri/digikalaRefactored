@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.digikala.R
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.components.CenterBannerItem
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.selectedBottomBar
@@ -54,7 +55,7 @@ fun ProfileScreen(
 ) {
 
     if (!dataStore.getUserToken().isNullOrBlank()) {
-        Profile()
+        Profile(navController)
     } else {
         when (viewModel.screenState) {
             ProfileScreenState.LOGIN_STATE -> {
@@ -66,14 +67,14 @@ fun ProfileScreen(
             }
 
             ProfileScreenState.PROFILE_STATE -> {
-                Profile()
+                Profile(navController)
             }
         }
     }
 }
 
 @Composable
-fun Profile() {
+fun Profile(navController: NavHostController) {
 
     LazyColumn(
         modifier = Modifier
@@ -81,7 +82,7 @@ fun Profile() {
             .wrapContentHeight()
             .padding(bottom = 60.dp),
     ) {
-        item { ProfileTopBarSection() }
+        item { ProfileTopBarSection(navController) }
         item { ProfileHeaderSection() }
         item { ProfileMiddleSection() }
         item { ProfileOrderSection() }
@@ -94,13 +95,15 @@ fun Profile() {
 }
 
 @Composable
-private fun ProfileTopBarSection() {
+private fun ProfileTopBarSection(navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        IconButton(onClick = { }) {
+        IconButton(onClick = {
+            navController.navigate(Screen.SettingsScreen.route)
+        }) {
             Icon(
                 painter = painterResource(
                     id = R.drawable.digi_settings
@@ -393,28 +396,70 @@ private fun MyOrdersItem(text: String, painter: Painter) {
 private fun ProfileMenuSection() {
 
     MenuRowItem(
-        painter = painterResource(R.drawable.digi_plus_icon),
-        text = stringResource(R.string.digi_plus),
-        haveDivider = true
+        icon = {
+            Image(
+                painter = painterResource(id = R.drawable.digi_plus_icon),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(MaterialTheme.spacing.small)
+            )
+        },
+        text = stringResource(id = R.string.digi_plus),
+        isHaveDivider = true
     )
     MenuRowItem(
-        painter = painterResource(R.drawable.digi_fav_icon),
-        text = stringResource(R.string.fav_list),
-        haveDivider = true
+        icon = {
+            Image(
+                painter = painterResource(id = R.drawable.digi_fav_icon),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(MaterialTheme.spacing.small)
+            )
+        },
+        text = stringResource(id = R.string.fav_list),
+        isHaveDivider = true
+    )
+
+    MenuRowItem(
+        icon = {
+            Image(
+                painter = painterResource(id = R.drawable.digi_comments_icon),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(MaterialTheme.spacing.small)
+            )
+        },
+        text = stringResource(id = R.string.my_comments),
+        isHaveDivider = true
     )
     MenuRowItem(
-        painter = painterResource(R.drawable.digi_comments_icon),
-        text = stringResource(R.string.my_comments),
-        haveDivider = true
+        icon = {
+            Image(
+                painter = painterResource(id = R.drawable.digi_adresses_icon),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(MaterialTheme.spacing.small)
+            )
+        },
+        text = stringResource(id = R.string.addresses),
+        isHaveDivider = true
     )
+
     MenuRowItem(
-        painter = painterResource(R.drawable.digi_adresses_icon),
-        text = stringResource(R.string.addresses),
-        haveDivider = true
-    )
-    MenuRowItem(
-        painter = painterResource(R.drawable.digi_profile_icon),
-        text = stringResource(R.string.profile_data),
-        haveDivider = false
+        icon = {
+            Image(
+                painter = painterResource(id = R.drawable.digi_profile_icon),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(36.dp)
+                    .padding(MaterialTheme.spacing.small)
+            )
+        },
+        text = stringResource(id = R.string.profile_data),
+        isHaveDivider = true
     )
 }

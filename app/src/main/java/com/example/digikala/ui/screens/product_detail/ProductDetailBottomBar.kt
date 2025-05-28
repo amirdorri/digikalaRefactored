@@ -180,13 +180,12 @@ fun ProductDetailBottomBar(
                 Row() {
                     Box(
                         modifier = Modifier
+                            .wrapContentWidth(Alignment.CenterHorizontally)
+                            .wrapContentHeight(Alignment.CenterVertically)
                             .background(
                                 color = MaterialTheme.colors.DigikalaDarktRed,
                                 shape = CircleShape
                             )
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                            .wrapContentHeight(Alignment.CenterVertically),
-
                         ) {
                         Text(
                             text = "${DigitHelper.digitByLocate(discountPercent.toString())}%",

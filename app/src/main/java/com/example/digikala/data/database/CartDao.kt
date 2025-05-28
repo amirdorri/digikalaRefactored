@@ -41,6 +41,4 @@ interface CartDao {
 
     @Query("select total(count) as count from shopping_cart_table where itemId = :itemId")
     fun getBasketItemsCount(itemId: String): Flow<Int>
-
-
 }
