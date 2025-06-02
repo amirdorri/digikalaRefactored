@@ -22,8 +22,7 @@ fun SetBadgeToTab(
     count: Int,
 ) {
     Card(
-        modifier = Modifier
-            .background(Color.Transparent)
+        modifier = Modifier.background(Color.Transparent)
     ) {
         var color = Color.Gray
         if (selectedTabIndex == index)  color = MaterialTheme.colors.digikalaRed
@@ -38,8 +37,5 @@ fun SetBadgeToTab(
                 .background(color)
                 .padding(horizontal = MaterialTheme.spacing.semiSmall)
         )
-
-
     }
-
 }

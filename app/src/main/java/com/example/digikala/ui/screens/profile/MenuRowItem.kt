@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.settingArrow
 import com.example.digikala.ui.theme.spacing
 
@@ -30,7 +31,9 @@ import com.example.digikala.ui.theme.spacing
 fun MenuRowItem(
     icon: @Composable () -> Unit,
     text: String,
+    textColor : Color = MaterialTheme.colors.darkText,
     isHaveDivider: Boolean,
+    addCompose : @Composable (() -> Unit) ? = null,
     action: () -> Unit = {}
 ) {
     Row(
@@ -70,15 +73,20 @@ fun MenuRowItem(
                 Text(
                     style = MaterialTheme.typography.h5,
                     fontWeight = FontWeight.Bold,
+                    color = textColor,
                     text = text
                 )
 
-                Icon(
-                    Icons.Outlined.KeyboardArrowLeft,
-                    contentDescription = "",
-                    modifier = Modifier.size(24.dp),
-                    tint = MaterialTheme.colors.settingArrow
-                )
+                if (addCompose == null) {
+                    Icon(
+                        Icons.Outlined.KeyboardArrowLeft,
+                        contentDescription = "",
+                        modifier = Modifier.size(24.dp),
+                        tint = MaterialTheme.colors.settingArrow
+                    )
+                } else
+                    addCompose()
+
             }
             if (isHaveDivider) {
                 Divider(

@@ -6,6 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.util.Constants.USER_ID
 import com.example.digikala.util.Constants.USER_LANGUAGE
+import com.example.digikala.util.Constants.USER_NAME
 import com.example.digikala.util.Constants.USER_PASSWORD
 import com.example.digikala.util.Constants.USER_PHONE
 import com.example.digikala.util.Constants.USER_TOKEN
@@ -24,7 +25,6 @@ fun AppConfig(
 
     viewModel.refreshToken(USER_PHONE, USER_PASSWORD)
 
-
     LaunchedEffect(Dispatchers.Main) {
         viewModel.loginResponse.collectLatest { loginResponse ->
             when (loginResponse) {
@@ -35,21 +35,17 @@ fun AppConfig(
                             dataStore.saveUserId(user.id)
                             dataStore.saveUserPhone(user.phone)
                             dataStore.saveUserPassword(USER_PASSWORD)
-
+                            dataStore.saveUserName(user.name ?: "null")
                             getDataStoreVariables(dataStore)
 
-                           // Log.e("AmirDorrri", "REFRESH TOKEN!!!")
                         }
 
                     }
                 }
-
                 else -> {}
             }
         }
-
     }
-
 }
 
 fun getDataStoreVariables(dataStore: DataStoreViewModel) {
@@ -60,5 +56,6 @@ fun getDataStoreVariables(dataStore: DataStoreViewModel) {
     USER_PASSWORD = dataStore.getUserPassword().toString()
     USER_TOKEN = dataStore.getUserToken().toString()
     USER_ID = dataStore.getUserId().toString()
+    USER_NAME = dataStore.getUserName().toString()
 
 }

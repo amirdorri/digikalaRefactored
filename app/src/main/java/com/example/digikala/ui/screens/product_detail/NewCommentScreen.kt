@@ -58,6 +58,7 @@ import com.example.digikala.ui.theme.grayCategory
 import com.example.digikala.ui.theme.roundedShape
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.USER_NAME
 import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.viewmodel.ProductDetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -324,13 +325,14 @@ private fun CommentForm(
                     .padding(vertical = MaterialTheme.spacing.medium),
                 onClick = {
                     loading = true
+                    val name = if (USER_NAME == "null") "کاربر بدون نام" else USER_NAME
                     val newComment = NewComment(
                         token = USER_TOKEN,
                         productId = productId,
                         star = (sliderValue - 1).toInt(),
                         title = commentTitle,
                         description = commentBody,
-                        userName = "امیر" //todo change user name
+                        userName = name
                     )
                     if (newComment.title.isBlank()) {
                         loading = false

@@ -31,7 +31,8 @@ import com.example.digikala.viewmodel.BasketViewModel
 fun BottomNavigationBar(
     navController: NavController,
     onItemClick: (BottomNavItem) -> Unit,
-    basketViewModel: BasketViewModel = hiltViewModel()
+    basketViewModel: BasketViewModel = hiltViewModel(),
+    modifier: Modifier = Modifier
 ) {
 
     val items = listOf(
@@ -69,7 +70,7 @@ fun BottomNavigationBar(
 
     if (showBottomBar) {
         BottomNavigation(
-            modifier = Modifier.height(60.dp),
+            modifier = modifier.height(60.dp),
             backgroundColor = MaterialTheme.colors.bottomBar,
             elevation = 5.dp
         ) {

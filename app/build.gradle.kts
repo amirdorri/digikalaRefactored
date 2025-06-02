@@ -156,6 +156,9 @@ dependencies {
     //extra material icons
     implementation ("androidx.compose.material:material:1.8.2")
 
+    // M3
+    implementation("androidx.compose.material3:material3:1.4.0-alpha15")
+
 }
 
 

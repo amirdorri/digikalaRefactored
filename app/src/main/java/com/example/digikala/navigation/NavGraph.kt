@@ -1,6 +1,7 @@
 package com.example.digikala.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -20,11 +21,14 @@ import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.product_detail.ProductTechnicalFeaturesScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.profile.SettingsScreen
+import com.example.digikala.ui.screens.profile.UserAccountScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
 
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
+
     NavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = Screen.Splash.route
     ) {
@@ -206,6 +210,11 @@ fun SetupNavGraph(navController: NavHostController) {
         composable(Screen.SettingsScreen.route) {
             SettingsScreen(navController)
         }
+
+        composable(Screen.UserAccount.route) {
+            UserAccountScreen(navController)
+        }
+
 
     }
 }

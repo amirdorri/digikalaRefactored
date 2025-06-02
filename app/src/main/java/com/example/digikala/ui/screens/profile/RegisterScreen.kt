@@ -35,6 +35,7 @@ import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.selectedBottomBar
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.USER_NAME
 import com.example.digikala.util.Constants.USER_PHONE
 import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.util.InputValidation.isValidPassword
@@ -62,10 +63,12 @@ fun RegisterScreen(
                         if (user.token.isNotEmpty()) {
                             dataStore.saveUserToken(user.token)
                             dataStore.saveUserId(user.id)
-                           USER_PHONE = user.phone
-                           USER_TOKEN = user.token
+                            USER_PHONE = user.phone
+                            USER_TOKEN = user.token
                             dataStore.saveUserPassword(viewModel.inputPasswordState)
                             viewModel.screenState = ProfileScreenState.PROFILE_STATE
+                            dataStore.saveUserName(user.name ?: "null")
+                            USER_NAME = user.name
                         }
                     }
 

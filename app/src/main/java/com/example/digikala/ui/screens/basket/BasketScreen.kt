@@ -70,8 +70,7 @@ fun Basket(
                         .background(Color.Red)
                 )
             },
-            modifier = Modifier
-                .padding(MaterialTheme.spacing.medium)
+            modifier = Modifier.padding(MaterialTheme.spacing.medium)
         ) {
             tabTitles.fastForEachIndexed { index, title ->
                 Tab(

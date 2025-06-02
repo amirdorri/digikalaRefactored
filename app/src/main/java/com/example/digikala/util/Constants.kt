@@ -20,6 +20,7 @@ object Constants {
     var USER_PHONE = "USER_PHONE"
     var USER_PASSWORD = "USER_PASSWORD"
     var USER_ID = "USER_ID"
+    var USER_NAME = "USER_NAME"
     var USER_TOKEN = "USER_TOKEN"
     const val SHOPPING_CART_TABLE = "shopping_cart_table"
     const val FAVORITE_LIST_TABLE = "favorite_list_table"
