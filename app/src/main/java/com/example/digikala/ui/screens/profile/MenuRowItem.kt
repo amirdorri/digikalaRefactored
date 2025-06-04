@@ -32,7 +32,7 @@ fun MenuRowItem(
     icon: @Composable () -> Unit,
     text: String,
     textColor : Color = MaterialTheme.colors.darkText,
-    isHaveDivider: Boolean,
+    haveDivider: Boolean,
     addCompose : @Composable (() -> Unit) ? = null,
     action: () -> Unit = {}
 ) {
@@ -88,7 +88,7 @@ fun MenuRowItem(
                     addCompose()
 
             }
-            if (isHaveDivider) {
+            if (haveDivider) {
                 Divider(
                     modifier = Modifier
                         .fillMaxWidth()

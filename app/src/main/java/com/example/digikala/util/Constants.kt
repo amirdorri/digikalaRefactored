@@ -49,4 +49,8 @@ object Constants {
     const val DIGI_BUG = "https://www.digikala.com/page/bug-report/"
     const val DIGI_SCORE = "https://cafebazaar.ir/app/com.digikala"
 
+    const val DIGI_WALLET = "https://www.mydigipay.com/"
+    const val DIGI_CLUB = "https://www.digikala.com/digiclub/"
+    const val TURLEARN_CONTACT = "https://truelearn.ir/contact/"
+
 }

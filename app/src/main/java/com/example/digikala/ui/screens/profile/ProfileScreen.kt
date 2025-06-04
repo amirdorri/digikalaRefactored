@@ -1,6 +1,5 @@
 package com.example.digikala.ui.screens.profile
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -45,6 +44,10 @@ import com.example.digikala.ui.theme.selectedBottomBar
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.Constants
+import com.example.digikala.util.Constants.DIGIPLUS_URL
+import com.example.digikala.util.Constants.DIGI_CLUB
+import com.example.digikala.util.Constants.DIGI_WALLET
+import com.example.digikala.util.Constants.TURLEARN_CONTACT
 import com.example.digikala.util.DigitHelper.digitByLocate
 import com.example.digikala.viewmodel.DataStoreViewModel
 import com.example.digikala.viewmodel.ProfileViewModel
@@ -55,26 +58,7 @@ fun ProfileScreen(
     dataStore: DataStoreViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
-
-
-//    if (dataStore.getUserToken() != "null") {
-//        Profile(navController)
-//    } else {
-//        when (profileViewModel.screenState) {
-//            ProfileScreenState.LOGIN_STATE -> {
-//                LoginScreen()
-//            }
-//
-//            ProfileScreenState.PROFILE_STATE -> {
-//                Profile(navController)
-//            }
-//
-//            ProfileScreenState.REGISTER_STATE -> {
-//                RegisterScreen()
-//            }
-//        }
-//    }
-    if (!dataStore.getUserToken().isNullOrBlank()) {
+    if (dataStore.getUserToken() != "null") { // !dataStore.getUserToken().isNullOrBlank()
         Profile(navController)
     } else {
         when (profileViewModel.screenState) {
@@ -91,9 +75,6 @@ fun ProfileScreen(
             }
         }
     }
-    Log.e("ebbbi", dataStore.getUserToken().toString())
-
-
 }
 
 @Composable
@@ -108,9 +89,9 @@ fun Profile(navController: NavHostController) {
         item { ProfileHeaderSection(navController) }
         item { ProfileMiddleSection(navController) }
         item { MyOrdersSection() }
-        item { CenterBannerItem(painter = painterResource(id = R.drawable.digiclub1)) }
+        item { CenterBannerItem(painter = painterResource(id = R.drawable.digiclub1),navController = navController) }
         item { ProfileMenuSection(navController) }
-        item { CenterBannerItem(painter = painterResource(id = R.drawable.digiclub2)) }
+        item { CenterBannerItem(painter = painterResource(id = R.drawable.digiclub2), navController = navController) }
     }
 }
 
@@ -129,8 +110,10 @@ private fun ProfileMenuSection(navController: NavHostController) {
             )
         },
         text = stringResource(id = R.string.digi_plus),
-        isHaveDivider = true
-    )
+        haveDivider = true
+    ) {
+        navController.navigate(route = Screen.WebView.route + "?url=$DIGIPLUS_URL")
+    }
     MenuRowItem(
         icon = {
             Image(
@@ -142,7 +125,7 @@ private fun ProfileMenuSection(navController: NavHostController) {
             )
         },
         text = stringResource(id = R.string.fav_list),
-        isHaveDivider = true
+        haveDivider = true
     )
 
     MenuRowItem(
@@ -156,7 +139,7 @@ private fun ProfileMenuSection(navController: NavHostController) {
             )
         },
         text = stringResource(id = R.string.my_comments),
-        isHaveDivider = true
+        haveDivider = true
     )
     MenuRowItem(
         icon = {
@@ -169,7 +152,7 @@ private fun ProfileMenuSection(navController: NavHostController) {
             )
         },
         text = stringResource(id = R.string.addresses),
-        isHaveDivider = true
+        haveDivider = true
     )
 
     MenuRowItem(
@@ -183,7 +166,7 @@ private fun ProfileMenuSection(navController: NavHostController) {
             )
         },
         text = stringResource(id = R.string.profile_data),
-        isHaveDivider = true
+        haveDivider = false
     ) {
         navController.navigate(Screen.UserAccount.route)
     }
@@ -407,6 +390,9 @@ private fun ProfileHeaderSection(
 
         Column(
             modifier = Modifier
+                .clickable {
+                    navController.navigate(route = Screen.WebView.route + "?url=$DIGI_WALLET")
+                }
                 .weight(0.49f),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -471,8 +457,13 @@ private fun ProfileMiddleSection(navController: NavHostController) {
             )
         }
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally)
-        {
+        Column(
+            modifier = Modifier.clickable {
+                navController.navigate(route = Screen.WebView.route + "?url=$DIGI_CLUB")
+            },
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
             Image(
                 painter = painterResource(id = R.drawable.digi_club),
                 contentDescription = "",
@@ -488,8 +479,12 @@ private fun ProfileMiddleSection(navController: NavHostController) {
         }
 
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally)
-        {
+        Column(
+            modifier = Modifier.clickable {
+                navController.navigate(route = Screen.WebView.route + "?url=$TURLEARN_CONTACT")
+            },
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.digi_contact_us),
                 contentDescription = "",

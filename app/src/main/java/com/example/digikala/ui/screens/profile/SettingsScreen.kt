@@ -3,11 +3,15 @@ package com.example.digikala.ui.screens.profile
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -32,15 +36,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.digikala.BuildConfig
 import com.example.digikala.MainActivity
 import com.example.digikala.R
 import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.selectedBottomBar
+import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.Constants.DIGI_BUG
 import com.example.digikala.util.Constants.DIGI_FAQ
@@ -51,7 +59,6 @@ import com.example.digikala.util.Constants.DIGI_TURLEARN
 import com.example.digikala.viewmodel.BasketViewModel
 import com.example.digikala.viewmodel.DataStoreViewModel
 import com.example.digikala.viewmodel.ProfileViewModel
-import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
 
 @Composable
 fun SettingsScreen(navController: NavHostController) {
@@ -59,11 +66,14 @@ fun SettingsScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
+           // .verticalScroll(rememberScrollState())
     ) {
         SettingHeader(navController)
 
         SettingMenuSection(navController)
+        
+        Spacer(Modifier.weight(1f))
+        SettingBranding()
     }
 }
 
@@ -102,7 +112,7 @@ fun SettingHeader(navController: NavHostController) {
 fun SettingMenuSection(
     navController: NavHostController,
     dataStore: DataStoreViewModel = hiltViewModel(),
-    profileVViewModel: ProfileViewModel = hiltViewModel(),
+    profileViewModel: ProfileViewModel = hiltViewModel(),
     basketViewModel: BasketViewModel = hiltViewModel(),
 ) {
 
@@ -114,7 +124,7 @@ fun SettingMenuSection(
             )
         },
         text = stringResource(id = R.string.repetitive_questions),
-        isHaveDivider = true
+        haveDivider = true
     ) {
         navController.navigate(
             route = Screen.WebView.route + "?url=${DIGI_FAQ}"
@@ -130,7 +140,7 @@ fun SettingMenuSection(
             )
         },
         text = stringResource(id = R.string.privacy),
-        isHaveDivider = true
+        haveDivider = true
     ) {
         navController.navigate(
             route = Screen.WebView.route + "?url=${DIGI_PRIVACY}"
@@ -145,7 +155,7 @@ fun SettingMenuSection(
             )
         },
         text = stringResource(id = R.string.terms_of_use),
-        isHaveDivider = true
+        haveDivider = true
     ) {
         navController.navigate(
             route = Screen.WebView.route + "?url=${DIGI_TERMS}"
@@ -160,7 +170,7 @@ fun SettingMenuSection(
             )
         },
         text = stringResource(id = R.string.contact_us),
-        isHaveDivider = true
+        haveDivider = true
     ) {
         navController.navigate(
             route = Screen.WebView.route + "?url=${DIGI_TURLEARN}"
@@ -175,7 +185,7 @@ fun SettingMenuSection(
             )
         },
         text = stringResource(id = R.string.error_report),
-        isHaveDivider = true
+        haveDivider = true
     ) {
         navController.navigate(
             route = Screen.WebView.route + "?url=${DIGI_BUG}"
@@ -190,7 +200,7 @@ fun SettingMenuSection(
             )
         },
         text = stringResource(id = R.string.rating_to_digikal),
-        isHaveDivider = true
+        haveDivider = true
     ) {
         navController.navigate(
             route = Screen.WebView.route + "?url=${DIGI_SCORE}"
@@ -205,7 +215,7 @@ fun SettingMenuSection(
             )
         },
         text = stringResource(id = R.string.changing_lang),
-        isHaveDivider = true,
+        haveDivider = true,
         addCompose = {
             ChangeLanguage()
         }
@@ -221,10 +231,10 @@ fun SettingMenuSection(
         },
         text = stringResource(id = R.string.sign_out),
         textColor = MaterialTheme.colors.DigikalaDarktRed,
-        isHaveDivider = false,
+        haveDivider = false,
         addCompose = {}
     ) {
-        logOut(navController, dataStore, profileVViewModel, basketViewModel)
+        logOut(navController, dataStore, profileViewModel, basketViewModel)
     }
 
 }
@@ -278,5 +288,47 @@ fun ChangeLanguage(dataStore: DataStoreViewModel = hiltViewModel()) {
         Text(
             text = stringResource(R.string.farsi)
         )
+    }
+}
+
+
+@Composable
+fun SettingBranding() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = MaterialTheme.spacing.medium),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            modifier = Modifier.height(60.dp).padding(8.dp),
+            painter = painterResource(id = R.drawable.amirdori),
+            contentDescription = ""
+        )
+        Image(
+            modifier = Modifier.width(100.dp),
+            painter = painterResource(id = R.drawable.digi_red_english),
+            contentDescription = ""
+        )
+
+        Text(
+            text = stringResource(id = R.string.version_app, BuildConfig.VERSION_NAME),
+            style = MaterialTheme.typography.h6,
+            color = MaterialTheme.colors.semiDarkColor
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(id = R.string.truelearn_technical_team),
+                style = MaterialTheme.typography.h6,
+                color = MaterialTheme.colors.semiDarkColor
+            )
+           // Spacer(modifier = Modifier.width(MaterialTheme.spacing.extraSmall))
+
+        }
     }
 }
