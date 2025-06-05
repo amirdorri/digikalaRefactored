@@ -58,7 +58,8 @@ fun ProfileScreen(
     dataStore: DataStoreViewModel = hiltViewModel(),
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
-    if (dataStore.getUserToken() != "null") { // !dataStore.getUserToken().isNullOrBlank()
+    val token = dataStore.getUserToken()
+    if (!token.isNullOrBlank() && token != "null") {
         Profile(navController)
     } else {
         when (profileViewModel.screenState) {
@@ -126,7 +127,9 @@ private fun ProfileMenuSection(navController: NavHostController) {
         },
         text = stringResource(id = R.string.fav_list),
         haveDivider = true
-    )
+    ){
+        navController.navigate(Screen.FavoriteList.route)
+    }
 
     MenuRowItem(
         icon = {

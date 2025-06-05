@@ -19,6 +19,7 @@ import com.example.digikala.ui.screens.product_detail.ProductChartScreen
 import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.product_detail.ProductTechnicalFeaturesScreen
+import com.example.digikala.ui.screens.profile.FavoriteListScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.profile.SettingsScreen
 import com.example.digikala.ui.screens.profile.UserAccountScreen
@@ -213,6 +214,10 @@ fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifie
 
         composable(Screen.UserAccount.route) {
             UserAccountScreen(navController)
+        }
+
+        composable(Screen.FavoriteList.route) {
+            FavoriteListScreen(navController)
         }
 
 

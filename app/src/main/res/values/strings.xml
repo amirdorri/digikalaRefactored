@@ -212,5 +212,10 @@
     <string name="address">آدرس</string>
     <string name="check_net">اتصال اینترنت تلفن همراه خود را بررسی کنید</string>
 
+    <string name="processing_orders">سفارشات در حال آماده سازی</string>
+    <string name="delivered_orders">سفارشات تحویل شده</string>
+    <string name="canceled_orders">سفارشات لغو شده</string>
+    <string name="returned_orders">سفارشات مرجوع شده</string>
+
 
 </resources>

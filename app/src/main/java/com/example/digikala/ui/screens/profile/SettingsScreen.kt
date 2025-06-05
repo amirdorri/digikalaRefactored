@@ -56,6 +56,7 @@ import com.example.digikala.util.Constants.DIGI_PRIVACY
 import com.example.digikala.util.Constants.DIGI_SCORE
 import com.example.digikala.util.Constants.DIGI_TERMS
 import com.example.digikala.util.Constants.DIGI_TURLEARN
+import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.viewmodel.BasketViewModel
 import com.example.digikala.viewmodel.DataStoreViewModel
 import com.example.digikala.viewmodel.ProfileViewModel
@@ -254,6 +255,7 @@ fun logOut(
         saveUserPassword("null")
         saveUserName("null")
     }
+    USER_TOKEN = "null"
     profileViewModel.screenState = ProfileScreenState.LOGIN_STATE
     navController.navigate(Screen.Profile.route)
 }
