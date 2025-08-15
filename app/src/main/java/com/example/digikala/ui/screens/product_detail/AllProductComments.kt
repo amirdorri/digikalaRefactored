@@ -1,6 +1,5 @@
 package com.example.digikala.ui.screens.product_detail
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +22,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -56,23 +54,43 @@ import com.example.digikala.ui.theme.grayAlpha
 import com.example.digikala.ui.theme.searchBarBg
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.PRODUCT_COMMENTS
+import com.example.digikala.util.DigitHelper
 import com.example.digikala.util.DigitHelper.digitByLocate
 import com.example.digikala.util.DigitHelper.gregorianToJalali
-import com.example.digikala.viewmodel.ProductDetailsViewModel
-import kotlinx.coroutines.flow.collectLatest
-
+import com.example.digikala.viewmodel.CommentsViewModel
 
 @Composable
 fun AllProductComments(
+    viewModel: CommentsViewModel = hiltViewModel(),
     navController: NavHostController,
     productId: String,
     commentsCount: String,
-    viewModel: ProductDetailsViewModel = hiltViewModel(),
+    pageName: String
 ) {
-    LaunchedEffect(true) { viewModel.getCommentList(productId) }
-    val commentsList = viewModel.commentsList.collectAsLazyPagingItems()
+    val context = LocalContext.current
 
-    Column() {
+    val commentsCountText = if (commentsCount != "1")
+        "${digitByLocate(commentsCount)} ${stringResource(id = R.string.comment)}"
+    else
+        context.getString(R.string.all_comments)
+
+    LaunchedEffect(true) {
+        if (pageName == PRODUCT_COMMENTS)
+            viewModel.getCommentList(productId)
+        else {
+            viewModel.getUserComments()
+
+        }
+    }
+
+    val commentsList =
+        if (pageName == PRODUCT_COMMENTS)
+            viewModel.productCommentsList.collectAsLazyPagingItems()
+        else
+            viewModel.userCommentsList.collectAsLazyPagingItems()
+
+    Column {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -84,15 +102,15 @@ fun AllProductComments(
                 imageVector = Icons.Filled.ArrowForward,
                 contentDescription = "",
                 modifier = Modifier
-                    .size(24.dp)
                     .padding(horizontal = MaterialTheme.spacing.medium)
+                    .size(24.dp)
                     .clickable { navController.popBackStack() }
             )
 
             Text(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = "${digitByLocate(commentsCount)} ${stringResource(id = R.string.comment)}",
+                text = commentsCountText,
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.h3,
                 fontWeight = FontWeight.Bold,
@@ -121,8 +139,11 @@ fun AllProductComments(
                     CommentsItem(commentsList[index]!!)
                 }
 
-                commentsList.apply {
+                /*items(commentsList.itemSnapshotList) { comment ->
+                    CommentsItem(comment!!)
+                }*/
 
+                commentsList.apply {
                     when {
                         loadState.refresh is LoadState.Loading -> {
                             item {
@@ -144,7 +165,6 @@ fun AllProductComments(
                                 }
                             }
                         }
-
                         loadState.append is LoadState.Error -> {
                             //todo error handling
                         }
@@ -162,7 +182,6 @@ private fun CommentsItem(item: ProductComment) {
     val year = dateParts[0].toInt()
     val month = dateParts[1].toInt()
     val day = dateParts[2].toInt()
-
     val context = LocalContext.current
 
     var iconSuggestion = R.drawable.like
@@ -247,7 +266,6 @@ private fun CommentsItem(item: ProductComment) {
             color = Color.LightGray,
         )
 
-
         Row(
             modifier = Modifier
                 .padding(
@@ -275,7 +293,6 @@ private fun CommentsItem(item: ProductComment) {
             )
         }
 
-
         Text(
             modifier = Modifier
                 .padding(
@@ -288,6 +305,7 @@ private fun CommentsItem(item: ProductComment) {
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.h5,
         )
+
         Text(
             modifier = Modifier
                 .padding(
@@ -304,4 +322,5 @@ private fun CommentsItem(item: ProductComment) {
         )
     }
 }
+
 

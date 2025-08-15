@@ -19,6 +19,8 @@ import com.example.digikala.ui.screens.product_detail.ProductChartScreen
 import com.example.digikala.ui.screens.product_detail.ProductDescScreen
 import com.example.digikala.ui.screens.product_detail.ProductDetailsScreen
 import com.example.digikala.ui.screens.product_detail.ProductTechnicalFeaturesScreen
+import com.example.digikala.ui.screens.profile.AddAddressScreen
+import com.example.digikala.ui.screens.profile.AddressScreen
 import com.example.digikala.ui.screens.profile.FavoriteListScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.profile.SettingsScreen
@@ -26,7 +28,10 @@ import com.example.digikala.ui.screens.profile.UserAccountScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
 
 @Composable
-fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
+fun SetupNavGraph(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
 
     NavHost(
         modifier = modifier,
@@ -171,14 +176,19 @@ fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifie
         }
 
         composable(
-            Screen.AllProductComments.route + "/{productId}/{commentCount}",
+            Screen.AllProductComments.route + "/{productId}/{commentCount}/{pageName}",
             arguments = listOf(
                 navArgument("productId") {
                     type = NavType.StringType
                     defaultValue = " "
                     nullable = true
-                } ,
+                },
                 navArgument("commentCount") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                },
+                navArgument("pageName") {
                     type = NavType.StringType
                     defaultValue = " "
                     nullable = true
@@ -187,8 +197,15 @@ fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifie
         ) {
             it.arguments!!.getString("productId")?.let { productId ->
                 it.arguments!!.getString("commentCount")?.let { commentCount ->
-                    AllProductComments(navController, productId, commentCount)
+                    it.arguments!!.getString("pageName")?.let { pageName ->
 
+                        AllProductComments(
+                            navController = navController,
+                            productId = productId,
+                            commentsCount = commentCount,
+                            pageName = pageName
+                        )
+                    }
                 }
             }
         }
@@ -218,6 +235,29 @@ fun SetupNavGraph(navController: NavHostController, modifier: Modifier = Modifie
 
         composable(Screen.FavoriteList.route) {
             FavoriteListScreen(navController)
+        }
+
+        composable(
+            route = Screen.AddressScreen.route + "/{isFromBasket}",
+            arguments = listOf(
+                navArgument("isFromBasket") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("isFromBasket")?.let { isFromBasket ->
+                AddressScreen(
+                    navController = navController,
+                    isFromBasket = isFromBasket.toInt()
+                )
+            }
+
+        }
+
+        composable(route = Screen.AddAddressScreen.route) {
+            AddAddressScreen(navController = navController)
         }
 
 

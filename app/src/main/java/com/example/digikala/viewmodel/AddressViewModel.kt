@@ -3,6 +3,7 @@ package com.example.digikala.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.digikala.data.model.address.AddAddressRequest
 import com.example.digikala.data.model.address.UserAddress
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.repository.AddressRepo
@@ -19,13 +20,16 @@ class AddressViewModel @Inject constructor(private val repo: AddressRepo) : View
     val userAddressList =
         MutableStateFlow<NetworkResult<List<UserAddress>>>(NetworkResult.Loading())
 
+    val addNewAddressResponse =
+        MutableStateFlow<NetworkResult<String>>(NetworkResult.Loading())
 
-    init {
-        Log.d("VIEWMODEL_INIT", "AddressViewModel initialized, calling getUserAddressList")
-        getUserAddressList(Constants.USER_TOKEN)
-    }
 
-    private fun getUserAddressList(token: String) {
+//    init {
+//        Log.d("VIEWMODEL_INIT", "AddressViewModel initialized, calling getUserAddressList")
+//        getUserAddressList(Constants.USER_TOKEN)
+//    }
+
+    fun getUserAddressList(token: String) {
         viewModelScope.launch {
             userAddressList.emit(repo.getUserAddressList(token))
             try {
@@ -35,6 +39,12 @@ class AddressViewModel @Inject constructor(private val repo: AddressRepo) : View
             } catch (e: Exception) {
                 Log.e("API_ERROR", "Failed to fetch user addresses: ${e.message}")
             }
+        }
+    }
+
+    fun setNewAddress(address : AddAddressRequest) {
+        viewModelScope.launch {
+            addNewAddressResponse.emit(repo.saveUserAddress(address))
         }
     }
 }

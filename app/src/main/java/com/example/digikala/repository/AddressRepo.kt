@@ -2,6 +2,7 @@ package com.example.digikala.repository
 
 import android.util.Log
 import com.example.digikala.data.datastore.BaseApiResponse
+import com.example.digikala.data.model.address.AddAddressRequest
 import com.example.digikala.data.model.address.UserAddress
 import com.example.digikala.data.model.category.SubCategoryModel
 import com.example.digikala.data.model.profile.LoginRequest
@@ -22,4 +23,10 @@ class AddressRepo @Inject constructor(private val api: AddressApi) : BaseApiResp
             response
         }
     }
+
+    suspend fun saveUserAddress(address : AddAddressRequest) : NetworkResult<String> =
+        safeApiCall {
+            api.saveUserAddress(address)
+        }
+
 }

@@ -45,12 +45,15 @@ object Constants {
     const val DIGI_FAQ = "https://www.digikala.com/faq/"
     const val DIGI_PRIVACY = "https://www.digikala.com/page/privacy/"
     const val DIGI_TERMS = "https://www.digikala.com/page/terms/"
-    const val DIGI_TURLEARN = "https://truelearn.ir/"
+    const val DIGI_TRUELEARN = "https://truelearn.ir/"
     const val DIGI_BUG = "https://www.digikala.com/page/bug-report/"
     const val DIGI_SCORE = "https://cafebazaar.ir/app/com.digikala"
 
     const val DIGI_WALLET = "https://www.mydigipay.com/"
     const val DIGI_CLUB = "https://www.digikala.com/digiclub/"
     const val TURLEARN_CONTACT = "https://truelearn.ir/contact/"
+
+    const val PRODUCT_COMMENTS = "PRODUCT_COMMENTS"
+    const val USER_COMMENTS = "USER_COMMENTS"
 
 }

@@ -11,8 +11,7 @@ import com.example.digikala.data.remote.ProductDetailsApi
 import retrofit2.http.Query
 import javax.inject.Inject
 
-class ProductDetailsRepo @Inject constructor(private val api: ProductDetailsApi) :
-    BaseApiResponse() {
+class ProductDetailsRepo @Inject constructor(private val api: ProductDetailsApi) : BaseApiResponse() {
 
     suspend fun getProductById(productId: String): NetworkResult<ProductDetail> =
         safeApiCall {
@@ -22,20 +21,6 @@ class ProductDetailsRepo @Inject constructor(private val api: ProductDetailsApi)
     suspend fun getSimilarProducts(categoryId: String): NetworkResult<List<AmazingItem>> =
         safeApiCall {
             api.getSimilarProducts(categoryId)
-        }
-
-    suspend fun setNewComment(newComment: NewComment): NetworkResult<String> =
-        safeApiCall {
-            api.setNewComment(newComment)
-        }
-
-    suspend fun getAllProductComments(
-        id: String,
-        pageSize: String,
-        pageNumber: String,
-    ): NetworkResult<List<ProductComment>> =
-        safeApiCall {
-            api.getAllProductComments(id = id, pageSize = pageSize, pageNumber = pageNumber)
         }
 
 }

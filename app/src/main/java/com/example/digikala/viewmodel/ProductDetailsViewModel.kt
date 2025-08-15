@@ -42,25 +42,5 @@ class ProductDetailsViewModel @Inject constructor(private val repo: ProductDetai
             similarProducts.emit(repo.getSimilarProducts(categoryId))
         }
     }
-     fun setNewComment(newComment: NewComment) {
-        viewModelScope.launch {
-            newCommentResult.emit(repo.setNewComment(newComment))
-        }
-    }
 
-    private val _commentsList = MutableStateFlow<PagingData<ProductComment>>(PagingData.empty())
-    val commentsList: StateFlow<PagingData<ProductComment>> = _commentsList.asStateFlow()
-
-    fun getCommentList(productId: String) {
-        viewModelScope.launch {
-            Pager(PagingConfig(pageSize = 5)) {
-                ProductCommentsDataSource(repo, productId)
-            }.flow
-                .cachedIn(viewModelScope)
-                .collectLatest {
-                    Log.d("mycommentsList", "Collected new paging data")
-                    _commentsList.value = it
-                }
-        }
-    }
 }

@@ -42,6 +42,7 @@ import com.example.digikala.ui.theme.grayAlpha
 import com.example.digikala.ui.theme.roundedShape
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.PRODUCT_COMMENTS
 import com.example.digikala.util.DigitHelper.digitByLocate
 import com.example.digikala.util.DigitHelper.gregorianToJalali
 
@@ -82,7 +83,7 @@ fun ProductCommentSection(
                 color = MaterialTheme.colors.LightCyan,
                 style = MaterialTheme.typography.h4,
                 modifier = Modifier.clickable {
-                    navController.navigate(Screen.AllProductComments.withArgs(productId, commentCount))
+                    navController.navigate(Screen.AllProductComments.withArgs(productId, commentCount, PRODUCT_COMMENTS))
                 })
         }
     }

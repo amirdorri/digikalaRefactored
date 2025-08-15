@@ -16,12 +16,25 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface ProductDetailsApi {
+interface CommentsApi {
 
-    @GET("v1/getProductById")
-    suspend fun getProductById(@Query("id") productId : String) : Response<ResponseResult<ProductDetail>>
+    @POST("v1/setNewComment")
+    suspend fun setNewComment(
+        @Body newComment: NewComment
+    ): Response<ResponseResult<String>>
 
-    @GET("v1/getSimilarProducts")
-    suspend fun getSimilarProducts(@Query("categoryId") categoryId : String) : Response<ResponseResult<List<AmazingItem>>>
+    @GET("v1/getAllProductComments")
+    suspend fun getAllProductComments(
+        @Query("id") id: String,
+        @Query("pageSize") pageSize: String,
+        @Query("pageNumber") pageNumber: String,
+    ): Response<ResponseResult<List<ProductComment>>>
+
+    @GET("v1/getUserComments")
+    suspend fun getUserComments(
+        @Query("token") token: String,
+        @Query("pageSize") pageSize: String,
+        @Query("pageNumber") pageNumber: String,
+    ): Response<ResponseResult<List<ProductComment>>>
 
 }

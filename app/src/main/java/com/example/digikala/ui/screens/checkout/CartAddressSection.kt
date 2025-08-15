@@ -15,6 +15,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,52 +37,80 @@ import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.address.UserAddress
 import com.example.digikala.data.remote.NetworkResult
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.components.MyLoading
 import com.example.digikala.ui.theme.LightCyan
 import com.example.digikala.ui.theme.extraSmall
 import com.example.digikala.ui.theme.spacing
+import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.viewmodel.AddressViewModel
+import com.example.digikala.viewmodel.DataStoreViewModel
+
 
 @Composable
 fun CartAddressSection(
     navController: NavHostController,
     viewModel: AddressViewModel = hiltViewModel(),
-    onAddressReady : (List<UserAddress>) -> Unit
+    dataStore: DataStoreViewModel = hiltViewModel(),
+    onAddressReady: (List<UserAddress>) -> Unit
 ) {
-    var addressList by remember { mutableStateOf<List<UserAddress>>(emptyList()) }
-    var loading by remember { mutableStateOf(false) }
+
+    var addressIndex = 0
+    addressIndex = if (dataStore.getUserAddressIndex().toString() == "null"){
+        0
+    }else{
+        dataStore.getUserAddressIndex().toString().toInt()
+    }
+
+
+
+    var addressList by remember {
+        mutableStateOf<List<UserAddress>>(emptyList())
+    }
+    var loading by remember {
+        mutableStateOf(false)
+    }
+
+
     var address = stringResource(id = R.string.no_address)
     var addressName = ""
     var addressBtnText = stringResource(id = R.string.add_address)
-    val addressListResult by viewModel.userAddressList.collectAsState()
 
+    LaunchedEffect(true){
+        viewModel.getUserAddressList(USER_TOKEN)
+    }
+
+
+
+    val addressListResult by viewModel.userAddressList.collectAsState()
     when (addressListResult) {
         is NetworkResult.Success -> {
             addressList = addressListResult.data ?: emptyList()
             if (addressList.isNotEmpty()) {
                 onAddressReady(addressList)
-                address = addressList[0].address
+                address = addressList[addressIndex].address
                 addressBtnText = stringResource(id = R.string.change_address)
-                addressName = addressList[0].name
+                addressName = addressList[addressIndex].name
             }
             loading = false
         }
-
         is NetworkResult.Error -> {
             loading = false
-            Log.e("dorri", "CartAddressSection error : ${addressListResult.message}")
+            Log.e("3636", "CartAddressSection error : ${addressListResult.message}")
         }
-
         is NetworkResult.Loading -> {
             loading = true
         }
     }
 
+
     if (loading) {
         MyLoading(100.dp, true)
     } else {
-
-        Row(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+        ) {
 
             Image(
                 painter = painterResource(id = R.drawable.location),
@@ -122,7 +151,10 @@ fun CartAddressSection(
                     fontWeight = FontWeight.SemiBold,
                     maxLines = 1
                 )
+
             }
+
+
         }
 
 
@@ -137,7 +169,9 @@ fun CartAddressSection(
             Text(
                 modifier = Modifier
                     .padding(horizontal = MaterialTheme.spacing.extraSmall)
-                    .clickable {},
+                    .clickable {
+                        navController.navigate(Screen.AddressScreen.withArgs(addressIndex))
+                    },
                 text = addressBtnText,
                 textAlign = TextAlign.End,
                 style = MaterialTheme.typography.extraSmall,
@@ -153,8 +187,10 @@ fun CartAddressSection(
                     .size(12.dp)
                     .align(Alignment.CenterVertically)
             )
+
         }
     }
+
 
     Divider(
         modifier = Modifier
@@ -165,4 +201,6 @@ fun CartAddressSection(
             .shadow(2.dp),
         color = Color.LightGray,
     )
+
 }
+

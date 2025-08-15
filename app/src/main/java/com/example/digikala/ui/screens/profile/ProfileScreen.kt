@@ -47,7 +47,9 @@ import com.example.digikala.util.Constants
 import com.example.digikala.util.Constants.DIGIPLUS_URL
 import com.example.digikala.util.Constants.DIGI_CLUB
 import com.example.digikala.util.Constants.DIGI_WALLET
+import com.example.digikala.util.Constants.PRODUCT_COMMENTS
 import com.example.digikala.util.Constants.TURLEARN_CONTACT
+import com.example.digikala.util.Constants.USER_COMMENTS
 import com.example.digikala.util.DigitHelper.digitByLocate
 import com.example.digikala.viewmodel.DataStoreViewModel
 import com.example.digikala.viewmodel.ProfileViewModel
@@ -143,7 +145,9 @@ private fun ProfileMenuSection(navController: NavHostController) {
         },
         text = stringResource(id = R.string.my_comments),
         haveDivider = true
-    )
+    ){
+        navController.navigate(Screen.AllProductComments.withArgs("1", "1", USER_COMMENTS))
+    }
     MenuRowItem(
         icon = {
             Image(
@@ -156,7 +160,9 @@ private fun ProfileMenuSection(navController: NavHostController) {
         },
         text = stringResource(id = R.string.addresses),
         haveDivider = true
-    )
+    ){
+        navController.navigate(Screen.AddressScreen.withArgs(-1))
+    }
 
     MenuRowItem(
         icon = {

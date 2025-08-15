@@ -60,6 +60,7 @@ import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.Constants.USER_NAME
 import com.example.digikala.util.Constants.USER_TOKEN
+import com.example.digikala.viewmodel.CommentsViewModel
 import com.example.digikala.viewmodel.ProductDetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -69,8 +70,7 @@ fun NewCommentScreen(
     productId: String,
     productName: String,
     imageUrl: String,
-
-    ) {
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -79,7 +79,6 @@ fun NewCommentScreen(
         Header(navController, productName, imageUrl)
         CommentForm(navController, productId = productId)
     }
-
 
 }
 
@@ -143,7 +142,7 @@ private fun Header(
 @Composable
 private fun CommentForm(
     navController: NavHostController,
-    viewModel: ProductDetailsViewModel = hiltViewModel(),
+    viewModel: CommentsViewModel = hiltViewModel(),
     productId: String
 ) {
     val context = LocalContext.current

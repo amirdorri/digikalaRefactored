@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -55,7 +53,7 @@ import com.example.digikala.util.Constants.DIGI_FAQ
 import com.example.digikala.util.Constants.DIGI_PRIVACY
 import com.example.digikala.util.Constants.DIGI_SCORE
 import com.example.digikala.util.Constants.DIGI_TERMS
-import com.example.digikala.util.Constants.DIGI_TURLEARN
+import com.example.digikala.util.Constants.DIGI_TRUELEARN
 import com.example.digikala.util.Constants.USER_TOKEN
 import com.example.digikala.viewmodel.BasketViewModel
 import com.example.digikala.viewmodel.DataStoreViewModel
@@ -174,7 +172,7 @@ fun SettingMenuSection(
         haveDivider = true
     ) {
         navController.navigate(
-            route = Screen.WebView.route + "?url=${DIGI_TURLEARN}"
+            route = Screen.WebView.route + "?url=${DIGI_TRUELEARN}"
         )
     }
 

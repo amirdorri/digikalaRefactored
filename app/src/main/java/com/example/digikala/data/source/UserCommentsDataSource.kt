@@ -7,9 +7,10 @@ import com.example.digikala.data.model.product_detail.ProductComment
 import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.repository.CommentsRepo
 import com.example.digikala.repository.ProductDetailsRepo
-class ProductCommentsDataSource(
+
+class UserCommentsDataSource(
     private val repository: CommentsRepo,
-    val productId: String
+    val token: String
 ) : PagingSource<Int, ProductComment>() {
 
     override fun getRefreshKey(state: PagingState<Int, ProductComment>): Int? {
@@ -21,19 +22,19 @@ class ProductCommentsDataSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ProductComment> {
         val page = params.key ?: 1
-        Log.d("PagingDebug", "🔹 ProductCommentsDataSource → Start load, page=$page, productId=$productId")
+        Log.d("PagingDebug", "🔹 UserCommentsDataSource → Start load, page=$page, token=$token")
 
         return try {
-            val result = repository.getAllProductComments(
+            val result = repository.getUserComments(
                 pageNumber = page.toString(),
                 pageSize = "5",
-                id = productId
+                token = token
             )
-            Log.d("PagingDebug", "🔹 ProductCommentsDataSource → NetworkResult: $result")
+            Log.d("PagingDebug", "🔹 UserCommentsDataSource → NetworkResult: $result")
 
             if (result is NetworkResult.Success && result.data != null) {
                 val data = result.data
-                Log.d("PagingDebug", "✅ ProductCommentsDataSource → Loaded ${data.size} items")
+                Log.d("PagingDebug", "✅ UserCommentsDataSource → Loaded ${data.size} items")
 
                 LoadResult.Page(
                     data = data,
@@ -41,12 +42,12 @@ class ProductCommentsDataSource(
                     nextKey = if (data.isEmpty()) null else page + 1
                 )
             } else {
-                Log.e("PagingDebug", "❌ ProductCommentsDataSource → Error: ${result.message}")
+                Log.e("PagingDebug", "❌ UserCommentsDataSource → Error: ${result.message}")
                 LoadResult.Error(Throwable(result.message ?: "Unknown error"))
             }
 
         } catch (e: Exception) {
-            Log.e("PagingDebug", "💥 ProductCommentsDataSource → Exception: ${e.localizedMessage}", e)
+            Log.e("PagingDebug", "💥 UserCommentsDataSource → Exception: ${e.localizedMessage}", e)
             LoadResult.Error(e)
         }
     }
@@ -55,9 +56,10 @@ class ProductCommentsDataSource(
 
 
 
-//class ProductCommentsDataSource(
+
+//class UserCommentsDataSource(
 //    private val repository: CommentsRepo,
-//    val productId: String
+//    val token: String
 //) : PagingSource<Int, ProductComment>() {
 //
 //    override fun getRefreshKey(state: PagingState<Int, ProductComment>): Int? {
@@ -70,10 +72,10 @@ class ProductCommentsDataSource(
 //    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ProductComment> {
 //        return try {
 //            val nextPageNumber = params.key ?: 1
-//            val response = repository.getAllProductComments(
+//            val response = repository.getUserComments(
 //                pageNumber = nextPageNumber.toString(),
 //                pageSize = "5",
-//                id = productId
+//                token = token
 //            ).data
 //
 //            LoadResult.Page(
@@ -87,6 +89,6 @@ class ProductCommentsDataSource(
 //            LoadResult.Error(e)
 //        }
 //    }
-//
 //}
+
 
