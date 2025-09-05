@@ -25,6 +25,7 @@ import com.example.digikala.ui.screens.profile.FavoriteListScreen
 import com.example.digikala.ui.screens.profile.ProfileScreen
 import com.example.digikala.ui.screens.profile.SettingsScreen
 import com.example.digikala.ui.screens.profile.UserAccountScreen
+import com.example.digikala.ui.screens.profile.orders.TabLayoutScreen
 import com.example.digikala.ui.screens.splash.SplashScreen
 
 @Composable
@@ -258,6 +259,27 @@ fun SetupNavGraph(
 
         composable(route = Screen.AddAddressScreen.route) {
             AddAddressScreen(navController = navController)
+        }
+
+//        composable(route = Screen.TabLayoutScreen.route + "?orders={orders}",
+//            arguments = listOf(
+//                navArgument("orders") {
+//                    type = NavType.StringType
+//                    defaultValue = " "
+//                    nullable = true
+//                }
+//            )
+//        ) {
+//            it.arguments!!.getString("orders")?.let { orders ->
+//                TabLayoutScreen(
+//                    navController = navController,
+//                    orders = orders
+//                )
+//            }
+//
+//        }
+        composable(route = Screen.TabLayoutScreen.route) {
+            TabLayoutScreen(navController = navController)
         }
 
 

@@ -24,6 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.basket.CartItem
 import com.example.digikala.data.model.basket.CartStatus
@@ -39,15 +41,16 @@ import com.example.digikala.viewmodel.BasketViewModel
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SuggestListSection(
+    navController: NavHostController,
     viewModel: BasketViewModel = hiltViewModel()
 ) {
 
-        viewModel.getSuggestedItems()
-    var suggestedList by remember{ mutableStateOf<List<StoreProduct>>(emptyList()) }
+    viewModel.getSuggestedItems()
+    var suggestedList by remember { mutableStateOf<List<StoreProduct>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
     val suggestedItemResult by viewModel.suggestedList.collectAsState()
 
-    when(suggestedItemResult) {
+    when (suggestedItemResult) {
 
         is NetworkResult.Success -> {
             suggestedList = suggestedItemResult.data ?: emptyList()
@@ -93,7 +96,7 @@ fun SuggestListSection(
     ) {
 
         for (item in suggestedList) {
-            SuggestionItemCard(item){
+            SuggestionItemCard(navController, item) {
                 viewModel.insertCartItem(
                     CartItem(
                         it._id,

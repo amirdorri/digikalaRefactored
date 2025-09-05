@@ -63,7 +63,7 @@ fun NextShoppingCart(
                 } else {
 
                     items((nextCartItemState as BasketScreenState.Success<List<CartItem>>).data) { item ->
-                        CartItemCard(item, CartStatus.NEXT_CART)
+                        CartItemCard(navController,item, CartStatus.NEXT_CART)
                     }
                 }
             }

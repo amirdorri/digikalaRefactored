@@ -2,6 +2,7 @@ package com.example.digikala.repository
 
 import com.example.digikala.data.datastore.BaseApiResponse
 import com.example.digikala.data.model.category.SubCategoryModel
+import com.example.digikala.data.model.checkout.OrderFullDetail
 import com.example.digikala.data.model.profile.LoginRequest
 import com.example.digikala.data.model.profile.LoginResponse
 import com.example.digikala.data.model.profile.SetUserNameRequest
@@ -24,4 +25,10 @@ class ProfileRepo @Inject constructor(private val api : ProfileApi): BaseApiResp
             api.setUserName(newName)
         }
     }
+
+    suspend fun getUserOrders(token: String): NetworkResult<List<OrderFullDetail>>  =
+        safeApiCall {
+            api.getUserOrders(token)
+        }
+
 }

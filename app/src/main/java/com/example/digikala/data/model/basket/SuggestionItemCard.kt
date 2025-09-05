@@ -37,9 +37,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.home.StoreProduct
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.digikalaRed
@@ -53,11 +56,13 @@ import com.example.digikala.util.DigitHelper.digitBytLocateAndSeparator
 
 @Composable
 fun SuggestionItemCard(
-    item : StoreProduct,
-    onAddClick : (StoreProduct) -> Unit
+    navController: NavHostController,
+    item: StoreProduct,
+    onAddClick: (StoreProduct) -> Unit
 ) {
     Card(
         modifier = Modifier
+            .clickable { navController.navigate(Screen.ProductDetailScreen.withArgs(item._id)) }
             .fillMaxWidth(0.5f),
         elevation = 1.dp
     ) {
@@ -73,42 +78,47 @@ fun SuggestionItemCard(
                     .padding(vertical = MaterialTheme.spacing.extraSmall)
             ) {
 
-               Box {
-                   Image(
-                       painter = rememberAsyncImagePainter(item.image),
-                       contentDescription = null,
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .height(130.dp),
-                       contentScale = ContentScale.Fit
-                   )
-                   Column(
-                       modifier = Modifier
-                           .align(Alignment.BottomStart)
-                           .padding(MaterialTheme.spacing.semiMedium)
-                           .fillMaxWidth(),
-                       horizontalAlignment = Alignment.Start,
-                       verticalArrangement = Arrangement.Center
-                   ) {
-                       Surface(
-                           modifier = Modifier
-                               .padding(MaterialTheme.spacing.extraSmall)
-                               .size(26.dp)
-                               .clip(CircleShape)
-                               .border(width = 1.dp, color = MaterialTheme.colors.digikalaRed, shape = CircleShape)
-                               .clickable { onAddClick(item)
-                               }
-                       ) {
-                           Icon(
-                               imageVector = Icons.Default.Add,
-                               contentDescription = "",
-                               tint = Color.Red,
-                           )
-                       }
+                Box {
+                    Image(
+                        painter = rememberAsyncImagePainter(item.image),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(130.dp),
+                        contentScale = ContentScale.Fit
+                    )
+                    Column(
+                        modifier = Modifier
+                            .align(Alignment.BottomStart)
+                            .padding(MaterialTheme.spacing.semiMedium)
+                            .fillMaxWidth(),
+                        horizontalAlignment = Alignment.Start,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Surface(
+                            modifier = Modifier
+                                .padding(MaterialTheme.spacing.extraSmall)
+                                .size(26.dp)
+                                .clip(CircleShape)
+                                .border(
+                                    width = 1.dp,
+                                    color = MaterialTheme.colors.digikalaRed,
+                                    shape = CircleShape
+                                )
+                                .clickable {
+                                    onAddClick(item)
+                                }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "",
+                                tint = Color.Red,
+                            )
+                        }
 
 
-                   }
-               }
+                    }
+                }
 
             }
 
@@ -145,7 +155,9 @@ fun SuggestionItemCard(
                         painter = painterResource(R.drawable.in_stock),
                         contentDescription = null,
                         tint = Color.Unspecified,
-                        modifier = Modifier.size(22.dp).padding(2.dp)
+                        modifier = Modifier
+                            .size(22.dp)
+                            .padding(2.dp)
                     )
 
                     Text(
@@ -169,7 +181,10 @@ fun SuggestionItemCard(
                         modifier = Modifier
                             .width(40.dp)
                             .height(24.dp)
-                            .background(color = MaterialTheme.colors.DigikalaDarktRed, shape = CircleShape)
+                            .background(
+                                color = MaterialTheme.colors.DigikalaDarktRed,
+                                shape = CircleShape
+                            )
                             .wrapContentWidth(align = Alignment.CenterHorizontally)
                             .wrapContentHeight(align = Alignment.CenterVertically)
                     ) {
@@ -218,7 +233,7 @@ fun SuggestionItemCard(
 }
 
 @Composable
-private fun currencyLogoChangerByLang() : Painter {
+private fun currencyLogoChangerByLang(): Painter {
 
     return if (USER_LANGUAGE == ENGLISH_LANG) {
         painterResource(id = R.drawable.dollar)

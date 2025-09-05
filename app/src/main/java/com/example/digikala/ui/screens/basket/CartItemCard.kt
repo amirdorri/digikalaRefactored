@@ -42,10 +42,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.basket.CartItem
 import com.example.digikala.data.model.basket.CartStatus
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.DarkCyan
 import com.example.digikala.ui.theme.DigikalaLightGreen
 import com.example.digikala.ui.theme.DigikalaLightRed
@@ -61,6 +63,7 @@ import com.example.digikala.viewmodel.BasketViewModel
 
 @Composable
 fun CartItemCard(
+    navController : NavHostController,
     item: CartItem,
     mode: CartStatus,
     viewModel: BasketViewModel = hiltViewModel()
@@ -70,6 +73,7 @@ fun CartItemCard(
 
     Card(
         modifier = Modifier
+            .clickable { navController.navigate(Screen.ProductDetailScreen.withArgs(item.itemId)) }
             .fillMaxWidth()
             .padding(bottom = MaterialTheme.spacing.extraSmall)
     ) {
@@ -85,8 +89,6 @@ fun CartItemCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
-
                 Column {
                     Text(
                         text = stringResource(R.string.your_shopping_list),
@@ -99,9 +101,7 @@ fun CartItemCard(
                         style = MaterialTheme.typography.h6,
                         color = Color.Gray
                     )
-
                 }
-
                 Icon(
                     imageVector = Icons.Filled.MoreVert,
                     contentDescription = "More Options",
@@ -151,9 +151,8 @@ fun CartItemCard(
                         fontStyle = MaterialTheme.typography.extraSmall
                     )
 
-                    Row(
+                    Row {
 
-                    ) {
                         Column(
                             modifier = Modifier
                                 .width(16.dp)
@@ -300,8 +299,6 @@ fun CartItemCard(
                                         )
                                     }
                                 )
-
-
                         }
                     } else {
                         Row(
@@ -329,7 +326,6 @@ fun CartItemCard(
                     }
                 }
                 Spacer(modifier = Modifier.padding(MaterialTheme.spacing.medium))
-
 
                 Column {
 
@@ -452,7 +448,6 @@ fun DetailRow(
             color = MaterialTheme.colors.semiDarkColor,
 
             )
-
     }
 }
 

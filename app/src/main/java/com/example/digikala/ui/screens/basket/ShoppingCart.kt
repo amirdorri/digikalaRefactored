@@ -70,11 +70,11 @@ fun ShoppingCart(
                     if ((currentCartItemState as BasketScreenState.Success<List<CartItem>>).data.isEmpty()) {
                         isCartEmpty = true
                         item { EmptyBasket() }
-                        item { SuggestListSection() }
+                        item { SuggestListSection(navController) }
                     } else {
                         isCartEmpty = false
                         items((currentCartItemState as BasketScreenState.Success<List<CartItem>>).data) { item ->
-                            CartItemCard(item, CartStatus.CURRENT_CART)
+                            CartItemCard(navController,item, CartStatus.CURRENT_CART)
                         }
                         item {
                             CartPriceDetailSection(cartDetail.value)
