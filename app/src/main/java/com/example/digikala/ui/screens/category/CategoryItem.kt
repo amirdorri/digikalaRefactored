@@ -1,5 +1,6 @@
 package com.example.digikala.ui.screens.category
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,8 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.category.Sub
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.DarkCyan
 import com.example.digikala.ui.theme.LightCyan
 import com.example.digikala.ui.theme.spacing
@@ -22,7 +25,9 @@ import com.example.digikala.ui.theme.spacing
 @Composable
 fun CategoryItem(
     title : String,
-    subList : List<Sub>
+    subList : List<Sub>,
+    categoryId : String,
+    navController: NavHostController
 ) {
     Row(
         modifier = Modifier
@@ -46,21 +51,18 @@ fun CategoryItem(
         Text(
             text = stringResource(R.string.see_all),
             style = MaterialTheme.typography.h5,
-            modifier = Modifier.padding(horizontal = MaterialTheme.spacing.small),
+            modifier = Modifier
+                .padding(horizontal = MaterialTheme.spacing.small)
+                .clickable {
+                    navController.navigate(Screen.SubCategoryScreen.withArgs(categoryId))
+                },
             color = MaterialTheme.colors.LightCyan
         )
-
     }
 
-    LazyRow(
-
-    ) {
+    LazyRow {
         items(subList){ list ->
-            SubCategoryItem(item = list)
+            SubCategoryItem(item = list, navController)
         }
-
     }
-
-
-
 }

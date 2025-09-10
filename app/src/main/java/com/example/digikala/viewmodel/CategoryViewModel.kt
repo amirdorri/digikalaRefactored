@@ -3,10 +3,18 @@ package com.example.digikala.viewmodel
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.digikala.data.model.category.SubCategoryModel
+import com.example.digikala.data.model.home.StoreProduct
 import com.example.digikala.data.remote.NetworkResult
+import com.example.digikala.data.source.ProductByCategoryDataSource
 import com.example.digikala.repository.CategoryRepo
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,15 +22,20 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor(private val repository: CategoryRepo) : ViewModel() {
 
     val subCategory = MutableStateFlow<NetworkResult<SubCategoryModel>>(NetworkResult.Loading())
-
-
+    var productByCategoryList: Flow<PagingData<StoreProduct>> = flow { emit(PagingData.empty()) }
     suspend fun getAllDataFromServer() {
         viewModelScope.launch {
-            //fire and forget
-            launch {
-                subCategory.emit(repository.getSubCategories())
-            }
+            launch { subCategory.emit(repository.getSubCategories()) }
         }
     }
+
+    fun getProductByCategory(categoryId: String) {
+        productByCategoryList = Pager(
+            PagingConfig(pageSize = 5)
+        ) {
+            ProductByCategoryDataSource(repository, categoryId)
+        }.flow.cachedIn(viewModelScope)
+    }
+
 
 }

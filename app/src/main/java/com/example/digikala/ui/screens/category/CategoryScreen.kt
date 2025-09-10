@@ -50,7 +50,7 @@ private fun SwipeRefreshSection(viewModel: CategoryViewModel, navController: Nav
 
         LazyColumn(modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)) {
             item { SearchBarSection() }
-            item { SubCategorySection() }
+            item { SubCategorySection(navController = navController) }
 
         }
 

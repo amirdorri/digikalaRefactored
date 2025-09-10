@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.digikala.ui.screens.basket.BasketScreen
 import com.example.digikala.ui.screens.category.CategoryScreen
+import com.example.digikala.ui.screens.category.SubCategoryScreen
 import com.example.digikala.ui.screens.checkout.CheckoutScreen
 import com.example.digikala.ui.screens.checkout.ConfirmPurchaseScreen
 import com.example.digikala.ui.screens.home.HomeScreen
@@ -261,25 +262,25 @@ fun SetupNavGraph(
             AddAddressScreen(navController = navController)
         }
 
-//        composable(route = Screen.TabLayoutScreen.route + "?orders={orders}",
-//            arguments = listOf(
-//                navArgument("orders") {
-//                    type = NavType.StringType
-//                    defaultValue = " "
-//                    nullable = true
-//                }
-//            )
-//        ) {
-//            it.arguments!!.getString("orders")?.let { orders ->
-//                TabLayoutScreen(
-//                    navController = navController,
-//                    orders = orders
-//                )
-//            }
-//
-//        }
         composable(route = Screen.TabLayoutScreen.route) {
             TabLayoutScreen(navController = navController)
+        }
+        composable(route = Screen.SubCategoryScreen.route + "/{categoryId}",
+            arguments = listOf(
+                navArgument("categoryId") {
+                    type = NavType.StringType
+                    defaultValue = " "
+                    nullable = true
+                }
+            )
+        ) {
+            it.arguments!!.getString("categoryId")?.let { categoryId ->
+                SubCategoryScreen(
+                    navController = navController,
+                    categoryId = categoryId
+                )
+            }
+
         }
 
 

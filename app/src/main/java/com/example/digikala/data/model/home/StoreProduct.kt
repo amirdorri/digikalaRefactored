@@ -7,5 +7,6 @@ data class StoreProduct(
     val price: Long,
     val discountPercent: Int,
     val image: String,
+    val star: Double
 )
 
