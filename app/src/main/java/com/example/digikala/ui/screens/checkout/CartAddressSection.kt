@@ -62,16 +62,8 @@ fun CartAddressSection(
         dataStore.getUserAddressIndex().toString().toInt()
     }
 
-
-
-    var addressList by remember {
-        mutableStateOf<List<UserAddress>>(emptyList())
-    }
-    var loading by remember {
-        mutableStateOf(false)
-    }
-
-
+    var addressList by remember { mutableStateOf<List<UserAddress>>(emptyList()) }
+    var loading by remember { mutableStateOf(false) }
     var address = stringResource(id = R.string.no_address)
     var addressName = ""
     var addressBtnText = stringResource(id = R.string.add_address)
@@ -79,8 +71,6 @@ fun CartAddressSection(
     LaunchedEffect(true){
         viewModel.getUserAddressList(USER_TOKEN)
     }
-
-
 
     val addressListResult by viewModel.userAddressList.collectAsState()
     when (addressListResult) {
@@ -102,7 +92,6 @@ fun CartAddressSection(
             loading = true
         }
     }
-
 
     if (loading) {
         MyLoading(100.dp, true)
@@ -153,10 +142,7 @@ fun CartAddressSection(
                 )
 
             }
-
-
         }
-
 
         Row(
             modifier = Modifier
@@ -187,10 +173,8 @@ fun CartAddressSection(
                     .size(12.dp)
                     .align(Alignment.CenterVertically)
             )
-
         }
     }
-
 
     Divider(
         modifier = Modifier
@@ -201,6 +185,5 @@ fun CartAddressSection(
             .shadow(2.dp),
         color = Color.LightGray,
     )
-
 }
 

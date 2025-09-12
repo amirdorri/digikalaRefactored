@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.digikala.data.model.checkout.OrderFullDetail
 import com.example.digikala.data.remote.NetworkResult
+import com.example.digikala.viewmodel.DataStoreViewModel
 import com.example.digikala.viewmodel.ProfileViewModel
 import com.google.accompanist.pager.rememberPagerState
 
@@ -20,12 +21,11 @@ import com.google.accompanist.pager.rememberPagerState
 @Composable
 fun TabLayoutScreen(
     navController: NavHostController,
-    profileViewModel: ProfileViewModel = hiltViewModel()
+    profileViewModel: ProfileViewModel = hiltViewModel(),
+    dataStoreViewModel: DataStoreViewModel = hiltViewModel()
 ) {
-    // وقتی وارد این صفحه شدیم، دیتا رو بگیر
-    LaunchedEffect(Unit) {
-        profileViewModel.getUserOrders()
-    }
+
+    LaunchedEffect(Unit) { profileViewModel.getUserOrders(dataStoreViewModel.getUserToken().toString()) }
 
     var orderItemList by remember { mutableStateOf<List<OrderFullDetail>>(emptyList()) }
     var loading by remember { mutableStateOf(false) }
@@ -58,91 +58,3 @@ fun TabLayoutScreen(
     }
 }
 
-//QWEN
-//@OptIn(ExperimentalPagerApi::class)
-//@Composable
-//fun TabLayoutScreen(
-//    navController: NavHostController,
-//    profileViewModel: ProfileViewModel = hiltViewModel() // دریافت خودکار از Hilt
-//) {
-//
-//    val orderResult by profileViewModel.orderItems.collectAsState()
-//    val orderList by remember {
-//        derivedStateOf {
-//            when (orderResult) {
-//                is NetworkResult.Success -> orderResult.data ?: emptyList()
-//                else -> emptyList()
-//            }
-//        }
-//    }
-//
-//
-//    val pagerState = rememberPagerState(5)
-//
-//    Column(modifier = Modifier.fillMaxSize()) {
-//
-//        // AppBar
-//        TabLayoutTopAppBar(navController)
-//
-//        // تب‌ها
-//        Tabs(pagerState = pagerState, orders = orderList)
-//
-//        // محتوای هر تب
-//
-//            TabContent(pagerState = pagerState, orders = orderList)
-//
-//    }
-//}
-
-
-
-
-
-//@Composable
-//fun TabLayoutScreen(
-//    navController: NavHostController,
-//    orders: String,
-//    profileViewModel: ProfileViewModel = hiltViewModel()
-//) {
-//    val pagerState = rememberPagerState()
-//
-//    LaunchedEffect(Unit) {
-//        profileViewModel.getUserOrders()
-//    }
-//    val orderList9 = remember { mutableStateOf<List<OrderFullDetail>>(emptyList()) }
-//
-//    val orderItemResult by profileViewModel.orderItems.collectAsState()
-//
-//    when (orderItemResult) {
-//        is NetworkResult.Success -> {
-//            val orderList = orderItemResult.data ?: emptyList()
-//
-//            if (orderList.isNotEmpty()) {
-//                Column {
-//                    Text(orderList[0].orderUserName)
-//                    Text(orderList[0].orderAddress)
-//                    Text(orderList[0].orderUserPhone)
-//
-//                    // اگر بخواهید همه سفارش‌ها را نمایش دهید:
-//                    // LazyColumn { items(orderList) { item -> ... } }
-//                }
-//            } else {
-//                Text("شما هنوز سفارشی ثبت نکرده‌اید.")
-//            }
-//        }
-//
-//        is NetworkResult.Error -> {
-//            Text("خطا: ${orderItemResult.message}")
-//        }
-//
-//        is NetworkResult.Loading -> {
-//            CircularProgressIndicator() // یا Text("در حال بارگذاری...")
-//        }
-//    }
-//
-//    Column {
-//        TabLayoutTopAppBar(navController)
-//        Tabs(orders = orderList9, pagerState = pagerState)
-//        TabContent(pagerState)
-//    }
-//}

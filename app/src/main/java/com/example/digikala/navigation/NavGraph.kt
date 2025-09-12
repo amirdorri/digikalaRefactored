@@ -196,20 +196,17 @@ fun SetupNavGraph(
                     nullable = true
                 }
             )
-        ) {
-            it.arguments!!.getString("productId")?.let { productId ->
-                it.arguments!!.getString("commentCount")?.let { commentCount ->
-                    it.arguments!!.getString("pageName")?.let { pageName ->
+        ) { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId") ?: ""
+            //val commentCount = backStackEntry.arguments?.getString("commentCount") ?: ""
+            val pageName = backStackEntry.arguments?.getString("pageName") ?: ""
 
-                        AllProductComments(
-                            navController = navController,
-                            productId = productId,
-                            commentsCount = commentCount,
-                            pageName = pageName
-                        )
-                    }
-                }
-            }
+            AllProductComments(
+                navController = navController,
+                productId = productId,
+                //categoryId = commentCount, // اگه نیازی نیست، حذفش کن
+                commentsType = pageName // اینجا pageName همون commentsType هست
+            )
         }
 
         composable(

@@ -81,7 +81,7 @@ fun ProfileScreen(
 ) {
 
     LaunchedEffect(Unit) {
-        profileViewModel.getUserOrders()
+        profileViewModel.getUserOrders(dataStore.getUserToken().toString())
     }
 
     var orderItemList by remember { mutableStateOf<List<OrderFullDetail>>(emptyList()) }
@@ -93,7 +93,7 @@ fun ProfileScreen(
         is NetworkResult.Success -> {
             loading = false
             orderItemList = orderItemResult.data ?: emptyList()
-            Log.e("orderItemResultSuccess", orderItemResult.message.toString())
+            Log.e("orderItemResultSuccess", orderItemResult.data.toString())
         }
         is NetworkResult.Error -> {
             loading = false
@@ -196,7 +196,14 @@ private fun ProfileMenuSection(navController: NavHostController) {
         text = stringResource(id = R.string.my_comments),
         haveDivider = true
     ){
-        navController.navigate(Screen.AllProductComments.withArgs("1", "1", USER_COMMENTS))
+       // navController.navigate(Screen.AllProductComments.withArgs("1", "1", USER_COMMENTS))
+        navController.navigate(
+            Screen.AllProductComments.withArgs(
+                "dummy_product_id", // برای user comments اهمیت نداره
+                "0", // comment count
+                Constants.USER_COMMENTS // 🎯 اینجا مهمه
+            )
+        )
     }
     MenuRowItem(
         icon = {

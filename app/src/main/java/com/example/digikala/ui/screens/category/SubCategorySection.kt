@@ -1,5 +1,6 @@
 package com.example.digikala.ui.screens.category
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -59,7 +60,6 @@ fun SubCategorySection(
                 bookList = myData.book
                 sportList = myData.sport
             }
-
         }
 
         is NetworkResult.Error -> {
@@ -147,8 +147,6 @@ fun SubCategorySection(
                 categoryId = "sport",
                 navController = navController
             )
-
-
         }
     }
 

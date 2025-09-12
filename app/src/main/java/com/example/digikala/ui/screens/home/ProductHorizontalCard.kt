@@ -1,6 +1,7 @@
 package com.example.digikala.ui.screens.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +18,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.DarkCyan
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.darkText
@@ -29,10 +32,15 @@ fun ProductHorizontalCard(
     name: String,
     id: String,
     imageUrl: String,
+    productId: String,
+    navController: NavHostController,
 ) {
 
     Row(
         Modifier
+            .clickable {
+                navController.navigate(Screen.ProductDetailScreen.withArgs(productId))
+            }
             .width(320.dp)
             .padding(bottom = MaterialTheme.spacing.extraSmall),
         horizontalArrangement = Arrangement.Center,

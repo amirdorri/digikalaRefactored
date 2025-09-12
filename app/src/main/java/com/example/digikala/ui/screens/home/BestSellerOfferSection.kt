@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.digikala.R
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.data.remote.NetworkResult
@@ -34,6 +35,7 @@ import com.example.digikala.viewmodel.HomeViewModel
 
 @Composable
 fun BestSellerOfferSection(
+    navController : NavHostController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     var bestSellerOfferList by remember { mutableStateOf<List<AmazingItem>>(emptyList()) }
@@ -83,7 +85,9 @@ fun BestSellerOfferSection(
                 ProductHorizontalCard(
                     name = item.name,
                     id = DigitHelper.digitByLocate("${index + 1}"),
-                    imageUrl = item.image
+                    imageUrl = item.image,
+                    productId = item._id,
+                    navController = navController
                 )
             }
         }

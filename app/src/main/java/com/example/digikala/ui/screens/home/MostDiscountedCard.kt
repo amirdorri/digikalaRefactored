@@ -2,6 +2,7 @@ package com.example.digikala.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,9 +32,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.R
 import com.example.digikala.data.model.home.StoreProduct
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.DigikalaDarktRed
 import com.example.digikala.ui.theme.darkText
 import com.example.digikala.ui.theme.extraSmall
@@ -45,10 +48,16 @@ import com.example.digikala.util.DigitHelper.applyDiscount
 import com.example.digikala.util.DigitHelper.digitBytLocateAndSeparator
 
 @Composable
-fun MostDiscountedCard(item : StoreProduct) {
+fun MostDiscountedCard(
+    navController: NavHostController,
+    item: StoreProduct
+) {
 
     Card(
         modifier = Modifier
+            .clickable {
+                navController.navigate(Screen.ProductDetailScreen.withArgs(item._id))
+            }
             .fillMaxWidth(0.5f),
         elevation = 1.dp
     ) {
@@ -108,7 +117,9 @@ fun MostDiscountedCard(item : StoreProduct) {
                         painter = painterResource(R.drawable.in_stock),
                         contentDescription = null,
                         tint = Color.Unspecified,
-                        modifier = Modifier.size(22.dp).padding(2.dp)
+                        modifier = Modifier
+                            .size(22.dp)
+                            .padding(2.dp)
                     )
 
                     Text(
@@ -132,7 +143,10 @@ fun MostDiscountedCard(item : StoreProduct) {
                         modifier = Modifier
                             .width(40.dp)
                             .height(24.dp)
-                            .background(color = MaterialTheme.colors.DigikalaDarktRed, shape = CircleShape)
+                            .background(
+                                color = MaterialTheme.colors.DigikalaDarktRed,
+                                shape = CircleShape
+                            )
                             .wrapContentWidth(align = Alignment.CenterHorizontally)
                             .wrapContentHeight(align = Alignment.CenterVertically)
                     ) {
@@ -180,7 +194,7 @@ fun MostDiscountedCard(item : StoreProduct) {
 }
 
 @Composable
-private fun currencyLogoChangerByLang() : Painter {
+private fun currencyLogoChangerByLang(): Painter {
 
     return if (USER_LANGUAGE == ENGLISH_LANG) {
         painterResource(id = R.drawable.dollar)

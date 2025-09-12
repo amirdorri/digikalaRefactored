@@ -3,6 +3,7 @@ package com.example.digikala.ui.screens.home
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,22 +29,29 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
 import com.example.digikala.data.model.home.Slider
 import com.example.digikala.data.remote.NetworkResult
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.components.MyLoading
 import com.example.digikala.ui.theme.LocalShape
 import com.example.digikala.ui.theme.LocalSpacing
 import com.example.digikala.viewmodel.HomeViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
+import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.delay
 
-
 @Composable
-fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
+fun TopSliderSection(
+    navController: NavHostController,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
 
     val context = LocalContext.current
     var sliderList by remember { mutableStateOf<List<Slider>>(emptyList()) }
@@ -83,7 +91,7 @@ fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
         Column(
             modifier = Modifier
                 .height(200.dp)
-               // .background(Color.White)
+                // .background(Color.White)
                 .fillMaxWidth()
         ) {
             Column(
@@ -93,57 +101,63 @@ fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
                     .padding(
                         horizontal = LocalSpacing.current.extraSmall,
                         vertical = LocalSpacing.current.small,
-                        )) {
+                    )
+            ) {
 
-                val pagerState = com.google.accompanist.pager.rememberPagerState()
+                val pagerState = rememberPagerState()
                 var imageUrl by remember { mutableStateOf("") }
 
-               Box(){
-                   com.google.accompanist.pager.HorizontalPager(
-                       count = sliderList.size,
-                       state = pagerState,
-                       contentPadding = PaddingValues(horizontal = LocalSpacing.current.medium),
-                       modifier = Modifier.fillMaxWidth()
-                   ) { index ->
+                Box {
+                    HorizontalPager(
+                        count = sliderList.size,
+                        state = pagerState,
+                        contentPadding = PaddingValues(horizontal = LocalSpacing.current.medium),
+                        modifier = Modifier.fillMaxWidth()
+                    ) { index ->
 
-                       imageUrl = sliderList[index].image
+                        imageUrl = sliderList[index].image
 
-                       Box(
-                           modifier = Modifier.fillMaxSize(),
-                           contentAlignment = Alignment.BottomCenter
-                       ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clickable {
+                                    navController.navigate(Screen.WebView.route + "?url=${sliderList[index].url}")
+                                },
+                            contentAlignment = Alignment.BottomCenter
+                        ) {
 
-                           val painter = rememberAsyncImagePainter(
-                               ImageRequest.Builder(LocalContext.current)
-                                   .data(data = imageUrl)
-                                   .apply(
-                                       block = fun ImageRequest.Builder.() {
-                                           scale(Scale.FILL)
-                                       }).build())
+                            val painter = rememberAsyncImagePainter(
+                                ImageRequest.Builder(LocalContext.current)
+                                    .data(data = imageUrl)
+                                    .apply(
+                                        block = fun ImageRequest.Builder.() {
+                                            scale(Scale.FILL)
+                                        }).build()
+                            )
 
-                           Image(
-                               painter = painter, contentDescription = "",
-                               modifier = Modifier
-                                   .padding(LocalSpacing.current.small)
-                                   .clip(LocalShape.current.medium)
-                                   .fillMaxSize(),
-                               contentScale = ContentScale.FillBounds
-                           )
-                       }
-                   }
+                            Image(
+                                painter = painter, contentDescription = "",
+                                modifier = Modifier
+                                    .padding(LocalSpacing.current.small)
+                                    .clip(LocalShape.current.medium)
+                                    .fillMaxSize(),
+                                contentScale = ContentScale.FillBounds
+                            )
+                        }
+                    }
 
-                   HorizontalPagerIndicator(
-                       pagerState = pagerState,
-                       modifier = Modifier
-                           .align(Alignment.BottomEnd)
-                           .padding(LocalSpacing.current.semiLarge),
-                       activeColor = Color.Black,
-                       inactiveColor = Color.LightGray,
-                       indicatorHeight = LocalSpacing.current.small,
-                       indicatorWidth = LocalSpacing.current.small,
-                       indicatorShape = CircleShape
-                   )
-               }
+                    HorizontalPagerIndicator(
+                        pagerState = pagerState,
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(LocalSpacing.current.semiLarge),
+                        activeColor = Color.Black,
+                        inactiveColor = Color.LightGray,
+                        indicatorHeight = LocalSpacing.current.small,
+                        indicatorWidth = LocalSpacing.current.small,
+                        indicatorShape = CircleShape
+                    )
+                }
 
                 LaunchedEffect(key1 = pagerState.currentPage) {
                     delay(6000)
@@ -153,7 +167,6 @@ fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
                 }
 
             }
-
         }
     }
 }

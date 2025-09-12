@@ -2,6 +2,7 @@ package com.example.digikala.ui.screens.home
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,10 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.digikala.data.model.home.AmazingItem
 import com.example.digikala.data.model.home.Slider
 import com.example.digikala.data.remote.NetworkResult
+import com.example.digikala.navigation.Screen
 import com.example.digikala.ui.theme.roundedShape
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.viewmodel.HomeViewModel
@@ -32,6 +35,7 @@ import com.example.digikala.viewmodel.HomeViewModel
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ProposalCardSection(
+    navController: NavHostController,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     var bannersList by remember { mutableStateOf<List<Slider>>(emptyList()) }
@@ -42,7 +46,7 @@ fun ProposalCardSection(
         is NetworkResult.Success -> {
             bannersList = cardResult.data ?: emptyList()
             loading = false
-           // Log.e("dorri", bannersList.toString())
+            // Log.e("dorri", bannersList.toString())
         }
 
         is NetworkResult.Error -> {
@@ -62,17 +66,23 @@ fun ProposalCardSection(
             .padding(MaterialTheme.spacing.small)
     ) {
         bannersList.forEach { item ->
-            ProposalCardItem(item)
+            ProposalCardItem(item, navController)
         }
     }
 }
 
 @Composable
-fun ProposalCardItem(imgLink: Slider) {
+fun ProposalCardItem(
+    imgLink: Slider,
+    navController: NavHostController
+) {
 
     Card(
         shape = MaterialTheme.roundedShape.semiMedium,
         modifier = Modifier
+            .clickable {
+                navController.navigate(Screen.WebView.route + "?url=${imgLink.url}")
+            }
             .fillMaxWidth(0.5f)
             .height(140.dp)
             .padding(MaterialTheme.spacing.small),

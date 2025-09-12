@@ -32,6 +32,7 @@ import com.example.digikala.viewmodel.HomeViewModel
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MostDiscountedSection(
+    navController: NavHostController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     var mostDiscountedList by remember { mutableStateOf<List<StoreProduct>>(emptyList()) }
@@ -75,12 +76,9 @@ fun MostDiscountedSection(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Start
         ) {
-            for(item in mostDiscountedList){
-                MostDiscountedCard(item)
+            for (item in mostDiscountedList) {
+                MostDiscountedCard(navController, item)
             }
-
         }
-
     }
-
 }

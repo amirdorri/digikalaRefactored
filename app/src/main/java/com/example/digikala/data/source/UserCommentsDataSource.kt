@@ -32,18 +32,42 @@ class UserCommentsDataSource(
             )
             Log.d("PagingDebug", "🔹 UserCommentsDataSource → NetworkResult: $result")
 
-            if (result is NetworkResult.Success && result.data != null) {
-                val data = result.data
-                Log.d("PagingDebug", "✅ UserCommentsDataSource → Loaded ${data.size} items")
+            when (result) {
+                is NetworkResult.Success -> {
+                    val data = result.data ?: emptyList()
+                    Log.d("PagingDebug", "✅ UserCommentsDataSource → Loaded ${data.size} items")
 
-                LoadResult.Page(
-                    data = data,
-                    prevKey = if (page == 1) null else page - 1,
-                    nextKey = if (data.isEmpty()) null else page + 1
-                )
-            } else {
-                Log.e("PagingDebug", "❌ UserCommentsDataSource → Error: ${result.message}")
-                LoadResult.Error(Throwable(result.message ?: "Unknown error"))
+                    LoadResult.Page(
+                        data = data,
+                        prevKey = if (page == 1) null else page - 1,
+                        nextKey = if (data.isEmpty()) null else page + 1 // 🎯 اینجا مشکل بود!
+                    )
+                }
+
+                is NetworkResult.Error -> {
+                    val message = result.message ?: "Unknown error"
+                    Log.e("PagingDebug", "❌ UserCommentsDataSource → Error: $message")
+
+                    // 🚨 اگه پیام "کامنت یافت نشد!" باشه، یعنی end of pagination
+                    if (message.contains("کامنت یافت نشد") || message.contains("یافت نشد")) {
+                        Log.d("PagingDebug", "🏁 End of pagination reached")
+                        LoadResult.Page(
+                            data = emptyList(),
+                            prevKey = if (page == 1) null else page - 1,
+                            nextKey = null // End of pagination
+                        )
+                    } else {
+                        LoadResult.Error(Throwable(message))
+                    }
+                }
+
+                is NetworkResult.Loading -> {
+                    LoadResult.Page(
+                        data = emptyList(),
+                        prevKey = null,
+                        nextKey = null
+                    )
+                }
             }
 
         } catch (e: Exception) {
@@ -52,9 +76,6 @@ class UserCommentsDataSource(
         }
     }
 }
-
-
-
 
 
 //class UserCommentsDataSource(

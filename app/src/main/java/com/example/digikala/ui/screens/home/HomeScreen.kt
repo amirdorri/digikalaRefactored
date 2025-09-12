@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
-
     Home(navController)
 }
 
@@ -40,43 +39,42 @@ fun Home(
 
 @Composable
 private fun SwipeRefreshSection(viewModel: HomeViewModel, navController: NavHostController) {
+
     val refreshScope = rememberCoroutineScope()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
-    SwipeRefresh(state = swipeRefreshState,
-        onRefresh = {
-            refreshScope.launch {
-                refreshData(viewModel)
-            }
-        }) {
 
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(bottom = 60.dp)) {
+    SwipeRefresh(
+        state = swipeRefreshState,
+        onRefresh = { refreshScope.launch { refreshData(viewModel) } }
+    ) {
+
+        LazyColumn(modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 60.dp)) {
             item { SearchBarSection() }
-            item { TopSliderSection() }
+            item { TopSliderSection(navController) }
             item { ShowcaseSection(navController) }
             item { AmazingOfferSection(navController) }
-            item { ProposalCardSection() }
+            item { ProposalCardSection(navController) }
             item { SuperMarketOfferSection(navController) }
-            item { CategoryListSection() }
+            item { CategoryListSection(navController) }
             item { CenterBannerSection(1) }
 
-            item { BestSellerOfferSection() }
+            item { BestSellerOfferSection(navController) }
 
             item { CenterBannerSection(2) }
 
             item { MostFavoriteProductSection(navController) }
 
             item { CenterBannerSection(3) }
-            item { MostVisitedSection() }
+            item { MostVisitedSection(navController = navController) }
 
 
             item { CenterBannerSection(4) }
             item { CenterBannerSection(5) }
-            item { MostDiscountedSection() }
+            item { MostDiscountedSection(navController) }
         }
-
-
     }
-
 }
 
 

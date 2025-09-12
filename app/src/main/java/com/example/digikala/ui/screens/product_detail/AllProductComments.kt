@@ -1,10 +1,12 @@
 package com.example.digikala.ui.screens.product_detail
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -37,6 +42,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
@@ -55,6 +61,7 @@ import com.example.digikala.ui.theme.searchBarBg
 import com.example.digikala.ui.theme.semiDarkColor
 import com.example.digikala.ui.theme.spacing
 import com.example.digikala.util.Constants.PRODUCT_COMMENTS
+import com.example.digikala.util.Constants.USER_COMMENTS
 import com.example.digikala.util.DigitHelper
 import com.example.digikala.util.DigitHelper.digitByLocate
 import com.example.digikala.util.DigitHelper.gregorianToJalali
@@ -65,112 +72,197 @@ fun AllProductComments(
     viewModel: CommentsViewModel = hiltViewModel(),
     navController: NavHostController,
     productId: String,
-    commentsCount: String,
-    pageName: String
+    commentsType: String
 ) {
-    val context = LocalContext.current
+    Log.d("PagingDebug", "🎯 AllProductCommentsScreen: productId=$productId, type=$commentsType")
 
-    val commentsCountText = if (commentsCount != "1")
-        "${digitByLocate(commentsCount)} ${stringResource(id = R.string.comment)}"
-    else
-        context.getString(R.string.all_comments)
-
-    LaunchedEffect(true) {
-        if (pageName == PRODUCT_COMMENTS)
-            viewModel.getCommentList(productId)
-        else {
-            viewModel.getUserComments()
-
+    // بر اساس نوع کامنت، مناسب رو صدا بزن
+    LaunchedEffect(commentsType, productId) {
+        when (commentsType) {
+            USER_COMMENTS -> {
+                Log.d("PagingDebug", "🚀 Loading user comments")
+                viewModel.getUserComments()
+            }
+            else -> { // PRODUCT_COMMENTS
+                Log.d("PagingDebug", "🚀 Loading product comments for productId: $productId")
+                viewModel.getCommentList(productId)
+            }
         }
     }
 
-    val commentsList =
-        if (pageName == PRODUCT_COMMENTS)
-            viewModel.productCommentsList.collectAsLazyPagingItems()
-        else
-            viewModel.userCommentsList.collectAsLazyPagingItems()
+    // بر اساس نوع، مناسب رو collect کن
+    val commentsList = when (commentsType) {
+        USER_COMMENTS -> viewModel.userCommentsList.collectAsLazyPagingItems()
+        else -> viewModel.productCommentsList.collectAsLazyPagingItems()
+    }
+
+    Log.d("PagingDebug", "📊 Comments LoadState: ${commentsList.loadState}")
+    Log.d("PagingDebug", "📊 Comments ItemCount: ${commentsList.itemCount}")
 
     Column {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = MaterialTheme.spacing.medium),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Filled.ArrowForward,
-                contentDescription = "",
-                modifier = Modifier
-                    .padding(horizontal = MaterialTheme.spacing.medium)
-                    .size(24.dp)
-                    .clickable { navController.popBackStack() }
-            )
-
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                text = commentsCountText,
-                textAlign = TextAlign.Start,
-                style = MaterialTheme.typography.h3,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.darkText,
-            )
-
-        }
-
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(3.dp)
-                .background(MaterialTheme.colors.searchBarBg)
+        Text(
+            text = if (commentsType == USER_COMMENTS) "نظرات من" else "نظرات محصول",
+            //style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(16.dp)
         )
 
-        Box(modifier = Modifier.fillMaxSize()) {
-
-            LazyColumn(Modifier.fillMaxSize()) {
-
-                //paging3
-                items(
-                    count = commentsList.itemCount,
-                    key = commentsList.itemKey { comment -> comment._id },
-                    contentType = commentsList.itemContentType { "Comments" }
-                ) { index ->
-                    CommentsItem(commentsList[index]!!)
+        when (val refreshState = commentsList.loadState.refresh) {
+            is LoadState.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
+            }
 
-                /*items(commentsList.itemSnapshotList) { comment ->
-                    CommentsItem(comment!!)
-                }*/
+            is LoadState.Error -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "خطا در بارگذاری نظرات",
+                            color = Color.Red
+                        )
+                        Text(
+                            text = refreshState.error.localizedMessage ?: "خطای نامشخص",
+                            fontSize = 12.sp,
+                            color = Color.Gray
+                        )
+                    }
+                }
+            }
 
-                commentsList.apply {
-                    when {
-                        loadState.refresh is LoadState.Loading -> {
-                            item {
-                                val config = LocalConfiguration.current
-                                MyLoading(config.screenHeightDp.dp, true)
-                            }
-                        }
-
-                        loadState.append is LoadState.Loading -> {
-                            item {
-                                Column(
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                        .padding(20.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.Center
-                                ) {
-                                    Loading3Dots(isDark = true)
+            is LoadState.NotLoading -> {
+                if (commentsList.itemCount == 0) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "هیچ نظری یافت نشد",
+                            color = Color.Gray
+                        )
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(
+                            count = commentsList.itemCount,
+                            key = { index ->
+                                val comment = commentsList[index]
+                                if (comment != null) {
+                                    "${comment._id}_$index"
+                                } else {
+                                    "loading_$index"
                                 }
                             }
+                        ) { index ->
+                            val comment = commentsList[index]
+                            if (comment != null) {
+                                CommentsItem(comment)
+                            } else {
+                                // Loading placeholder
+                                CommentItemPlaceholder()
+                            }
                         }
-                        loadState.append is LoadState.Error -> {
-                            //todo error handling
+
+                        // Loading more indicator
+                        when (val appendState = commentsList.loadState.append) {
+                            is LoadState.Loading -> {
+                                item {
+                                    Box(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(16.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator()
+                                    }
+                                }
+                            }
+                            is LoadState.Error -> {
+                                item {
+                                    Text(
+                                        text = "خطا در بارگذاری بیشتر: ${appendState.error.localizedMessage}",
+                                        color = Color.Red,
+                                        fontSize = 12.sp,
+                                        modifier = Modifier.padding(16.dp)
+                                    )
+                                }
+                            }
+                            else -> {}
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun CommentItem(comment: ProductComment) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = 4.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = comment.userName ?: "کاربر ناشناس",
+                //style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = comment.description ?: "",
+                //style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = comment.createdAt ?: "",
+                //style = MaterialTheme.typography.bodySmall,
+                color = Color.Gray
+            )
+        }
+    }
+}
+
+@Composable
+fun CommentItemPlaceholder() {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        elevation = 4.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.3f)
+                    .height(16.dp)
+                    .background(Color.Gray.copy(alpha = 0.3f), RoundedCornerShape(4.dp))
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+                    .background(Color.Gray.copy(alpha = 0.3f), RoundedCornerShape(4.dp))
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .height(12.dp)
+                    .background(Color.Gray.copy(alpha = 0.3f), RoundedCornerShape(4.dp))
+            )
         }
     }
 }

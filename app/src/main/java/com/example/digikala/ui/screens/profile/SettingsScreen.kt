@@ -63,9 +63,7 @@ import com.example.digikala.viewmodel.ProfileViewModel
 fun SettingsScreen(navController: NavHostController) {
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-           // .verticalScroll(rememberScrollState())
+        modifier = Modifier.fillMaxWidth()
     ) {
         SettingHeader(navController)
 
@@ -252,6 +250,7 @@ fun logOut(
         saveUserPhone("null")
         saveUserPassword("null")
         saveUserName("null")
+        saveUserAddressIndex("0")
     }
     USER_TOKEN = "null"
     profileViewModel.screenState = ProfileScreenState.LOGIN_STATE

@@ -14,15 +14,34 @@ import com.example.digikala.data.source.ProductByCategoryDataSource
 import com.example.digikala.repository.CategoryRepo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(private val repository: CategoryRepo) : ViewModel() {
 
     val subCategory = MutableStateFlow<NetworkResult<SubCategoryModel>>(NetworkResult.Loading())
-    var productByCategoryList: Flow<PagingData<StoreProduct>> = flow { emit(PagingData.empty()) }
+
+    private val _categoryId = MutableStateFlow<String?>(null)
+
+    val productByCategoryList: Flow<PagingData<StoreProduct>> = _categoryId
+        .filterNotNull()
+        .distinctUntilChanged()
+        .flatMapLatest { categoryId ->
+            Pager(
+                PagingConfig(pageSize = 15)
+            ) {
+                ProductByCategoryDataSource(repository, categoryId)
+            }.flow
+        }
+        .cachedIn(viewModelScope)
+
     suspend fun getAllDataFromServer() {
         viewModelScope.launch {
             launch { subCategory.emit(repository.getSubCategories()) }
@@ -30,12 +49,34 @@ class CategoryViewModel @Inject constructor(private val repository: CategoryRepo
     }
 
     fun getProductByCategory(categoryId: String) {
-        productByCategoryList = Pager(
-            PagingConfig(pageSize = 5)
-        ) {
-            ProductByCategoryDataSource(repository, categoryId)
-        }.flow.cachedIn(viewModelScope)
+        _categoryId.value = categoryId
     }
-
-
 }
+
+
+
+//@HiltViewModel
+//class CategoryViewModel @Inject constructor(private val repository: CategoryRepo) : ViewModel() {
+//
+//    val subCategory = MutableStateFlow<NetworkResult<SubCategoryModel>>(NetworkResult.Loading())
+//   // var productByCategoryList: Flow<PagingData<StoreProduct>> = flow { emit(PagingData.empty()) }
+//    suspend fun getAllDataFromServer() {
+//        viewModelScope.launch {
+//            launch { subCategory.emit(repository.getSubCategories()) }
+//        }
+//    }
+//
+//    private val _productByCategoryList =
+//        MutableStateFlow<Flow<PagingData<StoreProduct>>>(flow { emit(PagingData.empty()) })
+//    val productByCategoryList = _productByCategoryList.asStateFlow()
+//
+//    fun getProductByCategory(categoryId: String) {
+//        _productByCategoryList.value = Pager(
+//            PagingConfig(pageSize = 15)
+//        ) {
+//            ProductByCategoryDataSource(repository, categoryId)
+//        }.flow.cachedIn(viewModelScope)
+//    }
+//
+//
+//}

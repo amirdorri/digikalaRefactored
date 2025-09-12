@@ -14,6 +14,7 @@ import com.example.digikala.data.remote.NetworkResult
 import com.example.digikala.repository.ProfileRepo
 import com.example.digikala.ui.screens.profile.ProfileScreenState
 import com.example.digikala.util.Constants
+import com.example.digikala.util.Constants.USER_TOKEN
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -52,51 +53,12 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileRepo) 
         }
     }
 
-//    fun getUserOrders() {
-//        Log.e("TOOOKEN", Constants.USER_TOKEN)
-//        val res = viewModelScope.launch {
-//            orderItems.emit(repository.getUserOrders(Constants.USER_TOKEN))
-//        }
-//        Log.e("getUserOrders", "Result = $res")
-//    }
-
-//    fun getUserOrders() {
-//        viewModelScope.launch {
-//            Log.e("Step 1", "Starting API call")
-//
-//            val result = repository.getUserOrders(Constants.USER_TOKEN)
-//            Log.e("Step 2", "API call finished: $result")
-//
-//            orderItems.emit(result)
-//            Log.e("Step 3", "Emitted result")
-//        }
-//    }
-fun getUserOrders() {
-    viewModelScope.launch {
-        delay(2000) // شبیه‌سازی تأخیر
-        orderItems.emit(
-            NetworkResult.Success(
-                data = listOf(
-                    OrderFullDetail(
-                        token = "fake",
-                        _id = "1",
-                        userId = "1",
-                        orderAddress = "تهران",
-                        orderTotalDiscount = 10000,
-                        orderTotalPrice = 100000,
-                        orderUserName = "منزل",
-                        orderUserPhone = "09123456789",
-                        orderStatus = "1",
-                        transactionId = "123",
-                        updatedAt = "2023",
-                        createdAt = "2023",
-                        orderProducts = emptyList()
-                    )
-                ),
-                message = "داده تستی"
-            )
-        )
+    fun getUserOrders(token : String) {
+        Log.e("TOOOKEN", Constants.USER_TOKEN)
+        val res = viewModelScope.launch {
+            orderItems.emit(repository.getUserOrders(token))
+        }
+        Log.e("getUserOrders", "Result = $res")
     }
-}
 
 }
